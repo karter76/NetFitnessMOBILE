@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NetFitness</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_splash_screen">NetFitness</string>
+    <string name="site_address">www.netfitness.net.br</string>
+    <string name="title_activity_main">NetFitness</string>
+    <string name="no_connection">Conexão não disponível</string>
+    <string name="user_not_allowed">O usuário não tem acesso aos recursos do aplicativo mobile</string>
+    <string name="treino_deleted">Treino excluido com sucesso</string>
+    <string name="treino_not_selected">É necessário selecionar um treino na lista</string>
+    <string name="incomplete_exercicio">As series e as repetições dos exercícios incluidos\nnão foram informadas corretamente</string>
+    <string name="empty_lista_exercicios">Não foi selecionado nenhum exercício (para selecionar o exercício informar as series e as repetições corretamente)</string>
+    <string name="empty_descricao_treino">Não foi informada a descrição do treino</string>
+    <string name="empty_nome_treino">Não foi informado o nome do treino</string>
+<!--
+    <string name="web_service_login">http://192.168.25.3/NetFitness/webservice/login.php</string>
+    <string name="web_service_listar_treinos_instrutor">http://192.168.25.3/NetFitness/webservice/listarTreinosInstrutor.php</string>
+    <string name="web_service_listar_treinos_aluno">http://192.168.25.3/NetFitness/webservice/listarTreinosAluno.php</string>
+    <string name="web_service_excluir_treino">http://192.168.25.3/NetFitness/webservice/excluirTreino.php</string>
+    <string name="web_service_listar_exercicios">http://192.168.25.3/NetFitness/webservice/listarExercicios.php</string>
+    <string name="web_service_inserir_treino">http://192.168.25.3/NetFitness/webservice/inserirTreino.php./service.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+-->
+
+    <string name="web_service_login">http://www.netfitness.net.br/webservice/login.php</string>
+    <string name="web_service_listar_treinos_instrutor">http://www.netfitness.net.br/webservice/listarTreinosInstrutor.php</string>
+    <string name="web_service_listar_treinos_aluno">http://www.netfitness.net.br/webservice/listarTreinosAluno.php</string>
+    <string name="web_service_excluir_treino">http://www.netfitness.net.br/webservice/excluirTreino.php</string>
+    <string name="web_service_listar_exercicios">http://www.netfitness.net.br/webservice/listarExercicios.php</string>
+    <string name="web_service_inserir_treino">http://www.netfitness.net.br/webservice/inserirTreino.php</string>
+
+
+    <string name="loading">Loading</string>
+    <string name="wait_loading">Aguarde o carregamento...</string>
+
+    <string-array name="menu_instrutor">
+        <item>Inserir Treino</item>
+        <item>Excluir Treino</item>
+        <item>Visualizar Treinos</item>
+        <item>Alterar treino</item>
+    </string-array>
+    <string-array name="menu_aluno">
+        <item>Visualizar Treinos</item>
+    </string-array>
+
+    <string name="title_activity_aluno">AlunoActivity</string>
+    <string name="labelButtonExcluir">Excluir</string>
+    <string name="labelNomeExercicio">Nm Ex.</string>
+    <string name="txtLabelNomeTreino">Nome:</string>
+    <string name="txtLabelNomeExercicio">Nome:</string>
+    <string name="txtLabelExercicios">Exercícios:</string>
+    <string name="txtLabelDescricaoTreino">Descrição:</string>
+    <string name="labelMusculo">Músc.</string>
+    <string name="labelDescricaoExercicio">Desc.</string>
+    <string name="labelSeries">Ser.</string>
+    <string name="labelRepeticoes">Rep.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="labelTxtSeries">Series</string>
+    <string name="txtLabelRepeticoes">Repeticões</string>
+    <string name="btnLabelInserirTreino">Inserir</string>
+
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:id="@+id/itemExercicio"
+    android:background="#fff"
+    android:paddingBottom="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/labelTxtSeries"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:id="@+id/txtLabelSeries"
+    android:layout_gravity="bottom"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/txtNomeExercicio"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/txtNomeExercicio"
+        android:text="nomeExercicio"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtTextSeries"
+        android:layout_weight="0.47"
+        android:layout_gravity="center_vertical"
+        android:inputType="number"
+        android:width="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignBottom="@+id/txtLabelSeries"
+        android:layout_toRightOf="@+id/txtLabelSeries"
+        android:layout_toEndOf="@+id/txtLabelSeries" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/txtLabelRepeticoes"
+        android:id="@+id/txtLabelRepeticoes"
+        android:layout_below="@+id/txtLabelSeries"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtTextRepeticoes"
+        android:layout_weight="0.47"
+        android:layout_gravity="center_vertical"
+        android:inputType="number"
+        android:width="50dp"
+        android:layout_marginLeft="10dp"
+
+        android:layout_alignBottom="@+id/txtLabelRepeticoes"
+        android:layout_toRightOf="@+id/txtLabelRepeticoes"
+        android:layout_toEndOf="@+id/txtLabelRepeticoes" />
+
+
+</RelativeLayout>

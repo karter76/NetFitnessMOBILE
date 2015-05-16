@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="50px"
+    android:layout_width="50px"
+    android:src="@drawable/background_splash_screen"
+    android:tileMode="repeat" />
