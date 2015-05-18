@@ -16,8 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,14 +53,23 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
     private HashMap<String,Object> result;
     protected JSONObject jsonReturned;
     protected AsyncTaskTreino treinoTask;
+    List<Object> listaExerciciosTreino;
     List<Object> listaExercicios;
+    List<Object> listaExerciciosNaoSelecionados;
+    String nomeTreino;
+    String descricaoTreino;
+    String idTreino;
     ProgressDialog progress;
+    boolean foiAlterado = false;
 
+    private static final int INICIALIZAR_LISTA = -1;
     private static final int INSERIR_TREINO = 0;
     private static final int EXCLUIR_TREINO = 1;
     private static final int VISUALIZAR_TREINOS = 2;
+    private static final int ALTERAR_TREINO = 3;
 
-    private int mAction;
+
+    public int mAction;
 
 
     @Override
@@ -132,14 +141,30 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
                     case INSERIR_TREINO: inserirTreino();
 
                         break;
+
+                    case ALTERAR_TREINO: alterarTreino();
                 }
 
                 mDrawerLayout.closeDrawer(mDrawerList);
             }
         });
 
+        showProgress();
+        mAction = INICIALIZAR_LISTA;
+
+        treinoTask = new AsyncTaskTreino(this);
+
+        treinoTask.execute((String) result.get("Instrutor.idInstrutor"), (String) result.get("Pessoa.login"), (String) result.get("Pessoa.senha"), "", getResources().getString(R.string.web_service_listar_exercicios),"","","");
+
+
     }
 
+
+    private void alterarTreino()
+    {
+        mAction = ALTERAR_TREINO;
+        executarTask();
+    }
 
 
     private void inserirTreino()
@@ -245,9 +270,51 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
     @Override
     public void aoClicarNoTreino(Object object)
     {
+        if(mAction == VISUALIZAR_TREINOS)
+        {
+            DetalharTreinoFragment fragmentDetalharTreino = DetalharTreinoFragment.newInstance(object);
+            mudarFragment(fragmentDetalharTreino, R.id.content_frame_instrutor, "FragmentDetalharTreino", true);
+        }
 
-        DetalharTreinoFragment fragmentDetalharTreino = DetalharTreinoFragment.newInstance(object);
-        mudarFragment(fragmentDetalharTreino, R.id.content_frame_instrutor, "FragmentDetalharTreino",true);
+        if(mAction == ALTERAR_TREINO)
+        {
+
+                listaExerciciosTreino = new ArrayList<>();
+                HashMap<String, Object> objectMap = new HashMap<>();
+                objectMap = (HashMap<String, Object>) object;
+                listaExerciciosTreino = (List<Object>) objectMap.get("listaExercicios");
+
+                listaExerciciosNaoSelecionados = new ArrayList<>(listaExercicios);
+
+                for(Object exercicio : listaExercicios)
+                {
+                    HashMap<String, String> hashExercicio = new HashMap<>();
+                    hashExercicio = (HashMap<String, String>) exercicio;
+                    String idExercicio = hashExercicio.get("idExercicio");
+
+                    for (Object exercicioTreino: listaExerciciosTreino)
+                    {
+                        HashMap<String, String> hashExercicioTreino = new HashMap<>();
+                        hashExercicioTreino = (HashMap<String, String>) exercicioTreino;
+                        String idExercicioTreino = hashExercicioTreino.get("idExercicio");
+                        if(idExercicio.equals(idExercicioTreino))
+                        {
+                            listaExerciciosNaoSelecionados.remove(exercicio);
+                            break;
+                        }
+                    }
+
+
+                }
+
+            listaExerciciosTreino.addAll(listaExerciciosNaoSelecionados);
+            idTreino = (String)objectMap.get("idTreino");
+            nomeTreino = (String) objectMap.get("nome");
+            descricaoTreino = (String) objectMap.get("descricao");
+            InserirTreinoFragment fragmentInserirTreino = InserirTreinoFragment.newInstance(listaExerciciosTreino, nomeTreino, descricaoTreino, mAction);
+            mudarFragment(fragmentInserirTreino, R.id.content_frame_instrutor, "FragmentInserirTreino", false);
+
+        }
     }
 
     @Override
@@ -288,6 +355,11 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
     @Override
     public void onTaskTreinoCompleted(String message) throws JSONException {
 
+        if(mAction == INICIALIZAR_LISTA)
+        {
+            listaExercicios = new ArrayList<>();
+            listaExercicios = JSONConvert.toList(jsonReturned.getJSONArray("listaExercicios"));
+        }
 
         if (mAction == INSERIR_TREINO)
         {
@@ -299,7 +371,7 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
             {
                 listaExercicios = new ArrayList<>();
                 listaExercicios = JSONConvert.toList(jsonReturned.getJSONArray("listaExercicios"));
-                InserirTreinoFragment fragmentInserirTreino = InserirTreinoFragment.newInstance(listaExercicios);
+                InserirTreinoFragment fragmentInserirTreino = InserirTreinoFragment.newInstance(listaExercicios, "", "", mAction);
                 mudarFragment(fragmentInserirTreino, R.id.content_frame_instrutor, "FragmentInserirTreino", false);
             }
         }
@@ -308,6 +380,22 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
         {
             VisualizarTreinosFragment fragmentListaTreinos = VisualizarTreinosFragment.newInstance(JSONConvert.toList(jsonReturned.getJSONArray("listaTreinos")));
             mudarFragment(fragmentListaTreinos, R.id.content_frame_instrutor, "FragmentListaTreinos",false);
+        }
+
+        if (mAction == ALTERAR_TREINO )
+        {
+            if(!foiAlterado) {
+                VisualizarTreinosFragment fragmentListaTreinos = VisualizarTreinosFragment.newInstance(JSONConvert.toList(jsonReturned.getJSONArray("listaTreinos")));
+                mudarFragment(fragmentListaTreinos, R.id.content_frame_instrutor, "FragmentListaTreinos", false);
+                foiAlterado = true;
+            }
+            else
+            {
+                foiAlterado = false;
+                Toast toast = Toast.makeText(this,message, Toast.LENGTH_SHORT);
+                toast.show();
+                alterarTreino();
+            }
         }
 
         if(mAction == EXCLUIR_TREINO)
@@ -343,11 +431,18 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
             login = Pessoa.getString("Pessoa.login");
             senha = Pessoa.getString("Pessoa.senha");
 
-            //Toast toast = Toast.makeText(this,listaDadosExercicios.toString(), Toast.LENGTH_LONG);
-            //toast.show();
             showProgress();
             treinoTask = new AsyncTaskTreino(this);
-            treinoTask.execute((String) result.get("Instrutor.idInstrutor"),login, senha, "", getResources().getString(R.string.web_service_inserir_treino), nomeTreino, descricaoTreino, listaDadosExercicios.toString());
+
+            if(mAction == INSERIR_TREINO)
+            {
+                treinoTask.execute((String) result.get("Instrutor.idInstrutor"), login, senha, "", getResources().getString(R.string.web_service_inserir_treino), nomeTreino, descricaoTreino, listaDadosExercicios.toString());
+            }
+
+            if(mAction == ALTERAR_TREINO)
+            {
+                treinoTask.execute((String) result.get("Instrutor.idInstrutor"), login, senha, idTreino, getResources().getString(R.string.web_service_alterar_treino), nomeTreino, descricaoTreino, listaDadosExercicios.toString());
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -377,15 +472,15 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
 
                 JSONParser jsonParser = new JSONParser();
                 List jsonParams = new ArrayList();
-                jsonParams.add(new BasicNameValuePair("idInstrutor", params[0]));
-                jsonParams.add(new BasicNameValuePair("login", params[1]));
-                jsonParams.add(new BasicNameValuePair("senha", params[2]));
+                jsonParams.add(new BasicNameValuePair("idInstrutor",params[0] ));
+                jsonParams.add(new BasicNameValuePair("login",new String(params[1].getBytes("UTF-8"), "ISO-8859-1") ));
+                jsonParams.add(new BasicNameValuePair("senha", new String(params[2].getBytes("UTF-8"), "ISO-8859-1") ));
                 jsonParams.add(new BasicNameValuePair("idTreino", params[3]));
 
                 if(!params[5].equals(""))
                 {
-                    jsonParams.add(new BasicNameValuePair("nomeTreino", params[5]));
-                    jsonParams.add(new BasicNameValuePair("descricaoTreino", params[6]));
+                    jsonParams.add(new BasicNameValuePair("nomeTreino", new String(params[5].getBytes("UTF-8"), "ISO-8859-1") ));
+                    jsonParams.add(new BasicNameValuePair("descricaoTreino", new String(params[6].getBytes("UTF-8"), "ISO-8859-1") ));
                     jsonParams.add(new BasicNameValuePair("listaExercicios", params[7]));
                 }
 
@@ -412,6 +507,15 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
             progress.dismiss();
             try
             {
+                if(mAction == INICIALIZAR_LISTA)
+                {
+                    listener.onTaskTreinoCompleted("");
+                }
+
+                if(mAction == ALTERAR_TREINO)
+                {
+                    listener.onTaskTreinoCompleted(jsonResult.getString("mensagem"));
+                }
 
                 if (mAction == INSERIR_TREINO)
                 {

@@ -2,6 +2,7 @@ package br.net.netfitness.netfitness;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.collections4.functors.StringValueTransformer;
 import org.json.JSONException;
 
 import java.util.ArrayList;
@@ -29,9 +31,15 @@ public class InserirTreinoFragment extends Fragment
     private static final String BUNDLE_EXERCICIOS = "exercicios";
     private static final String BUNDLE_EDT_TEXT_SERIES = "edtTextSeries";
     private static final String BUNDLE_EDT_TEXT_REPETICOES = "edtTextRepeticoes";
+    private static final int ALTERAR_TREINO = 3;
+    private static final String BUNDLE_ACTION = "action";
 
     private ArrayList<HashMap<String,String>> listaExercicios;
     private ArrayList<HashMap<String,String>> listaDadosExercicios;
+
+
+    private static String paramNomeTreino = "";
+    private static String paramDescricaoTreino = "";
 
     private TextView txtNomeTreino;
     private TextView txtDescricaoTreino;
@@ -42,15 +50,19 @@ public class InserirTreinoFragment extends Fragment
     RelativeLayout viewExercicio;
     ArrayList<EditText> listaEdtTextSeries;
     ArrayList<EditText> listaEdtTextRepeticoes;
+    private int mAction;
 
 
-
-    public static InserirTreinoFragment newInstance(List<Object> listaExercicios)
+    public static InserirTreinoFragment newInstance(List<Object> listaExercicios, String nomeTreino, String descricaoTreino, int action)
     {
         InserirTreinoFragment fragment = new InserirTreinoFragment();
         Bundle args = new Bundle();
-        args.putSerializable(BUNDLE_EXERCICIOS, (java.io.Serializable) listaExercicios);
 
+        args.putSerializable(BUNDLE_EXERCICIOS, (java.io.Serializable) listaExercicios);
+        args.putInt(BUNDLE_ACTION, action);
+
+        paramNomeTreino = nomeTreino;
+        paramDescricaoTreino = descricaoTreino;
 
         fragment.setArguments(args);
         return fragment;
@@ -68,6 +80,8 @@ public class InserirTreinoFragment extends Fragment
         outState.putSerializable(BUNDLE_EXERCICIOS, listaExercicios);
         outState.putSerializable(BUNDLE_EDT_TEXT_SERIES, listaEdtTextSeries);
         outState.putSerializable(BUNDLE_EDT_TEXT_REPETICOES, listaEdtTextRepeticoes);
+        outState.putInt(BUNDLE_ACTION, mAction);
+
 
     }
 
@@ -77,16 +91,28 @@ public class InserirTreinoFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+/*
+        if(((InstrutorActivity)this.getActivity()).mAction == ALTERAR_TREINO)
+        {
+            //btnInserirTreino.setText(R.string.btnLabelAlterarTreino);
+            mAction = ALTERAR_TREINO;
+        }
+*/
         if (getArguments() != null)
         {
             listaExercicios = (ArrayList<HashMap<String, String>>) getArguments().getSerializable(BUNDLE_EXERCICIOS);
+
+            if( getArguments().getInt(BUNDLE_ACTION) == ALTERAR_TREINO)
+            {
+                //btnInserirTreino.setText(R.string.btnLabelAlterarTreino);
+                mAction = ALTERAR_TREINO;
+            }
 
         }
 
 
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,10 +120,26 @@ public class InserirTreinoFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_inserir_treino, container, false);
         txtNomeTreino = (TextView) view.findViewById(R.id.txtLabelNomeTreino);
         txtDescricaoTreino = (TextView) view.findViewById(R.id.txtLabelDescricaoTreino);
+
         edtNomeTreino = (EditText) view.findViewById(R.id.edtNomeTreino);
         edtDescricaoTreino = (EditText) view.findViewById(R.id.edtDescricaoTreino);
 
+        if (!paramNomeTreino.equals(""))
+        {
+            edtNomeTreino.setText(paramNomeTreino);
+        }
+        if(!paramDescricaoTreino.equals(""))
+        {
+            edtDescricaoTreino.setText(paramDescricaoTreino);
+        }
+
         btnInserirTreino = (Button) view.findViewById(R.id.btnInserirTreino);
+
+        if(mAction == ALTERAR_TREINO)
+        {
+            btnInserirTreino.setText(R.string.btnLabelAlterarTreino);
+        }
+
         boolean isSaved = false;
 
         btnInserirTreino.setOnClickListener(new View.OnClickListener(){
@@ -241,6 +283,14 @@ public class InserirTreinoFragment extends Fragment
             edtTextSeriesLayoutParams.addRule(RelativeLayout.BELOW, txtViewNomeExercicio.getId());
             edtTextSeriesLayoutParams.addRule(RelativeLayout.RIGHT_OF, txtViewSeries.getId());
             edtTextSeries.setLayoutParams(edtTextSeriesLayoutParams);
+            try
+            {
+                edtTextSeries.setText(exercicio.get("series"));
+            }
+            catch (Exception e)
+            {
+                edtTextSeries.setText("");
+            }
 
 
             TextView txtViewRepeticoes = new TextView(this.getActivity());
@@ -251,6 +301,7 @@ public class InserirTreinoFragment extends Fragment
             txtViewRepeticoes.setLayoutParams(txtViewRepeticoesLayoutParams);
             txtViewRepeticoes.setText(R.string.txtLabelRepeticoes);
 
+
             EditText edtTextRepeticoes = new EditText(this.getActivity());
             edtTextRepeticoes.setInputType(InputType.TYPE_CLASS_NUMBER);
             edtTextRepeticoes.setTextSize(12);
@@ -259,6 +310,14 @@ public class InserirTreinoFragment extends Fragment
             edtTextRepeticoesLayoutParams.addRule(RelativeLayout.RIGHT_OF, txtViewRepeticoes.getId());
             edtTextRepeticoesLayoutParams.addRule(RelativeLayout.BELOW, txtViewNomeExercicio.getId());
             edtTextRepeticoes.setLayoutParams(edtTextRepeticoesLayoutParams);
+            try
+            {
+                edtTextRepeticoes.setText(exercicio.get("repeticoes"));
+            }
+            catch (Exception e)
+            {
+                edtTextRepeticoes.setText("");
+            }
 
 
             viewExercicio.addView(txtViewNomeExercicio);
