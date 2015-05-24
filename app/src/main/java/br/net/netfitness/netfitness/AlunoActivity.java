@@ -50,6 +50,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
     private static final int VISUALIZAR_TREINOS = 0;
     private static final int VISUALIZAR_GRAFICOS = 1;
+    private static final int CALCULAR_IMC = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +112,8 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                         break;
 
                     case VISUALIZAR_GRAFICOS : visualizarGraficos();
+
+                    case CALCULAR_IMC : calcularIMC();
                 }
 
 
@@ -134,6 +137,14 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         progress.dismiss();
     }
 
+    private void calcularIMC(){
+
+        CalcularIMCFragment fragmentIMC = CalcularIMCFragment.newInstance();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.content_frame_aluno, fragmentIMC, "FragmentCalcularIMC");
+        ft.commit();
+    }
     private void visualizarGraficos()
     {
         showProgress();

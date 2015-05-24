@@ -14,6 +14,7 @@
     <string name="empty_lista_exercicios">Não foi selecionado nenhum exercício (para selecionar o exercício informar as series e as repetições corretamente)</string>
     <string name="empty_descricao_treino">Não foi informada a descrição do treino</string>
     <string name="empty_nome_treino">Não foi informado o nome do treino</string>
+    <string name="altura_peso_zero">Altura e peso não pode ser menor do que zero</string>
 
 
     <string name="web_service_login">http://192.168.25.6/NetFitness/webservice/login.php</string>
@@ -48,6 +49,7 @@
     <string-array name="menu_aluno">
         <item>Visualizar Treinos</item>
         <item>Visualizar Gráficos</item>
+        <item>Calcular IMC</item>
     </string-array>
 
     <string name="title_activity_aluno">AlunoActivity</string>
