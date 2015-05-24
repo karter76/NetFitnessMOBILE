@@ -152,6 +152,11 @@ public class GraficoFragment extends Fragment {
             visualizarGrafico(view, "peso", R.id.graphPeso, R.id.layoutGraphPeso, "#93bfca", "#b72700");
             visualizarGrafico(view, "imc", R.id.graphIMC, R.id.layoutGraphIMC, "#93bfca", "#b72700");
             visualizarGrafico(view, "circTorax", R.id.graphTorax, R.id.layoutGraphTorax, "#93bfca", "#b72700");
+            visualizarGrafico(view, "circAbdomen", R.id.graphAbdomen, R.id.layoutGraphAbdomen, "#93bfca", "#b72700");
+            visualizarGrafico(view, "circBraco", R.id.graphBraco, R.id.layoutGraphBraco, "#93bfca", "#b72700");
+            visualizarGrafico(view, "circAntebraco", R.id.graphAntebraco, R.id.layoutGraphAntebraco, "#93bfca", "#b72700");
+            visualizarGrafico(view, "circCoxa", R.id.graphCoxa, R.id.layoutGraphCoxa, "#93bfca", "#b72700");
+            visualizarGrafico(view, "circPanturrilha", R.id.graphPanturrilha, R.id.layoutGraphPanturrilha, "#93bfca", "#b72700");
         } catch (ParseException e) {
             e.printStackTrace();
         }

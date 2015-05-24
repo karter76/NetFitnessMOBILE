@@ -71,5 +71,10 @@
     <string name="pesoLabel">Peso</string>
     <string name="labelGraphIMC">IMC</string>
     <string name="labelGraphTorax">Circunfêrencia Torax</string>
+    <string name="labelGraphAbdomen">Circunferência Abdomen</string>
+    <string name="labelGraphBraco">Circunferência Braço</string>
+    <string name="labelGraphAntebraco">Circunferência Antebraço</string>
+    <string name="labelGraphCoxa">Circunferência Coxa</string>
+    <string name="labelGraphPanturrilha">Circunferência Panturrilha</string>
 
 </resources>

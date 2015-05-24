@@ -130,6 +130,181 @@ $listaCircPanturrilha;
 
        </HorizontalScrollView>
 
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="20dp"
+           android:layout_marginTop="30dp"
+           android:layout_marginBottom="10dp"
+           android:text="@string/labelGraphAbdomen" />
+
+       <HorizontalScrollView
+           android:id="@+id/scrollGraphAbdomen"
+           android:fillViewport="true"
+           android:layout_width="wrap_content"
+           android:background="@color/light_grey"
+           android:layout_height="300dip">
+
+           <LinearLayout
+               android:layout_width="500dip"
+               android:id="@+id/layoutGraphAbdomen"
+               android:layout_height="300dip"
+               android:orientation="vertical"
+               android:paddingTop="10dp"
+               android:paddingBottom="20dp">
+
+               <com.jjoe64.graphview.GraphView
+
+                   android:layout_width="500dip"
+                   android:layout_height="200dip"
+                   android:id="@+id/graphAbdomen" />
+
+           </LinearLayout>
+
+
+       </HorizontalScrollView>
+
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="20dp"
+           android:layout_marginTop="30dp"
+           android:layout_marginBottom="10dp"
+           android:text="@string/labelGraphBraco" />
+
+       <HorizontalScrollView
+           android:id="@+id/scrollGraphBraco"
+           android:fillViewport="true"
+           android:layout_width="wrap_content"
+           android:background="@color/light_grey"
+           android:layout_height="300dip">
+
+           <LinearLayout
+               android:layout_width="500dip"
+               android:id="@+id/layoutGraphBraco"
+               android:layout_height="300dip"
+               android:orientation="vertical"
+               android:paddingTop="10dp"
+               android:paddingBottom="20dp">
+
+               <com.jjoe64.graphview.GraphView
+
+                   android:layout_width="500dip"
+                   android:layout_height="200dip"
+                   android:id="@+id/graphBraco" />
+
+           </LinearLayout>
+
+
+       </HorizontalScrollView>
+
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="20dp"
+           android:layout_marginTop="30dp"
+           android:layout_marginBottom="10dp"
+           android:text="@string/labelGraphAntebraco" />
+
+       <HorizontalScrollView
+           android:id="@+id/scrollGraphAntebraco"
+           android:fillViewport="true"
+           android:layout_width="wrap_content"
+           android:background="@color/light_grey"
+           android:layout_height="300dip">
+
+           <LinearLayout
+               android:layout_width="500dip"
+               android:id="@+id/layoutGraphAntebraco"
+               android:layout_height="300dip"
+               android:orientation="vertical"
+               android:paddingTop="10dp"
+               android:paddingBottom="20dp">
+
+               <com.jjoe64.graphview.GraphView
+
+                   android:layout_width="500dip"
+                   android:layout_height="200dip"
+                   android:id="@+id/graphAntebraco" />
+
+           </LinearLayout>
+
+
+       </HorizontalScrollView>
+
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="20dp"
+           android:layout_marginTop="30dp"
+           android:layout_marginBottom="10dp"
+           android:text="@string/labelGraphCoxa" />
+
+       <HorizontalScrollView
+           android:id="@+id/scrollGraphCoxa"
+           android:fillViewport="true"
+           android:layout_width="wrap_content"
+           android:background="@color/light_grey"
+           android:layout_height="300dip">
+
+           <LinearLayout
+               android:layout_width="500dip"
+               android:id="@+id/layoutGraphCoxa"
+               android:layout_height="300dip"
+               android:orientation="vertical"
+               android:paddingTop="10dp"
+               android:paddingBottom="20dp">
+
+               <com.jjoe64.graphview.GraphView
+
+                   android:layout_width="500dip"
+                   android:layout_height="200dip"
+                   android:id="@+id/graphCoxa" />
+
+           </LinearLayout>
+
+
+       </HorizontalScrollView>
+
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="20dp"
+           android:layout_marginTop="30dp"
+           android:layout_marginBottom="10dp"
+           android:text="@string/labelGraphPanturrilha" />
+
+       <HorizontalScrollView
+           android:id="@+id/scrollGraphPanturrilha"
+           android:fillViewport="true"
+           android:layout_width="wrap_content"
+           android:background="@color/light_grey"
+           android:layout_height="300dip">
+
+           <LinearLayout
+               android:layout_width="500dip"
+               android:id="@+id/layoutGraphPanturrilha"
+               android:layout_height="300dip"
+               android:orientation="vertical"
+               android:paddingTop="10dp"
+               android:paddingBottom="20dp">
+
+               <com.jjoe64.graphview.GraphView
+
+                   android:layout_width="500dip"
+                   android:layout_height="200dip"
+                   android:id="@+id/graphPanturrilha" />
+
+           </LinearLayout>
+
+
+       </HorizontalScrollView>
+
    </LinearLayout>
 
  </ScrollView>
