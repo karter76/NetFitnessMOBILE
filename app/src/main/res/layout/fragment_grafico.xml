@@ -93,6 +93,43 @@ $listaCircPanturrilha;
 
     </HorizontalScrollView>
 
+
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="20dp"
+           android:layout_marginTop="30dp"
+           android:layout_marginBottom="10dp"
+           android:text="@string/labelGraphTorax" />
+
+
+       <HorizontalScrollView
+           android:id="@+id/scrollGraphTorax"
+           android:fillViewport="true"
+           android:layout_width="wrap_content"
+           android:background="@color/light_grey"
+           android:layout_height="300dip">
+
+           <LinearLayout
+               android:layout_width="500dip"
+               android:id="@+id/layoutGraphTorax"
+               android:layout_height="300dip"
+               android:orientation="vertical"
+               android:paddingTop="10dp"
+               android:paddingBottom="20dp">
+
+               <com.jjoe64.graphview.GraphView
+
+                   android:layout_width="500dip"
+                   android:layout_height="200dip"
+                   android:id="@+id/graphTorax" />
+
+           </LinearLayout>
+
+
+       </HorizontalScrollView>
+
    </LinearLayout>
 
  </ScrollView>

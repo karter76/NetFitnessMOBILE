@@ -76,7 +76,7 @@ public class GraficoFragment extends Fragment {
         ArrayList<HashMap<String, String>> listaMapExameFisico;
 
         SimpleDateFormat dataInicial = new SimpleDateFormat("yyyy-mm-dd");
-        SimpleDateFormat dataFinal = new SimpleDateFormat("d/M/yy");
+        SimpleDateFormat dataFinal = new SimpleDateFormat("d/m/yy");
         int count, graphWidth, graphHeight, graphLayoutHeight;
         float scale;
         double max;
@@ -137,8 +137,6 @@ public class GraficoFragment extends Fragment {
         grafico.addSeries(serieDados);
 
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(grafico);
-        SimpleDateFormat df = new SimpleDateFormat("d/M/yy");
-        //image_urls.toArray(new String[image_urls.size()]);
         staticLabelsFormatter.setHorizontalLabels(listaDatasString.toArray(new String[listaDatasString.size()]));
         grafico.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
     }
@@ -153,6 +151,7 @@ public class GraficoFragment extends Fragment {
         {
             visualizarGrafico(view, "peso", R.id.graphPeso, R.id.layoutGraphPeso, "#93bfca", "#b72700");
             visualizarGrafico(view, "imc", R.id.graphIMC, R.id.layoutGraphIMC, "#93bfca", "#b72700");
+            visualizarGrafico(view, "circTorax", R.id.graphTorax, R.id.layoutGraphTorax, "#93bfca", "#b72700");
         } catch (ParseException e) {
             e.printStackTrace();
         }

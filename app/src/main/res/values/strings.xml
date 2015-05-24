@@ -68,5 +68,6 @@
     <string name="btnLabelAlterarTreino">Alterar</string>
     <string name="pesoLabel">Peso</string>
     <string name="labelGraphIMC">IMC</string>
+    <string name="labelGraphTorax">Circunfêrencia Torax</string>
 
 </resources>
