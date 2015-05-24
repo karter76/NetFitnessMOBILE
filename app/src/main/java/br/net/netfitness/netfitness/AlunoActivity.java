@@ -114,6 +114,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                     case VISUALIZAR_GRAFICOS : visualizarGraficos();
 
                     case CALCULAR_IMC : calcularIMC();
+                        break;
                 }
 
 
