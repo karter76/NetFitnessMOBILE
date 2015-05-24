@@ -71,7 +71,8 @@ public class LoginActivity extends ActionBarActivity {
                 {
                     loginTask = new AsynckTaskLogin(v.getContext());
                     //loginTask.execute(inputLogin.getText().toString(), inputSenha.getText().toString());
-                    loginTask.execute("123", "123");
+                    //loginTask.execute("123", "123");
+                    loginTask.execute("aaa", "aaa");
                     progress = new ProgressDialog(instance);
                     progress.setTitle(getResources().getString(R.string.loading));
                     progress.setMessage(getResources().getString(R.string.wait_loading));

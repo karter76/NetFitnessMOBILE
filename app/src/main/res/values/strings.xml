@@ -15,16 +15,17 @@
     <string name="empty_descricao_treino">Não foi informada a descrição do treino</string>
     <string name="empty_nome_treino">Não foi informado o nome do treino</string>
 
-    <!--
+
     <string name="web_service_login">http://192.168.25.6/NetFitness/webservice/login.php</string>
     <string name="web_service_listar_treinos_instrutor">http://192.168.25.6/NetFitness/webservice/listarTreinosInstrutor.php</string>
     <string name="web_service_listar_treinos_aluno">http://192.168.25.6/NetFitness/webservice/listarTreinosAluno.php</string>
+    <string name="web_service_listar_exames_fisicos_aluno">http://192.168.25.6/NetFitness/webservice/listarExamesFisicosAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
     <string name="web_service_excluir_treino">http://192.168.25.6/NetFitness/webservice/excluirTreino.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
     <string name="web_service_listar_exercicios">http://192.168.25.6/NetFitness/webservice/listarExercicios.php</string>
     <string name="web_service_inserir_treino">http://192.168.25.6/NetFitness/webservice/inserirTreino.php</string>
     <string name="web_service_alterar_treino">http://192.168.25.6/NetFitness/webservice/alterarTreino.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
--->
 
+    <!--
     <string name="web_service_login">http://www.netfitness.net.br/webservice/login.php</string>
     <string name="web_service_listar_treinos_instrutor">http://www.netfitness.net.br/webservice/listarTreinosInstrutor.php</string>
     <string name="web_service_listar_treinos_aluno">http://www.netfitness.net.br/webservice/listarTreinosAluno.php</string>
@@ -32,7 +33,7 @@
     <string name="web_service_listar_exercicios">http://www.netfitness.net.br/webservice/listarExercicios.php</string>
     <string name="web_service_inserir_treino">http://www.netfitness.net.br/webservice/inserirTreino.php</string>
     <string name="web_service_alterar_treino">http://www.netfitness.net.br/webservice/alterarTreino.php</string>
-
+-->
 
 
     <string name="loading">Loading</string>
@@ -46,6 +47,7 @@
     </string-array>
     <string-array name="menu_aluno">
         <item>Visualizar Treinos</item>
+        <item>Visualizar Gráficos</item>
     </string-array>
 
     <string name="title_activity_aluno">AlunoActivity</string>
@@ -64,5 +66,7 @@
     <string name="txtLabelRepeticoes">Repeticões</string>
     <string name="btnLabelInserirTreino">Inserir</string>
     <string name="btnLabelAlterarTreino">Alterar</string>
+    <string name="pesoLabel">Peso</string>
+    <string name="labelGraphIMC">IMC</string>
 
 </resources>

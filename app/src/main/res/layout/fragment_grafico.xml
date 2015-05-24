@@ -1,0 +1,100 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="br.net.netfitness.netfitness.GraficoFragment">
+
+   <ScrollView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+
+       <!--
+       $listaCircTorax;
+    $listaCircAbdomen;
+$listaCircBraco;
+$listaCircAntebraco;
+$listaCircCoxa;
+$listaCircPanturrilha;
+       -->
+
+   <LinearLayout
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/pesoLabel" />
+
+
+    <HorizontalScrollView
+    android:id="@+id/scrollGraphPeso"
+    android:fillViewport="true"
+    android:layout_width="wrap_content"
+    android:background="@color/light_grey"
+    android:layout_height="300dip">
+
+    <LinearLayout
+        android:layout_width="500dip"
+        android:id="@+id/layoutGraphPeso"
+        android:layout_height="300dip"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp">
+
+        <com.jjoe64.graphview.GraphView
+
+            android:layout_width="500dip"
+            android:layout_height="200dip"
+            android:id="@+id/graphPeso" />
+
+    </LinearLayout>
+
+
+ </HorizontalScrollView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/labelGraphIMC" />
+
+
+    <HorizontalScrollView
+        android:id="@+id/scrollGraphIMC"
+        android:fillViewport="true"
+        android:layout_width="wrap_content"
+        android:background="@color/light_grey"
+        android:layout_height="300dip">
+
+        <LinearLayout
+            android:layout_width="500dip"
+            android:id="@+id/layoutGraphIMC"
+            android:layout_height="300dip"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
+
+            <com.jjoe64.graphview.GraphView
+
+                android:layout_width="500dip"
+                android:layout_height="200dip"
+                android:id="@+id/graphIMC" />
+
+        </LinearLayout>
+
+
+    </HorizontalScrollView>
+
+   </LinearLayout>
+
+ </ScrollView>
+
+</LinearLayout>

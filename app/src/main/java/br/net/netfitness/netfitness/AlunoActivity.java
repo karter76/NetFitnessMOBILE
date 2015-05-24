@@ -1,11 +1,13 @@
 package br.net.netfitness.netfitness;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,13 +24,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
+import interfaces.OnVisualizarExamesFisicosCompleted;
 import interfaces.OnVisualizarTreinosCompleted;
 import interfaces.clicouNoTreinoListener;
 import utils.JSONConvert;
 
 
-public class AlunoActivity extends ActionBarActivity implements OnVisualizarTreinosCompleted, clicouNoTreinoListener {
+public class AlunoActivity extends ActionBarActivity implements OnVisualizarTreinosCompleted, clicouNoTreinoListener,
+                                                                OnVisualizarExamesFisicosCompleted{
 
     JSONObject json;
     private String[] items;
@@ -38,9 +43,13 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     private TextView mensagem;
     private HashMap<String,Object> result;
     protected JSONObject jsonReturned;
+    protected ArrayList<Object> listaExamesFisicos;
     protected AsynckTaskListarTreinos listarTreinosTask;
+    protected AsynkTaskListarGraficos listarGraficosTask;
+    ProgressDialog progress;
 
     private static final int VISUALIZAR_TREINOS = 0;
+    private static final int VISUALIZAR_GRAFICOS = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,15 +109,41 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                 {
                     case VISUALIZAR_TREINOS : visualizarTreinos();
                         break;
+
+                    case VISUALIZAR_GRAFICOS : visualizarGraficos();
                 }
+
+
 
                 mDrawerLayout.closeDrawer(mDrawerList);
             }
         });
     }
 
+    private void showProgress()
+    {
+        progress = new ProgressDialog(this);
+        progress.setTitle(getResources().getString(R.string.loading));
+        progress.setMessage(getResources().getString(R.string.wait_loading));
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
+    }
+
+    private void hideProgress()
+    {
+        progress.dismiss();
+    }
+
+    private void visualizarGraficos()
+    {
+        showProgress();
+        listarGraficosTask = new AsynkTaskListarGraficos(this);
+        listarGraficosTask.execute((String)result.get("Aluno.idAluno"), (String)result.get("Pessoa.login"),(String)result.get("Pessoa.senha"));
+    }
+
     private void visualizarTreinos()
     {
+        showProgress();
         listarTreinosTask = new AsynckTaskListarTreinos(this);
         listarTreinosTask.execute((String)result.get("Aluno.idAluno"), (String)result.get("Pessoa.login"),(String)result.get("Pessoa.senha"));
     }
@@ -136,6 +171,18 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         return super.onOptionsItemSelected(item);
     }
 
+    private void mudarFragment(android.support.v4.app.Fragment fragment, int content, String nomeFragment, boolean addToBS)
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(content, fragment, nomeFragment);
+        if(addToBS)
+        {
+            ft.addToBackStack(null);
+        }
+        ft.commit();
+    }
+
     @Override
     public void onVisualizarTreinosCompleted() throws JSONException
     {
@@ -145,15 +192,89 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.content_frame_aluno, fragmentListaTreinos, "FragmentListaTreinos");
         ft.commit();
-
-        //ft.addToBackStack(null);
-        //fm.popBackStack();
     }
 
 
     @Override
     public void aoClicarNoTreino(Object object) {
 
+    }
+
+    @Override
+    public void onVisualizarExamesFisicosCompleted(String message) throws JSONException {
+
+        if(!jsonReturned.getString("mensagem").equals("notNull"))
+        {
+            Toast toast = Toast.makeText(this,jsonReturned.getString("mensagem"), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else
+        {
+            listaExamesFisicos = new ArrayList<Object>();
+           // HashMap<String, S> objectMap = new HashMap<>();
+            listaExamesFisicos = (ArrayList<Object>) JSONConvert.toList(jsonReturned.getJSONArray("listaExamesFisicos"));
+
+            GraficoFragment fragmentGrafico = GraficoFragment.newInstance(listaExamesFisicos);
+            mudarFragment(fragmentGrafico, R.id.content_frame_aluno, "FragmentGrafico",false);
+        }
+    }
+
+    private class AsynkTaskListarGraficos extends AsyncTask<String, String, JSONObject>
+    {
+
+        private OnVisualizarExamesFisicosCompleted listener;
+
+        private AsynkTaskListarGraficos(OnVisualizarExamesFisicosCompleted listener) {
+            this.listener = listener;
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            try
+            {
+                JSONParser jsonParser = new JSONParser();
+                List jsonParams = new ArrayList();
+                jsonParams.add(new BasicNameValuePair("idAluno", params[0]));
+                jsonParams.add(new BasicNameValuePair("login", params[1]));
+                jsonParams.add(new BasicNameValuePair("senha", params[2]));
+                JSONObject json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_listar_exames_fisicos_aluno), jsonParams);
+
+                return json;
+
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonResult)
+        {
+            super.onPostExecute(jsonResult);
+            jsonReturned = jsonResult;
+            
+            hideProgress();
+
+            try
+            {
+                if (!jsonResult.getString("listaExamesFisicos").equals("null"))
+                {
+                    listener.onVisualizarExamesFisicosCompleted("");
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+            catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     private class AsynckTaskListarTreinos extends AsyncTask<String, String, JSONObject>
@@ -194,6 +315,8 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         {
             super.onPostExecute(jsonResult);
             jsonReturned = jsonResult;
+
+            hideProgress();
 
             try
             {
