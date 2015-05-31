@@ -1,0 +1,89 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?android:attr/colorBackground"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="br.net.netfitness.netfitness.SelecionarGraficoFragmentOLD"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/selecionarGraficos"
+        android:id="@+id/labelTxtSelecionarGraficos"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxPeso"
+        android:id="@+id/checkBoxPeso"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxIMC"
+        android:id="@+id/checkBoxIMC"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxTorax"
+        android:id="@+id/checkBoxTorax"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxAbdomen"
+        android:id="@+id/checkBoxAbdomen"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxBraco"
+        android:id="@+id/checkBoxBraco"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxAntebraco"
+        android:id="@+id/checkBoxAntebraco"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxCoxa"
+        android:id="@+id/checkBoxCoxa"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxPanturrilha"
+        android:id="@+id/checkBoxPanturrilha"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        style="@style/btnNetfitness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LabelButtonCompararGraficos"
+        android:id="@+id/buttonCompararGraficos"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp" />
+</LinearLayout>

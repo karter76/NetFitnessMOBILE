@@ -106,7 +106,8 @@ public class ExcluirTreinoFragment extends Fragment {
             try {
                 listener.aoExcluirOTreino(mapListaTreinos.get(i));
             } catch (JSONException e) {
-                e.printStackTrace();
+                Toast toast = Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
     }

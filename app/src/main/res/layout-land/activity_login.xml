@@ -26,9 +26,8 @@
         android:layout_below="@+id/labelLogin"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/buttonLogin"
-        android:layout_alignEnd="@+id/buttonLogin"
-    />
+        android:layout_alignRight="@+id/inputSenha"
+        android:layout_alignEnd="@+id/inputSenha" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,14 +41,14 @@
         android:layout_marginTop="40dp" />
 
     <EditText android:id="@+id/inputSenha"
-       android:layout_width="wrap_content"
+       android:layout_width="200dp"
        android:layout_height="wrap_content"
        android:inputType="textPassword"
        android:layout_below="@+id/labelSenha"
        android:layout_alignParentLeft="true"
-       android:layout_alignParentStart="true"
-       android:layout_alignRight="@+id/buttonLogin"
-       android:layout_alignEnd="@+id/buttonLogin" />
+       android:layout_alignParentStart="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="false" />
 
     <Button android:id="@+id/buttonLogin"
         style="@style/btnNetfitness"
@@ -57,8 +56,10 @@
         android:layout_width="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Login"
-        android:layout_below="@+id/inputSenha"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="108dp" />
+        android:layout_marginLeft="77dp"
+        android:layout_marginStart="77dp"
+        android:layout_alignBottom="@+id/inputSenha"
+        android:layout_toRightOf="@+id/inputSenha"
+        android:layout_toEndOf="@+id/inputSenha" />
 
 </RelativeLayout>

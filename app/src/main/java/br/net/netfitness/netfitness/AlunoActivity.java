@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,16 +23,19 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
+import interfaces.ClicouNoCompararGraficos;
+import interfaces.ClicouNoHistoricoTreinoListener;
 import interfaces.OnVisualizarExamesFisicosCompleted;
+import interfaces.OnVisualizarHistoricoTreinoCompleted;
 import interfaces.OnVisualizarTreinosCompleted;
 import interfaces.clicouNoTreinoListener;
 import utils.JSONConvert;
 
 
 public class AlunoActivity extends ActionBarActivity implements OnVisualizarTreinosCompleted, clicouNoTreinoListener,
-                                                                OnVisualizarExamesFisicosCompleted{
+                                                                OnVisualizarExamesFisicosCompleted, ClicouNoHistoricoTreinoListener,
+                                                                OnVisualizarHistoricoTreinoCompleted, ClicouNoCompararGraficos{
 
     JSONObject json;
     private String[] items;
@@ -41,16 +43,20 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     private ListView mDrawerList;
     private int selectedPosition;
     private TextView mensagem;
+   // private int mAction;
     private HashMap<String,Object> result;
+    private  String mGraficosSelecionados;
     protected JSONObject jsonReturned;
     protected ArrayList<Object> listaExamesFisicos;
     protected AsynckTaskListarTreinos listarTreinosTask;
     protected AsynkTaskListarGraficos listarGraficosTask;
+    protected AsynkTaskVisualizarHistoricoTreinos visualizarHistoricoTreinosTask;
     ProgressDialog progress;
 
     private static final int VISUALIZAR_TREINOS = 0;
     private static final int VISUALIZAR_GRAFICOS = 1;
-    private static final int CALCULAR_IMC = 2;
+    private static final int COMPARAR_GRAFICOS = 2;
+    private static final int CALCULAR_IMC = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +85,8 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
 
             } catch (JSONException e) {
-                e.printStackTrace();
+                Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
 
@@ -111,13 +118,15 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                     case VISUALIZAR_TREINOS : visualizarTreinos();
                         break;
 
-                    case VISUALIZAR_GRAFICOS : visualizarGraficos();
+                    case VISUALIZAR_GRAFICOS : visualizarGraficos(null);
+                        break;
+
+                    case COMPARAR_GRAFICOS : compararGraficos();
+                        break;
 
                     case CALCULAR_IMC : calcularIMC();
                         break;
                 }
-
-
 
                 mDrawerLayout.closeDrawer(mDrawerList);
             }
@@ -138,17 +147,30 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         progress.dismiss();
     }
 
+    private void compararGraficos()
+    {
+        SelecionarGraficoFragment fragmentSelecionarGraficos = SelecionarGraficoFragment.newInstance(/*"",""*/);
+        mudarFragment(fragmentSelecionarGraficos, R.id.content_frame_aluno, "FragmentSelecionarGraficos", false);
+    }
+
     private void calcularIMC(){
 
         CalcularIMCFragment fragmentIMC = CalcularIMCFragment.newInstance();
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.content_frame_aluno, fragmentIMC, "FragmentCalcularIMC");
-        ft.commit();
+        mudarFragment(fragmentIMC, R.id.content_frame_aluno, "FragmentIMC", false);
     }
-    private void visualizarGraficos()
+
+    private void visualizarHistoricosTreinos(Object treino)
     {
         showProgress();
+        HashMap<String, String> mapTreino = (HashMap<String, String>) treino;
+        visualizarHistoricoTreinosTask = new AsynkTaskVisualizarHistoricoTreinos(this);
+        visualizarHistoricoTreinosTask.execute((String) result.get("Aluno.idAluno"), (String) result.get("Pessoa.login"), (String) result.get("Pessoa.senha"), mapTreino.get("idTreino"));
+    }
+
+    private void visualizarGraficos(String listaGraficosSelecionados)
+    {
+        showProgress();
+        mGraficosSelecionados = listaGraficosSelecionados;
         listarGraficosTask = new AsynkTaskListarGraficos(this);
         listarGraficosTask.execute((String)result.get("Aluno.idAluno"), (String)result.get("Pessoa.login"),(String)result.get("Pessoa.senha"));
     }
@@ -170,12 +192,8 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
         }
@@ -198,17 +216,15 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     @Override
     public void onVisualizarTreinosCompleted() throws JSONException
     {
-
         VisualizarTreinosFragment fragmentListaTreinos = VisualizarTreinosFragment.newInstance(JSONConvert.toList(jsonReturned.getJSONArray("listaTreinos")));
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.content_frame_aluno, fragmentListaTreinos, "FragmentListaTreinos");
-        ft.commit();
+        mudarFragment(fragmentListaTreinos, R.id.content_frame_aluno, "FragmentListaTreinos", false);
     }
 
 
     @Override
     public void aoClicarNoTreino(Object object) {
+        DetalharTreinoFragment fragmentDetalharTreino = DetalharTreinoFragment.newInstance(object);
+        mudarFragment(fragmentDetalharTreino, R.id.content_frame_aluno, "FragmentDetalharTreino", true);
 
     }
 
@@ -222,12 +238,107 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         }
         else
         {
-            listaExamesFisicos = new ArrayList<Object>();
-           // HashMap<String, S> objectMap = new HashMap<>();
-            listaExamesFisicos = (ArrayList<Object>) JSONConvert.toList(jsonReturned.getJSONArray("listaExamesFisicos"));
+            if(message.equals("")) {
+                listaExamesFisicos = new ArrayList<Object>();
+                listaExamesFisicos = (ArrayList<Object>) JSONConvert.toList(jsonReturned.getJSONArray("listaExamesFisicos"));
 
-            GraficoFragment fragmentGrafico = GraficoFragment.newInstance(listaExamesFisicos);
-            mudarFragment(fragmentGrafico, R.id.content_frame_aluno, "FragmentGrafico",false);
+                GraficoFragment fragmentGrafico = GraficoFragment.newInstance(listaExamesFisicos);
+                mudarFragment(fragmentGrafico, R.id.content_frame_aluno, "FragmentGrafico", false);
+            }
+            else
+            {
+                if(message.contains("#comparar#"))
+                {
+                    message = message.replace("#comparar#","");
+
+                    listaExamesFisicos = new ArrayList<Object>();
+                    listaExamesFisicos = (ArrayList<Object>) JSONConvert.toList(jsonReturned.getJSONArray("listaExamesFisicos"));
+
+                    CompararGraficosFragment fragmentCompararGraficos = CompararGraficosFragment.newInstance(listaExamesFisicos, message);
+                    mudarFragment(fragmentCompararGraficos, R.id.content_frame_aluno, "FragmentCompararGraficos", false);
+
+                    //Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+                    //toast.show();
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(this, jsonReturned.getString("mensagem"), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void aoClicarNoHistoricoTreinoListener(Object treino) {
+        visualizarHistoricosTreinos(treino);
+    }
+
+    @Override
+    public void onVisualizaHistoricoTreinoCompleted(String message) throws JSONException {
+
+
+        VisualizarHistoricoTreinoFragment fragmentHistoricoTreino = VisualizarHistoricoTreinoFragment.newInstance(jsonReturned.getJSONObject("listaTreinosRealizados"));
+        mudarFragment(fragmentHistoricoTreino, R.id.content_frame_aluno, "FragmentHistoricoTreino", false);
+          //Toast toast = Toast.makeText(this,"Historico", Toast.LENGTH_SHORT);
+          //toast.show();
+    }
+
+    @Override
+    public void aoCompararGraficos(String graficosSelecionados) {
+
+        //Toast toast = Toast.makeText(this, graficosSelecionados.get(0), Toast.LENGTH_SHORT);
+        //toast.show();
+        visualizarGraficos(graficosSelecionados);
+    }
+
+    private class AsynkTaskVisualizarHistoricoTreinos extends AsyncTask<String, String, JSONObject>
+    {
+        private OnVisualizarHistoricoTreinoCompleted listener;
+
+        private AsynkTaskVisualizarHistoricoTreinos(OnVisualizarHistoricoTreinoCompleted listener) {
+            this.listener = listener;
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+
+            try
+            {
+                JSONParser jsonParser = new JSONParser();
+                List jsonParams = new ArrayList();
+                jsonParams.add(new BasicNameValuePair("idAluno", params[0]));
+                jsonParams.add(new BasicNameValuePair("login", params[1]));
+                jsonParams.add(new BasicNameValuePair("senha", params[2]));
+                jsonParams.add(new BasicNameValuePair("idTreino", params[3]));
+                JSONObject json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_listar_treinos_realizados), jsonParams);
+
+                return json;
+
+            }
+            catch (Exception e)
+            {
+                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonResult) {
+            super.onPostExecute(jsonResult);
+
+            jsonReturned = jsonResult;
+
+            hideProgress();
+
+            try {
+                listener.onVisualizaHistoricoTreinoCompleted("");
+            } catch (JSONException e) {
+                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
         }
     }
 
@@ -256,7 +367,8 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
             }
 
             return null;
@@ -274,7 +386,13 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             {
                 if (!jsonResult.getString("listaExamesFisicos").equals("null"))
                 {
-                    listener.onVisualizarExamesFisicosCompleted("");
+                    if(mGraficosSelecionados == null) {
+                        listener.onVisualizarExamesFisicosCompleted("");
+                    }
+                    else
+                    {
+                        listener.onVisualizarExamesFisicosCompleted(mGraficosSelecionados);
+                    }
                 }
                 else
                 {
@@ -284,7 +402,8 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             }
             catch (JSONException e)
             {
-                e.printStackTrace();
+                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
     }
@@ -316,7 +435,8 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
             }
 
             return null;
@@ -345,7 +465,8 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             }
             catch (JSONException e)
             {
-                e.printStackTrace();
+                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
     }

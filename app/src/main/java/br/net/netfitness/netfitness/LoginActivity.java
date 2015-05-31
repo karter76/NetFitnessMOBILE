@@ -70,9 +70,9 @@ public class LoginActivity extends ActionBarActivity {
                 if (temConexao())
                 {
                     loginTask = new AsynckTaskLogin(v.getContext());
-                    //loginTask.execute(inputLogin.getText().toString(), inputSenha.getText().toString());
+                    loginTask.execute(inputLogin.getText().toString(), inputSenha.getText().toString());
                     //loginTask.execute("123", "123");
-                    loginTask.execute("aaa", "aaa");
+                    //loginTask.execute("aaa", "aaa");
                     progress = new ProgressDialog(instance);
                     progress.setTitle(getResources().getString(R.string.loading));
                     progress.setMessage(getResources().getString(R.string.wait_loading));
@@ -138,7 +138,8 @@ public class LoginActivity extends ActionBarActivity {
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                Toast toast = Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
             }
 
             return null;
@@ -181,7 +182,8 @@ public class LoginActivity extends ActionBarActivity {
             }
             catch (JSONException e)
             {
-                e.printStackTrace();
+                Toast toast = Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
             }
 
         }

@@ -99,7 +99,7 @@ public class CalcularIMCFragment extends Fragment {
         }else if(imc <= 39.99){
             return "IMC: " + imc + " - Obesidade II(severa)";
         }else{
-            return "IMC: " + imc + " - Obesidade III(mórbida)";
+            return "IMC: " + imc + " - Obesidade III(mÃ³rbida)";
         }
     }
 }

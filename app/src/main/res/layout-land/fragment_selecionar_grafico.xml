@@ -1,0 +1,107 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context="br.net.netfitness.netfitness.SelecionarGraficoFragmentOLD"
+    >
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/selecionarGraficos"
+        android:id="@+id/labelTxtSelecionarGraficos"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxPeso"
+        android:id="@+id/checkBoxPeso"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/labelTxtSelecionarGraficos"
+        android:layout_alignLeft="@+id/labelTxtSelecionarGraficos"
+        android:layout_alignStart="@+id/labelTxtSelecionarGraficos" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxIMC"
+        android:id="@+id/checkBoxIMC"
+        android:layout_below="@+id/checkBoxPeso"
+        android:layout_alignLeft="@+id/checkBoxPeso"
+        android:layout_alignStart="@+id/checkBoxPeso"
+        android:layout_marginTop="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxTorax"
+        android:id="@+id/checkBoxTorax"
+        android:layout_below="@+id/checkBoxIMC"
+        android:layout_alignLeft="@+id/checkBoxIMC"
+        android:layout_alignStart="@+id/checkBoxIMC"
+        android:layout_marginTop="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxAbdomen"
+        android:id="@+id/checkBoxAbdomen"
+        android:layout_above="@+id/checkBoxIMC"
+        android:layout_toRightOf="@+id/checkBoxTorax"
+        android:layout_toEndOf="@+id/checkBoxTorax"
+        android:layout_marginLeft="73dp"
+        android:layout_marginStart="73dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxBraco"
+        android:id="@+id/checkBoxBraco"
+        android:layout_above="@+id/checkBoxTorax"
+        android:layout_alignLeft="@+id/checkBoxAbdomen"
+        android:layout_alignStart="@+id/checkBoxAbdomen" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxAntebraco"
+        android:id="@+id/checkBoxAntebraco"
+        android:layout_below="@+id/checkBoxBraco"
+        android:layout_alignLeft="@+id/checkBoxBraco"
+        android:layout_alignStart="@+id/checkBoxBraco"
+        android:layout_marginTop="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxCoxa"
+        android:id="@+id/checkBoxCoxa"
+        android:layout_above="@+id/checkBoxIMC"
+        android:layout_toRightOf="@+id/buttonCompararGraficos"
+        android:layout_toEndOf="@+id/buttonCompararGraficos"
+        android:layout_marginLeft="41dp"
+        android:layout_marginStart="41dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/checkBoxPanturrilha"
+        android:id="@+id/checkBoxPanturrilha"
+        android:layout_alignTop="@+id/checkBoxBraco"
+        android:layout_alignLeft="@+id/checkBoxCoxa"
+        android:layout_alignStart="@+id/checkBoxCoxa" />
+
+    <Button
+        style="@style/btnNetfitness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/LabelButtonCompararGraficos"
+        android:id="@+id/buttonCompararGraficos"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/checkBoxTorax"
+        android:layout_alignLeft="@+id/checkBoxAntebraco"
+        android:layout_alignStart="@+id/checkBoxAntebraco"
+        android:layout_marginTop="27dp" />
+</RelativeLayout>

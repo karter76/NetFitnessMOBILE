@@ -212,7 +212,8 @@ public class InserirTreinoFragment extends Fragment
 
 
                     } catch (JSONException e) {
-                        e.printStackTrace();
+                        Toast toast = Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 }
 

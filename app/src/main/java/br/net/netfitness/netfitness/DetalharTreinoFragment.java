@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import adapters.ExercicioAdapter;
+import interfaces.ClicouNoHistoricoTreinoListener;
 
 
 public class DetalharTreinoFragment extends Fragment
@@ -22,6 +24,7 @@ public class DetalharTreinoFragment extends Fragment
     private Object treino;
     private TextView txtNomeTreino;
     private TextView txtDescricaoTreino;
+    private Button btnHistoricoTreino;
     ListView listView;
     ExercicioAdapter adapter;
 
@@ -55,6 +58,9 @@ public class DetalharTreinoFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_detalhar_treino, container, false);
         txtNomeTreino = (TextView) view.findViewById(R.id.txtNomeTreino);
         txtDescricaoTreino = (TextView) view.findViewById(R.id.txtDescricaoTreino);
+        btnHistoricoTreino = (Button) view.findViewById(R.id.buttonHistorico);
+
+
 
         HashMap<String, ArrayList> mapTreinoArrayList = new HashMap<>();
         HashMap<String, String> mapTreinoAtributos = new HashMap<>();
@@ -64,6 +70,21 @@ public class DetalharTreinoFragment extends Fragment
 
         listaExercicios = mapTreinoArrayList.get("listaExercicios");
         mapTreinoAtributos = (HashMap<String, String>) treino;
+
+        if(getActivity() instanceof AlunoActivity) {
+            btnHistoricoTreino.setVisibility(View.VISIBLE);
+
+            btnHistoricoTreino.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getActivity() instanceof ClicouNoHistoricoTreinoListener) {
+                        ClicouNoHistoricoTreinoListener listener = (ClicouNoHistoricoTreinoListener) getActivity();
+
+                        listener.aoClicarNoHistoricoTreinoListener(treino);
+                    }
+                }
+            });
+        }
 
         txtNomeTreino.setText(mapTreinoAtributos.get("nome"));
         txtDescricaoTreino.setText(mapTreinoAtributos.get("descricao"));

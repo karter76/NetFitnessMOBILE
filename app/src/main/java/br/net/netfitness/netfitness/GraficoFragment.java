@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
@@ -115,12 +116,13 @@ public class GraficoFragment extends Fragment {
         max = 0;
         for(Object exameFisico : listaExamesFisicos)
         {
+
             DataPoint dado = new DataPoint(count, Double.parseDouble(listaMapExameFisico.get(count).get(chave)));
             if(Double.parseDouble(listaMapExameFisico.get(count).get(chave))>max)
             {
                 max = Double.parseDouble(listaMapExameFisico.get(count).get(chave));
             }
-            serieDados.appendData(dado,true,100);
+            serieDados.appendData(dado, true, 100);
             count++;
         }
 
@@ -157,8 +159,11 @@ public class GraficoFragment extends Fragment {
             visualizarGrafico(view, "circAntebraco", R.id.graphAntebraco, R.id.layoutGraphAntebraco, "#93bfca", "#b72700");
             visualizarGrafico(view, "circCoxa", R.id.graphCoxa, R.id.layoutGraphCoxa, "#93bfca", "#b72700");
             visualizarGrafico(view, "circPanturrilha", R.id.graphPanturrilha, R.id.layoutGraphPanturrilha, "#93bfca", "#b72700");
-        } catch (ParseException e) {
-            e.printStackTrace();
+        }
+        catch (ParseException e)
+        {
+            Toast toast = Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
         }
 
         return view;

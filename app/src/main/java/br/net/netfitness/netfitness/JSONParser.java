@@ -2,6 +2,7 @@ package br.net.netfitness.netfitness;
 
 import android.os.StrictMode;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -51,10 +52,13 @@ public class JSONParser {
             is = httpEntity.getContent();
 
         } catch (UnsupportedEncodingException e) {
+            Log.e("EXCEPTION",e.getMessage());
             e.printStackTrace();
         } catch (ClientProtocolException e) {
+            Log.e("EXCEPTION",e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
+            Log.e("EXCEPTION",e.getMessage());
             e.printStackTrace();
         }
 
@@ -62,7 +66,7 @@ public class JSONParser {
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    is, "iso-8859-1"), 8);
+                    is, "utf-8"), 8);
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {

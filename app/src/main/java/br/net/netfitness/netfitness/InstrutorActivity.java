@@ -103,7 +103,8 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
 
 
             } catch (JSONException e) {
-                e.printStackTrace();
+                Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
 
@@ -339,7 +340,8 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
             treinoTask.execute("",login, senha, idTreino, getResources().getString(R.string.web_service_excluir_treino),"","","");
 
         } catch (JSONException e) {
-            e.printStackTrace();
+            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
         }
 
 
@@ -445,7 +447,8 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
             }
 
         } catch (JSONException e) {
-            e.printStackTrace();
+            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
         }
 
     }
@@ -493,7 +496,8 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
             }
             catch (Exception e)
             {
-                e.printStackTrace();
+                Toast toast = Toast.makeText(InstrutorActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
             }
 
             return json;
@@ -552,7 +556,8 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
             }
             catch (JSONException e)
             {
-                e.printStackTrace();
+                Toast toast = Toast.makeText(InstrutorActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
     }

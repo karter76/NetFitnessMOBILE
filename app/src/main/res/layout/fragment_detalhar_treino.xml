@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
     tools:context="br.net.netfitness.netfitness.DetalharTreinoFragment">
 
     <TextView
@@ -35,7 +36,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/txtLabelDescricaoTreino"
         android:id="@+id/txtLabelDescricaoTreino"
-        android:layout_below="@+id/txtLabelNomeTreino"
+        android:layout_below="@+id/txtNomeTreino"
         android:layout_alignLeft="@+id/txtLabelNomeTreino"
         android:layout_alignStart="@+id/txtLabelNomeTreino"
         android:layout_marginTop="20dp"
@@ -53,6 +54,19 @@
         android:layout_marginLeft="29dp"
         android:layout_marginStart="29dp" />
 
+
+    <Button
+        style="@style/btnNetfitness"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnLabelVisualizarHistorico"
+        android:id="@+id/buttonHistorico"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/txtDescricaoTreino"
+        android:layout_alignLeft="@+id/txtLabelDescricaoTreino"
+        android:layout_alignStart="@+id/txtLabelDescricaoTreino" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,9 +75,10 @@
         android:id="@+id/txtLabelExercicios"
         android:layout_marginTop="30dp"
         android:textColor="#ff1997ff"
-        android:layout_below="@+id/txtLabelDescricaoTreino"
+        android:layout_below="@+id/buttonHistorico"
         android:layout_alignLeft="@+id/txtLabelDescricaoTreino"
         android:layout_alignStart="@+id/txtLabelDescricaoTreino" />
+
 
 
 
@@ -73,6 +88,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/listViewExercicios" />
+
+
 
 
 </RelativeLayout>
