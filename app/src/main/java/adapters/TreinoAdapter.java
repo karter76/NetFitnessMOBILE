@@ -50,8 +50,7 @@ public class TreinoAdapter extends BaseAdapter
     public View getView(int i, View convertView, ViewGroup viewGroup) {
         Object treino = new Object();
         treino = listaTreinos.get(i);
-        //(listaTreinos.get(i));
-        //Map<String, String> treino = listaTreinos.get(i);
+
         if (convertView == null){
             convertView = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.item_treino, null);
