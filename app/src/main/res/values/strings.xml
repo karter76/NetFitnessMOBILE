@@ -17,27 +17,29 @@
     <string name="altura_peso_zero">Altura e peso não pode ser menor do que zero</string>
 
     <!--
-    <string name="web_service_login">http://192.168.25.6/NetFitness/webservice/login.php</string>
-    <string name="web_service_listar_treinos_instrutor">http://192.168.25.6/NetFitness/webservice/listarTreinosInstrutor.php</string>
-    <string name="web_service_listar_treinos_aluno">http://192.168.25.6/NetFitness/webservice/listarTreinosAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="web_service_listar_exames_fisicos_aluno">http://192.168.25.6/NetFitness/webservice/listarExamesFisicosAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="web_service_excluir_treino">http://192.168.25.6/NetFitness/webservice/excluirTreino.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="web_service_listar_exercicios">http://192.168.25.6/NetFitness/webservice/listarExercicios.php</string>
-    <string name="web_service_inserir_treino">http://192.168.25.6/NetFitness/webservice/inserirTreino.php</string>
-    <string name="web_service_alterar_treino">http://192.168.25.6/NetFitness/webservice/alterarTreino.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="web_service_listar_treinos_realizados">http://192.168.25.6/NetFitness/webservice/listarTreinosRealizados.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+        <string name="web_service_login">http://192.168.25.6/NetFitness/webservice/login.php</string>
+        <string name="web_service_listar_treinos_instrutor">http://192.168.25.6/NetFitness/webservice/listarTreinosInstrutor.php</string>
+        <string name="web_service_listar_treinos_aluno">http://192.168.25.6/NetFitness/webservice/listarTreinosAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+        <string name="web_service_listar_exames_fisicos_aluno">http://192.168.25.6/NetFitness/webservice/listarExamesFisicosAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+        <string name="web_service_excluir_treino">http://192.168.25.6/NetFitness/webservice/excluirTreino.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+        <string name="web_service_listar_exercicios">http://192.168.25.6/NetFitness/webservice/listarExercicios.php</string>
+        <string name="web_service_inserir_treino">http://192.168.25.6/NetFitness/webservice/inserirTreino.php</string>
+        <string name="web_service_alterar_treino">http://192.168.25.6/NetFitness/webservice/alterarTreino.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+        <string name="web_service_listar_treinos_realizados">http://192.168.25.6/NetFitness/webservice/listarTreinosRealizados.php?XDEBUG_SESSION_T=netbeans-xdebug</string>
     -->
 
-    <string name="web_service_login">http://www.netfitness.net.br/webservice/login.php</string>
-    <string name="web_service_listar_treinos_instrutor">http://www.netfitness.net.br/webservice/listarTreinosInstrutor.php</string>
-    <string name="web_service_listar_treinos_aluno">http://www.netfitness.net.br/webservice/listarTreinosAluno.php</string>
-    <string name="web_service_listar_exames_fisicos_aluno">http://www.netfitness.net.br/webservice/listarExamesFisicosAluno.php</string>
-    <string name="web_service_excluir_treino">http://www.netfitness.net.br/webservice/excluirTreino.php</string>
-    <string name="web_service_listar_exercicios">http://www.netfitness.net.br/webservice/listarExercicios.php</string>
-    <string name="web_service_inserir_treino">http://www.netfitness.net.br/webservice/inserirTreino.php</string>
-    <string name="web_service_alterar_treino">http://www.netfitness.net.br/webservice/alterarTreino.php</string>
-    <string name="web_service_listar_treinos_realizados">http://www.netfitness.net.br/webservice/listarTreinosRealizados.php</string>
+        <string name="web_service_login">http://www.netfitness.net.br/webservice/login.php</string>
+        <string name="web_service_listar_treinos_instrutor">http://www.netfitness.net.br/webservice/listarTreinosInstrutor.php</string>
+        <string name="web_service_listar_treinos_aluno">http://www.netfitness.net.br/webservice/listarTreinosAluno.php</string>
+        <string name="web_service_listar_exames_fisicos_aluno">http://www.netfitness.net.br/webservice/listarExamesFisicosAluno.php</string>
+        <string name="web_service_excluir_treino">http://www.netfitness.net.br/webservice/excluirTreino.php</string>
+        <string name="web_service_listar_exercicios">http://www.netfitness.net.br/webservice/listarExercicios.php</string>
+        <string name="web_service_inserir_treino">http://www.netfitness.net.br/webservice/inserirTreino.php</string>
+        <string name="web_service_alterar_treino">http://www.netfitness.net.br/webservice/alterarTreino.php</string>
+        <string name="web_service_listar_treinos_realizados">http://www.netfitness.net.br/webservice/listarTreinosRealizados.php</string>
 
+
+    <string name="endereco_fotos_alunos">http://www.netfitness.net.br/web/images/usuarios/alunos/</string>
 
 
     <string name="loading">Loading</string>
@@ -54,6 +56,7 @@
         <item>Visualizar Gráficos</item>
         <item>Comparar Gráficos</item>
         <item>Calcular IMC</item>
+        <item>Mostrar Foto</item>
     </string-array>
 
     <string name="title_activity_aluno">AlunoActivity</string>
@@ -101,6 +104,8 @@
     <string name="labelCompararGraficos">Comparar Gráficos</string>
     <string name="no_element_comparar_grafico">É necessario selecionar pelo menos dois gráficos para efetuar a comparação</string>
     <string name="too_much_elements_comparar_grafico">Não é possível comparar mais de quatro gráficos</string>
+    <string name="labelButtonMudarFoto">Mudar Foto</string>
+    <string name="labelButtonFileBack">Back</string>
 
 
 </resources>

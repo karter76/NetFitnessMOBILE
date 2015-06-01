@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,6 +27,7 @@ import java.util.List;
 
 import interfaces.ClicouNoCompararGraficos;
 import interfaces.ClicouNoHistoricoTreinoListener;
+import interfaces.ClicouNoMudarFoto;
 import interfaces.OnVisualizarExamesFisicosCompleted;
 import interfaces.OnVisualizarHistoricoTreinoCompleted;
 import interfaces.OnVisualizarTreinosCompleted;
@@ -35,7 +37,8 @@ import utils.JSONConvert;
 
 public class AlunoActivity extends ActionBarActivity implements OnVisualizarTreinosCompleted, clicouNoTreinoListener,
                                                                 OnVisualizarExamesFisicosCompleted, ClicouNoHistoricoTreinoListener,
-                                                                OnVisualizarHistoricoTreinoCompleted, ClicouNoCompararGraficos{
+                                                                OnVisualizarHistoricoTreinoCompleted, ClicouNoCompararGraficos,
+                                                                ClicouNoMudarFoto{
 
     JSONObject json;
     private String[] items;
@@ -57,6 +60,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     private static final int VISUALIZAR_GRAFICOS = 1;
     private static final int COMPARAR_GRAFICOS = 2;
     private static final int CALCULAR_IMC = 3;
+    private static final int MOSTRAR_FOTO = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +130,9 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
                     case CALCULAR_IMC : calcularIMC();
                         break;
+
+                    case MOSTRAR_FOTO : mostarFoto();
+                        break;
                 }
 
                 mDrawerLayout.closeDrawer(mDrawerList);
@@ -147,9 +154,29 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         progress.dismiss();
     }
 
+
+
+    private void mostarFoto()
+    {
+        try
+        {
+            String nomeFoto = json.getJSONObject("usuario").getString("Aluno.foto");
+
+            FotoFragment fragmentFoto = FotoFragment.newInstance(nomeFoto);
+            mudarFragment(fragmentFoto, R.id.content_frame_aluno, "FragmentFoto", false);
+        }
+        catch (JSONException e)
+        {
+            Toast toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+    }
+
+
     private void compararGraficos()
     {
-        SelecionarGraficoFragment fragmentSelecionarGraficos = SelecionarGraficoFragment.newInstance(/*"",""*/);
+        SelecionarGraficoFragment fragmentSelecionarGraficos = SelecionarGraficoFragment.newInstance();
         mudarFragment(fragmentSelecionarGraficos, R.id.content_frame_aluno, "FragmentSelecionarGraficos", false);
     }
 
@@ -286,10 +313,16 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
     @Override
     public void aoCompararGraficos(String graficosSelecionados) {
-
-        //Toast toast = Toast.makeText(this, graficosSelecionados.get(0), Toast.LENGTH_SHORT);
-        //toast.show();
         visualizarGraficos(graficosSelecionados);
+    }
+
+    @Override
+    public void aoClicarNoMudarFoto(String nomeNovaFotoAluno) {
+        //Toast toast = Toast.makeText(this, nomeNovaFotoAluno, Toast.LENGTH_SHORT);
+        //toast.show();
+
+        ListarArquivosFragment fragmentListarArquivos = ListarArquivosFragment.newInstance();
+        mudarFragment(fragmentListarArquivos, R.id.content_frame_aluno, "FragmentListarArquivos", false);
     }
 
     private class AsynkTaskVisualizarHistoricoTreinos extends AsyncTask<String, String, JSONObject>
@@ -468,6 +501,15 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                 Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
                 toast.show();
             }
+        }
+    }
+
+    private class AsyncTaskMostrarFoto extends AsyncTask <String, String, JSONObject>
+    {
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            return null;
         }
     }
 }

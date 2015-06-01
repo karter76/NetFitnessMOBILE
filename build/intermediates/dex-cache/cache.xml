@@ -2,18 +2,18 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\exploded-aar\com.jjoe64\graphview\4.0.1\classes.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="37bf8de5b4f9e7e93006db783b9b3168e32e38e9">
-        <dex dex="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\pre-dexed\debug\classes-6ffb13c1048faf4645cfb2d259a6b9ab8bee6c22.jar" />
-    </item>
-    <item
         jar="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.0\classes.jar"
         jumboMode="false"
         revision="22.0.0"
         sha1="95fd37732ec852e99f07eeb516a3650172f1d136">
         <dex dex="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\pre-dexed\debug\classes-78175ed01d14edf2ff55e1ad02e6f3aecd6e9be5.jar" />
+    </item>
+    <item
+        jar="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\exploded-aar\com.jjoe64\graphview\4.0.1\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="37bf8de5b4f9e7e93006db783b9b3168e32e38e9">
+        <dex dex="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\pre-dexed\debug\classes-6ffb13c1048faf4645cfb2d259a6b9ab8bee6c22.jar" />
     </item>
     <item
         jar="C:\AndroidSDK\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
@@ -63,6 +63,13 @@
         revision="22.0.0"
         sha1="da217367fd25e88df52ba79e47658d4cf928b0d1">
         <dex dex="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\pre-dexed\debug\commons-collections4-4.0-d64a149ef0bfaddd5fd392544fdc69c553fae2d0.jar" />
+    </item>
+    <item
+        jar="C:\Users\Daniele\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.3.4\3b646ddbdac8a33fc45b64564011da81d23e4635\picasso-2.3.4.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="3b646ddbdac8a33fc45b64564011da81d23e4635">
+        <dex dex="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\pre-dexed\debug\picasso-2.3.4-0c70f0704c2d21710531c8c8289c86ba76bbc2ff.jar" />
     </item>
     <item
         jar="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\libs\internal_impl-21.0.0.jar"

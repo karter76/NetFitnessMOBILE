@@ -81,12 +81,6 @@ public class VisualizarHistoricoTreinoFragment extends Fragment {
             qtdTreinos.setText((String)mapHistoricoTreino.get("qtdTreinos"));
             txtTreinosFinalizados.setText(Integer.toString(listaDatasTreinosRealizados.size()));
 
-            /*
-            String string = "January 2, 2010";
-            DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-            Date date = format.parse(string);
-            System.out.println(date); // Sat Jan 02 00:00:00 GMT 2010
-            */
 
              final ArrayList<String> finalListaDatasTreinosRealizados = new ArrayList<>();
              Locale.setDefault (new Locale ("pt", "BR"));

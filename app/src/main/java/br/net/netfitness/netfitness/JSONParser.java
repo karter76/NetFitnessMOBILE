@@ -10,6 +10,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,17 +37,17 @@ public class JSONParser {
     }
 
     public JSONObject getJSONFromUrl(String url, List params) {
-
-        StrictMode.ThreadPolicy policy = new
-                StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
         // Making HTTP request
         try {
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
             httpPost.setEntity(new UrlEncodedFormEntity(params));
+
+            /*
+            HttpParams httpParameters = new BasicHttpParams();
+            httpClient.setParams(httpParameters);
+            */
 
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
@@ -58,6 +60,7 @@ public class JSONParser {
             Log.e("EXCEPTION",e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
+
             Log.e("EXCEPTION",e.getMessage());
             e.printStackTrace();
         }
