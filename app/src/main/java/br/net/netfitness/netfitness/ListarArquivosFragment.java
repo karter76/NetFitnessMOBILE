@@ -20,15 +20,12 @@ import java.util.List;
 import adapters.FileAdapter;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ListarArquivosFragment extends Fragment {
 
     private List<File> fileList = new ArrayList<File>();
-    private String pastaAnterior = "";
+    private File pastaAnterior;
     private File root;
-    private File rootLast;
+    private File selected;
 
     public ListarArquivosFragment() {
         // Required empty public constructor
@@ -39,9 +36,6 @@ public class ListarArquivosFragment extends Fragment {
     {
 
         ListarArquivosFragment fragment = new ListarArquivosFragment();
-        //Bundle args = new Bundle();
-        //args.putSerializable(JSON_TREINO, (java.io.Serializable) treino);
-        //fragment.setArguments(args);
         return fragment;
     }
 
@@ -53,7 +47,7 @@ public class ListarArquivosFragment extends Fragment {
         root = new File(Environment
                 .getExternalStorageDirectory()
                 .getAbsolutePath());
-        rootLast = root.getAbsoluteFile().getParentFile();
+        pastaAnterior = root;
         listarPasta(root);
 
     }
@@ -71,22 +65,24 @@ public class ListarArquivosFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_listar_arquivos, container, false);
 
-        ListView lv = (ListView) view.findViewById(R.id.lista_arquivos);
-        //final ArrayAdapter<String> directoryList = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, fileList);
+        ListView listViewArquivos = (ListView) view.findViewById(R.id.lista_arquivos);
         final FileAdapter fileAdapter = new FileAdapter((ArrayList<File>) fileList);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        listViewArquivos.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                File selected = fileList.get(position);
-                if(selected.isDirectory()){
-                    pastaAnterior = rootLast+"/"+selected.getAbsoluteFile().getParentFile().getName();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                selected = fileList.get(position);
+                if (selected.isDirectory()) {
+                    pastaAnterior = new File(selected.getParent());
                     listarPasta(selected);
-                   // ArrayAdapter<String> directoryList = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, fileList);
                     fileAdapter.notifyDataSetChanged();
-                }else {
+                } else {
                     Toast.makeText(getActivity(),
                             selected.toString() + " selected",
                             Toast.LENGTH_LONG).show();
@@ -96,15 +92,23 @@ public class ListarArquivosFragment extends Fragment {
 
         Button btnBack = (Button) view.findViewById(R.id.buttonFileBack);
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-                listarPasta(rootLast);
-                fileAdapter.notifyDataSetChanged();
+            public void onClick(View v)
+            {
+                String anterior = pastaAnterior.getName();
+                if(!pastaAnterior.getName().equals(""))
+                {
+                    listarPasta(pastaAnterior);
+                    pastaAnterior = new File(pastaAnterior.getParent());
+                    fileAdapter.notifyDataSetChanged();
+                }
+
             }
         });
 
-        lv.setAdapter(fileAdapter);
+        listViewArquivos.setAdapter(fileAdapter);
 
         return view;
     }

@@ -70,10 +70,10 @@ public class LoginActivity extends ActionBarActivity {
                 if (temConexao())
                 {
                     loginTask = new AsynckTaskLogin(v.getContext());
-                    loginTask.execute(inputLogin.getText().toString(), inputSenha.getText().toString());
+                    //loginTask.execute(inputLogin.getText().toString(), inputSenha.getText().toString());
                     //loginTask.execute("123", "123");
                     //loginTask.execute("aaa", "aaa");
-                    //loginTask.execute("pinolone", "pignolone");
+                    loginTask.execute("pinolone", "pignolone");
                     //loginTask.execute("bbb", "bbb");
                     progress = new ProgressDialog(instance);
                     progress.setTitle(getResources().getString(R.string.loading));
