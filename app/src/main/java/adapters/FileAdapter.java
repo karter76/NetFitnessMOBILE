@@ -11,6 +11,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import br.net.netfitness.netfitness.FotoFragment;
 import br.net.netfitness.netfitness.R;
@@ -21,6 +23,7 @@ import br.net.netfitness.netfitness.R;
 public class FileAdapter extends BaseAdapter
 {
     ArrayList<File> listaArquivos;
+    List<String> tipos = Arrays.asList("gif", "GIF", "jpg", "JPG", "png", "PNG", "jpeg", "JPEG");
 
     public FileAdapter(ArrayList<File> listaArquivos)
     {
@@ -65,7 +68,7 @@ public class FileAdapter extends BaseAdapter
 
         if(arquivo.isFile())
         {
-            if(ext3.equals("jpg")||(ext3.equals("png"))||ext3.equals("gif")||ext4.equals("jpeg"))
+            if(tipos.contains(ext3)||tipos.contains(ext4))
             {
                 Picasso.with(viewGroup.getContext()).load(arquivo).fit().centerCrop().into(icone);
             }
