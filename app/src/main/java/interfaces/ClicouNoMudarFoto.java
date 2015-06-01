@@ -7,5 +7,5 @@ import android.media.Image;
  */
 public interface ClicouNoMudarFoto
 {
-    void aoClicarNoMudarFoto(String nomeNovaFotoAluno);
+    void aoClicarNoMudarFoto();
 }

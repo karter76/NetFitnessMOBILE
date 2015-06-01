@@ -21,16 +21,28 @@
                 android:background="@drawable/borda_foto"
                 android:id="@+id/fotoAluno"
                 android:layout_marginTop="50dp"
-                android:layout_marginBottom="50dp"/>
+                android:layout_marginBottom="30dp"/>
 
             <Button
             style="@style/btnNetfitness"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:text="@string/labelButtonMudarFoto"
             android:id="@+id/buttonMudarFoto"
             android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="50dp" />
+                android:layout_marginBottom="30dp" />
+
+            <Button
+                style="@style/btnNetfitness"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/labelButtonConfirmarFoto"
+                android:id="@+id/buttonConfirmarFoto"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                android:layout_marginBottom="30dp"
+                />
+
             </LinearLayout>
 
 

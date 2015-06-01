@@ -21,10 +21,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import interfaces.ClicouNaFotoListener;
 import interfaces.ClicouNoCompararGraficos;
 import interfaces.ClicouNoHistoricoTreinoListener;
 import interfaces.ClicouNoMudarFoto;
@@ -38,7 +40,7 @@ import utils.JSONConvert;
 public class AlunoActivity extends ActionBarActivity implements OnVisualizarTreinosCompleted, clicouNoTreinoListener,
                                                                 OnVisualizarExamesFisicosCompleted, ClicouNoHistoricoTreinoListener,
                                                                 OnVisualizarHistoricoTreinoCompleted, ClicouNoCompararGraficos,
-                                                                ClicouNoMudarFoto{
+                                                                ClicouNoMudarFoto, ClicouNaFotoListener{
 
     JSONObject json;
     private String[] items;
@@ -162,7 +164,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         {
             String nomeFoto = json.getJSONObject("usuario").getString("Aluno.foto");
 
-            FotoFragment fragmentFoto = FotoFragment.newInstance(nomeFoto);
+            FotoFragment fragmentFoto = FotoFragment.newInstance(nomeFoto, null);
             mudarFragment(fragmentFoto, R.id.content_frame_aluno, "FragmentFoto", false);
         }
         catch (JSONException e)
@@ -317,12 +319,18 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     }
 
     @Override
-    public void aoClicarNoMudarFoto(String nomeNovaFotoAluno) {
+    public void aoClicarNoMudarFoto() {
         //Toast toast = Toast.makeText(this, nomeNovaFotoAluno, Toast.LENGTH_SHORT);
         //toast.show();
 
         ListarArquivosFragment fragmentListarArquivos = ListarArquivosFragment.newInstance();
         mudarFragment(fragmentListarArquivos, R.id.content_frame_aluno, "FragmentListarArquivos", false);
+    }
+
+    @Override
+    public void aoClicarNaFoto(File arquivo) {
+        FotoFragment fragmentFoto = FotoFragment.newInstance("", arquivo);
+        mudarFragment(fragmentFoto, R.id.content_frame_aluno, "FragmentFoto", false);
     }
 
     private class AsynkTaskVisualizarHistoricoTreinos extends AsyncTask<String, String, JSONObject>

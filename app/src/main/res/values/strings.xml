@@ -106,6 +106,8 @@
     <string name="too_much_elements_comparar_grafico">Não é possível comparar mais de quatro gráficos</string>
     <string name="labelButtonMudarFoto">Mudar Foto</string>
     <string name="labelButtonFileBack">Back</string>
+    <string name="labelButtonConfirmarFoto">Confirmar</string>
+    <string name="file_not_supported">O arquivo selecionado não é um tipo de imagem suportada</string>
 
 
 </resources>

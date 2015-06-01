@@ -8,16 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import adapters.FileAdapter;
+import interfaces.ClicouNaFotoListener;
 
 
 public class ListarArquivosFragment extends Fragment {
@@ -26,6 +27,7 @@ public class ListarArquivosFragment extends Fragment {
     private File pastaAnterior;
     private File root;
     private File selected;
+    private List<String> tipos = Arrays.asList("gif", "GIF", "jpg", "JPG", "png", "PNG", "jpeg", "JPEG");
 
     public ListarArquivosFragment() {
         // Required empty public constructor
@@ -82,10 +84,25 @@ public class ListarArquivosFragment extends Fragment {
                     pastaAnterior = new File(selected.getParent());
                     listarPasta(selected);
                     fileAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(getActivity(),
-                            selected.toString() + " selected",
-                            Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    String ext3="", ext4 = "";
+                    if(selected.getName().length()>=4){ext3 = selected.getName().substring(selected.getName().length() - 3);}
+                    if(selected.getName().length()>=5){ext4 = selected.getName().substring(selected.getName().length() - 4);}
+
+                    if(tipos.contains(ext3)||tipos.contains(ext4))
+                    {
+                        if (getActivity() instanceof ClicouNaFotoListener) {
+                            ClicouNaFotoListener listener = (ClicouNaFotoListener) getActivity();
+                            listener.aoClicarNaFoto(selected);
+                        }
+                    }
+                    else
+                    {
+                        Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.file_not_supported), Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
                 }
             }
         });

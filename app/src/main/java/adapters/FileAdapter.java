@@ -50,6 +50,7 @@ public class FileAdapter extends BaseAdapter
 
 
         File arquivo = listaArquivos.get(position);
+
         String ext3="", ext4 = "";
         if(arquivo.getName().length()>=4){ext3 = arquivo.getName().substring(arquivo.getName().length() - 3);}
         if(arquivo.getName().length()>=5){ext4 = arquivo.getName().substring(arquivo.getName().length() - 4);}
