@@ -319,11 +319,11 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     }
 
     @Override
-    public void aoClicarNoMudarFoto() {
+    public void aoClicarNoMudarFoto(File arquivo) {
         //Toast toast = Toast.makeText(this, nomeNovaFotoAluno, Toast.LENGTH_SHORT);
         //toast.show();
 
-        ListarArquivosFragment fragmentListarArquivos = ListarArquivosFragment.newInstance();
+        ListarArquivosFragment fragmentListarArquivos = ListarArquivosFragment.newInstance(arquivo);
         mudarFragment(fragmentListarArquivos, R.id.content_frame_aluno, "FragmentListarArquivos", false);
     }
 

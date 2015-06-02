@@ -76,7 +76,7 @@ public class FotoFragment extends Fragment /*implements ClicouNaFoto*/
                 if(getActivity() instanceof ClicouNoMudarFoto)
                 {
                     ClicouNoMudarFoto listener = (ClicouNoMudarFoto) getActivity();
-                    listener.aoClicarNoMudarFoto();
+                    listener.aoClicarNoMudarFoto(fotoRetornada);
                 }
             }
         });

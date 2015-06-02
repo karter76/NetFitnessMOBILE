@@ -23,10 +23,14 @@ import interfaces.ClicouNaFotoListener;
 
 public class ListarArquivosFragment extends Fragment {
 
+
+    private static final String PASTA_ATUAL = "pastaAtual";
+
     private List<File> fileList = new ArrayList<File>();
     private File pastaAnterior;
     private File root;
     private File selected;
+    private static String pastaAtual;
     private List<String> tipos = Arrays.asList("gif", "GIF", "jpg", "JPG", "png", "PNG", "jpeg", "JPEG");
 
     public ListarArquivosFragment() {
@@ -34,22 +38,45 @@ public class ListarArquivosFragment extends Fragment {
     }
 
 
-    public static ListarArquivosFragment newInstance()
+    public static ListarArquivosFragment newInstance(File foto)
     {
 
         ListarArquivosFragment fragment = new ListarArquivosFragment();
+
+        if(foto!=null) {
+            Bundle args = new Bundle();
+            args.putString(PASTA_ATUAL, foto.getParent());
+            pastaAtual = foto.getParent();
+            fragment.setArguments(args);
+        }
+
         return fragment;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(PASTA_ATUAL, pastaAtual);
+
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        root = new File(Environment
-                .getExternalStorageDirectory()
-                .getAbsolutePath());
-        pastaAnterior = root;
+        if (getArguments() != null)
+        {
+            root = new File(getArguments().getString(PASTA_ATUAL));
+            pastaAnterior = new File (root.getParent());
+        }
+        else
+        {
+            root = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+            pastaAnterior = root;
+        }
+
+
         listarPasta(root);
 
     }
