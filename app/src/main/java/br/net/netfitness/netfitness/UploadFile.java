@@ -10,7 +10,11 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -27,6 +31,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 /**
  * Created by Daniele on 04/06/2015.
@@ -68,21 +74,23 @@ public class UploadFile {
 
         try
         {
-            data = IOUtils.toByteArray(inputStream);
-
             HttpClient httpClient = new DefaultHttpClient();
             httpClient.getParams().setParameter(CoreProtocolPNames.USER_AGENT, System.getProperty("http.agent"));
 
             HttpPost httpPost = new HttpPost(mWebServiceName);
-            InputStreamBody inputStreamBody = new InputStreamBody(new ByteArrayInputStream(data), mNameFile);
-            MultipartEntity multipartEntity = new MultipartEntity();
-            multipartEntity.addPart("file", inputStreamBody);
-            multipartEntity.addPart("idAluno", new StringBody(mIdAluno));
-            multipartEntity.addPart("login", new StringBody(mLoginAluno));
-            multipartEntity.addPart("senha", new StringBody(mSenhaAluno));
-            multipartEntity.addPart("novoNomeFile", new StringBody(mNewFileName));
 
-            httpPost.setEntity(multipartEntity);
+            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+            builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+            FileBody fileBody = new FileBody(new File(mNameFile));
+            builder.addPart("file", fileBody);
+            builder.addTextBody("idAluno",mIdAluno, ContentType.TEXT_PLAIN);
+            builder.addTextBody("login", mLoginAluno, ContentType.TEXT_PLAIN);
+            builder.addTextBody("senha", mSenhaAluno, ContentType.TEXT_PLAIN);
+            builder.addTextBody("novoNomeFile",mNewFileName, ContentType.TEXT_PLAIN);
+
+            HttpEntity entity = builder.build();
+            httpPost.setEntity(entity);
+
             HttpResponse httpResponse = httpClient.execute(httpPost);
             try {
                 HttpEntity httpEntity = httpResponse.getEntity();

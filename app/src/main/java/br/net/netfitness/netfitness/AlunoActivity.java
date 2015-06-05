@@ -419,23 +419,16 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             try
             {
                 UploadFile uf= new UploadFile(params[0], params[1], params[2], params[3], nomeFotoNovo, getResources().getString(R.string.web_service_upload_file));
-
-                try
-                {
-                    json = uf.SendFile();
-                }
-                catch (Exception e)
-                {
-                    Toast toast = Toast.makeText(AlunoActivity.this, getResources().getString(R.string.file_not_uploaded) + e.getMessage(), Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-
+                json = uf.SendFile();
             }
             catch (Exception e)
             {
                 Toast toast = Toast.makeText(AlunoActivity.this, getResources().getString(R.string.file_not_uploaded) + e.getMessage(), Toast.LENGTH_SHORT);
                 toast.show();
             }
+
+
+
 
 
             nomeFotoAluno = nomeFotoNovo;
