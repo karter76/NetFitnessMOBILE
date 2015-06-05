@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.TreinoAdapter;
-import interfaces.clicouNoExcluirTreinoListener;
+import interfaces.ClicouNoExcluirTreinoListener;
 
 
 public class ExcluirTreinoFragment extends Fragment {
@@ -101,8 +101,8 @@ public class ExcluirTreinoFragment extends Fragment {
 
     private void notificarClique(int i) {
 
-        if (getActivity() instanceof clicouNoExcluirTreinoListener){
-            clicouNoExcluirTreinoListener listener = (clicouNoExcluirTreinoListener)getActivity();
+        if (getActivity() instanceof ClicouNoExcluirTreinoListener){
+            ClicouNoExcluirTreinoListener listener = (ClicouNoExcluirTreinoListener)getActivity();
             try {
                 listener.aoExcluirOTreino(mapListaTreinos.get(i));
             } catch (JSONException e) {

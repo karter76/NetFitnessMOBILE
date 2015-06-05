@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,13 +24,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import interfaces.ClicouNoInserirTreinoListener;
 import interfaces.OnExcluirTreinoCompleted;
 import interfaces.OnInserirTreinoCompleted;
 import interfaces.OnTaskTreinoCompleted;
 import interfaces.OnVisualizarTreinosCompleted;
-import interfaces.clicouNoExcluirTreinoListener;
-import interfaces.clicouNoInserirTreinoListener;
-import interfaces.clicouNoTreinoListener;
+import interfaces.ClicouNoExcluirTreinoListener;
+import interfaces.ClicouNoTreinoListener;
 import utils.JSONConvert;
 
 
@@ -39,9 +38,9 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
                                                                     OnExcluirTreinoCompleted,
                                                                     OnInserirTreinoCompleted,
                                                                     OnTaskTreinoCompleted,
-                                                                    clicouNoTreinoListener,
-                                                                    clicouNoExcluirTreinoListener,
-                                                                    clicouNoInserirTreinoListener
+        ClicouNoTreinoListener,
+        ClicouNoExcluirTreinoListener,
+        ClicouNoInserirTreinoListener
 {
 
     JSONObject json;

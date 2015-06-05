@@ -2,7 +2,6 @@ package br.net.netfitness.netfitness;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -16,14 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.commons.collections4.functors.StringValueTransformer;
 import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import interfaces.clicouNoInserirTreinoListener;
+import interfaces.ClicouNoInserirTreinoListener;
 
 
 public class InserirTreinoFragment extends Fragment
@@ -146,8 +144,8 @@ public class InserirTreinoFragment extends Fragment
             @Override
             public void onClick(View v) {
 
-                if (getActivity() instanceof clicouNoInserirTreinoListener){
-                    clicouNoInserirTreinoListener listener = (clicouNoInserirTreinoListener)getActivity();
+                if (getActivity() instanceof ClicouNoInserirTreinoListener){
+                    ClicouNoInserirTreinoListener listener = (ClicouNoInserirTreinoListener)getActivity();
                     try {
 
                         listaDadosExercicios = new ArrayList<HashMap<String, String>>();

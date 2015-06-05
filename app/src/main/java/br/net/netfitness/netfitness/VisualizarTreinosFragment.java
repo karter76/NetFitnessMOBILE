@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.TreinoAdapter;
-import interfaces.clicouNoTreinoListener;
+import interfaces.ClicouNoTreinoListener;
 
 
 /**
@@ -79,8 +79,8 @@ public class VisualizarTreinosFragment extends Fragment {
     private void notificarClique(int i) {
         // Estado estado = mEstados.get(i);
         Activity act = getActivity();
-        if (getActivity() instanceof clicouNoTreinoListener){
-            clicouNoTreinoListener listener = (clicouNoTreinoListener)getActivity();
+        if (getActivity() instanceof ClicouNoTreinoListener){
+            ClicouNoTreinoListener listener = (ClicouNoTreinoListener)getActivity();
             listener.aoClicarNoTreino(mapListaTreinos.get(i));
             // Toast toast = Toast.makeText(this.getActivity(), "cliccato", Toast.LENGTH_SHORT);
             // toast.show();

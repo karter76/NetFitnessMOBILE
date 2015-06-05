@@ -1,46 +1,65 @@
 package br.net.netfitness.netfitness;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
+import org.apache.commons.io.FilenameUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import interfaces.ClicouNaFotoListener;
 import interfaces.ClicouNoCompararGraficos;
+import interfaces.ClicouNoConfirmarMudarFoto;
 import interfaces.ClicouNoHistoricoTreinoListener;
 import interfaces.ClicouNoMudarFoto;
+import interfaces.OnUploadCompleted;
 import interfaces.OnVisualizarExamesFisicosCompleted;
 import interfaces.OnVisualizarHistoricoTreinoCompleted;
 import interfaces.OnVisualizarTreinosCompleted;
-import interfaces.clicouNoTreinoListener;
+import interfaces.ClicouNoTreinoListener;
+import utils.Data;
 import utils.JSONConvert;
 
+import static org.apache.http.HttpStatus.SC_OK;
 
-public class AlunoActivity extends ActionBarActivity implements OnVisualizarTreinosCompleted, clicouNoTreinoListener,
+
+public class AlunoActivity extends ActionBarActivity implements OnVisualizarTreinosCompleted, ClicouNoTreinoListener,
                                                                 OnVisualizarExamesFisicosCompleted, ClicouNoHistoricoTreinoListener,
                                                                 OnVisualizarHistoricoTreinoCompleted, ClicouNoCompararGraficos,
-                                                                ClicouNoMudarFoto, ClicouNaFotoListener{
+                                                                ClicouNoMudarFoto, ClicouNaFotoListener, ClicouNoConfirmarMudarFoto,
+                                                                OnUploadCompleted{
 
     JSONObject json;
     private String[] items;
@@ -48,7 +67,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     private ListView mDrawerList;
     private int selectedPosition;
     private TextView mensagem;
-   // private int mAction;
+    private String nomeFotoAluno = "";
     private HashMap<String,Object> result;
     private  String mGraficosSelecionados;
     protected JSONObject jsonReturned;
@@ -56,6 +75,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     protected AsynckTaskListarTreinos listarTreinosTask;
     protected AsynkTaskListarGraficos listarGraficosTask;
     protected AsynkTaskVisualizarHistoricoTreinos visualizarHistoricoTreinosTask;
+
     ProgressDialog progress;
 
     private static final int VISUALIZAR_TREINOS = 0;
@@ -160,11 +180,17 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
     private void mostarFoto()
     {
+        String fotoAluno;
         try
         {
-            String nomeFoto = json.getJSONObject("usuario").getString("Aluno.foto");
-
-            FotoFragment fragmentFoto = FotoFragment.newInstance(nomeFoto, null);
+            if(nomeFotoAluno.equals("")) {
+                fotoAluno = json.getJSONObject("usuario").getString("Aluno.foto");
+            }
+            else
+            {
+                fotoAluno = nomeFotoAluno;
+            }
+            FotoFragment fragmentFoto = FotoFragment.newInstance(fotoAluno, null);
             mudarFragment(fragmentFoto, R.id.content_frame_aluno, "FragmentFoto", false);
         }
         catch (JSONException e)
@@ -331,6 +357,110 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     public void aoClicarNaFoto(File arquivo) {
         FotoFragment fragmentFoto = FotoFragment.newInstance("", arquivo);
         mudarFragment(fragmentFoto, R.id.content_frame_aluno, "FragmentFoto", false);
+    }
+
+    @Override
+    public void aoClicarNoConfirmarMudarFoto(File arquivo) {
+        showProgress();
+        AsyncTaskMudarFoto mudarFotoTask = new AsyncTaskMudarFoto(this);
+        mudarFotoTask.execute((String)result.get("Aluno.idAluno"), (String)result.get("Pessoa.login"),(String)result.get("Pessoa.senha"), arquivo.getPath());
+    }
+
+    @Override
+    public void onUploadCompleted(JSONObject json)
+    {
+        Toast toast = null;
+        String endereco_foto;
+        ImageView fotoAtualizada;
+        Button buttonFragmentFoto;
+
+        try
+        {
+           // JSONObject person =  jsonArray.getJSONObject(0).getJSONObject("person");
+           // person.put("name", "Sammie");
+
+
+            toast = Toast.makeText(this, json.getString("mensagem"), Toast.LENGTH_SHORT);
+            toast.show();
+            buttonFragmentFoto = (Button) findViewById(R.id.buttonConfirmarFoto);
+            buttonFragmentFoto.setVisibility(View.GONE);
+            fotoAtualizada = (ImageView) findViewById(R.id.fotoAluno);
+            endereco_foto = getResources().getString(R.string.endereco_fotos_alunos) + nomeFotoAluno;
+            Picasso.with(this).load(endereco_foto).fit().centerCrop().into(fotoAtualizada);
+
+        } catch (JSONException e) {
+            toast = Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+    }
+
+    private class AsyncTaskMudarFoto extends AsyncTask<String, Void, JSONObject>
+    {
+        private OnUploadCompleted listener;
+
+        private AsyncTaskMudarFoto(OnUploadCompleted listener) {
+            this.listener = listener;
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+
+            JSONObject json = null;
+            String splittedNomeFoto[];
+            String nomeFotoNovo;
+
+            splittedNomeFoto = params[3].split("/");
+            nomeFotoNovo = FilenameUtils.removeExtension(splittedNomeFoto[splittedNomeFoto.length-1]);
+
+            nomeFotoNovo += "_"+Data.generateString(5)+".";
+            nomeFotoNovo += FilenameUtils.getExtension(splittedNomeFoto[splittedNomeFoto.length-1]);
+
+            try
+            {
+                UploadFile uf= new UploadFile(params[0], params[1], params[2], params[3], nomeFotoNovo, getResources().getString(R.string.web_service_upload_file));
+
+                try
+                {
+                    json = uf.SendFile();
+                }
+                catch (Exception e)
+                {
+                    Toast toast = Toast.makeText(AlunoActivity.this, getResources().getString(R.string.file_not_uploaded) + e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Toast toast = Toast.makeText(AlunoActivity.this, getResources().getString(R.string.file_not_uploaded) + e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+
+            nomeFotoAluno = nomeFotoNovo;
+            return json;
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonResult) {
+            super.onPostExecute(jsonResult);
+
+            super.onPostExecute(jsonResult);
+
+            jsonReturned = jsonResult;
+
+
+            hideProgress();
+            try {
+                listener.onUploadCompleted(jsonResult);
+            } catch (JSONException e) {
+                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+        }
     }
 
     private class AsynkTaskVisualizarHistoricoTreinos extends AsyncTask<String, String, JSONObject>
@@ -519,5 +649,21 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         protected JSONObject doInBackground(String... params) {
             return null;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        //Handle the back button
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+
+            FecharAplicativoAlert.fechar(this);
+
+            return true;
+        }
+        else {
+            return super.onKeyDown(keyCode, event);
+        }
+
     }
 }

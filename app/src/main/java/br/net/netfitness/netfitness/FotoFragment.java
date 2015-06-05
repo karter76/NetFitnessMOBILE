@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
+import interfaces.ClicouNoConfirmarMudarFoto;
 import interfaces.ClicouNoMudarFoto;
 
 
@@ -66,6 +67,18 @@ public class FotoFragment extends Fragment /*implements ClicouNaFoto*/
         {
             btnConfirmarFoto.setVisibility(View.VISIBLE);
             Picasso.with(getActivity()).load(fotoRetornada).fit().centerCrop().into(fotoAluno);
+
+            btnConfirmarFoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (getActivity() instanceof ClicouNoConfirmarMudarFoto){
+                        ClicouNoConfirmarMudarFoto listener = (ClicouNoConfirmarMudarFoto)getActivity();
+                        listener.aoClicarNoConfirmarMudarFoto(fotoRetornada);
+
+                    }
+                }
+            });
         }
 
 
@@ -84,11 +97,4 @@ public class FotoFragment extends Fragment /*implements ClicouNaFoto*/
         return view;
     }
 
-/*
-    @Override
-    public void aoClicarNaFoto(File arquivo) {
-        Toast toast = Toast.makeText(getActivity(), arquivo.getName(), Toast.LENGTH_SHORT);
-        toast.show();
-    }
-    */
 }
