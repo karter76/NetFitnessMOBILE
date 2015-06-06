@@ -11,6 +11,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 /**
@@ -36,33 +38,44 @@ public class JSONParser {
 
     }
 
-    public JSONObject getJSONFromUrl(String url, List params) {
+    public JSONObject getJSONFromUrl(String url, List params) throws Exception{
         // Making HTTP request
         try {
             // defaultHttpClient
-            DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
-            httpPost.setEntity(new UrlEncodedFormEntity(params));
-
-            /*
             HttpParams httpParameters = new BasicHttpParams();
-            httpClient.setParams(httpParameters);
-            */
+
+            int timeoutConnection = 3000;
+            HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+            int timeoutSocket = 5000;
+            HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+
+            DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
+            HttpPost httpPost = new HttpPost(url);
+
+            httpPost.setEntity(new UrlEncodedFormEntity(params));
 
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
 
-        } catch (UnsupportedEncodingException e) {
+        }
+
+        catch (SocketTimeoutException e)
+        {
             Log.e("EXCEPTION",e.getMessage());
-            e.printStackTrace();
+            throw new Exception(e);
+        }
+
+        catch (UnsupportedEncodingException e) {
+            Log.e("EXCEPTION",e.getMessage());
+            throw new Exception(e);
         } catch (ClientProtocolException e) {
             Log.e("EXCEPTION",e.getMessage());
-            e.printStackTrace();
+            throw new Exception(e);
         } catch (IOException e) {
 
             Log.e("EXCEPTION",e.getMessage());
-            e.printStackTrace();
+            throw new Exception(e);
         }
 
 

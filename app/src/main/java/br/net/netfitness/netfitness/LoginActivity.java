@@ -117,77 +117,76 @@ public class LoginActivity extends ActionBarActivity {
     private class AsynckTaskLogin extends AsyncTask<String, String, JSONObject>
     {
         private Context mContext;
+        private Exception asynkTaskException;
 
         public AsynckTaskLogin(Context context)
         {
             mContext = context;
         }
 
+
         @Override
         protected JSONObject doInBackground(String... params)
         {
-
+            JSONObject json = new JSONObject();
             try
             {
                 JSONParser jsonParser = new JSONParser();
                 List jsonParams = new ArrayList();
                 jsonParams.add(new BasicNameValuePair("login", params[0]));
                 jsonParams.add(new BasicNameValuePair("senha", params[1]));
-                JSONObject json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_login), jsonParams);
+                json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_login), jsonParams);
 
                 return json;
 
             }
             catch (Exception e)
             {
-                Toast toast = Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
-                toast.show();
+                asynkTaskException = e;
             }
 
-            return null;
+            return json;
         }
 
         @Override
-        protected void onPostExecute(JSONObject jsonResult)
-        {
+        protected void onPostExecute(JSONObject jsonResult) {
             super.onPostExecute(jsonResult);
             jsonReturned = jsonResult;
 
             progress.dismiss();
 
-            try
-            {
-                if(jsonResult.getString("tipoUsuario").equals("Desconhecido")) {
-                    Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
+            if (asynkTaskException == null) {
+
+                try {
+                    if (jsonResult.getString("tipoUsuario").equals("Desconhecido")) {
+                        Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
+                        if (jsonResult.getString("tipoUsuario").equals("Instrutor")) {
+                            Intent intent = new Intent(getBaseContext(), InstrutorActivity.class);
+                            intent.putExtra("EXTRA_USUARIO_JSON", jsonResult.toString());
+                            startActivity(intent);
+                        } else if (jsonResult.getString("tipoUsuario").equals("Aluno")) {
+                            Intent intent = new Intent(getBaseContext(), AlunoActivity.class);
+                            intent.putExtra("EXTRA_USUARIO_JSON", jsonResult.toString());
+                            startActivity(intent);
+                        } else {
+                            Toast toast = Toast.makeText(getBaseContext(), R.string.user_not_allowed, Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }
+                } catch (JSONException e) {
+                    Toast toast = Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
                     toast.show();
                 }
-                else
-                {
-                    if(jsonResult.getString("tipoUsuario").equals("Instrutor"))
-                    {
-                        Intent intent = new Intent(getBaseContext(), InstrutorActivity.class);
-                        intent.putExtra("EXTRA_USUARIO_JSON", jsonResult.toString());
-                        startActivity(intent);
-                    }
-                    else if(jsonResult.getString("tipoUsuario").equals("Aluno"))
-                    {
-                        Intent intent = new Intent(getBaseContext(), AlunoActivity.class);
-                        intent.putExtra("EXTRA_USUARIO_JSON", jsonResult.toString());
-                        startActivity(intent);
-                    }
-                    else
-                    {
-                        Toast toast = Toast.makeText(getBaseContext(), R.string.user_not_allowed, Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                }
+
             }
-            catch (JSONException e)
+            else
             {
-                Toast toast = Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(LoginActivity.this, asynkTaskException.getMessage(), Toast.LENGTH_LONG);
                 toast.show();
             }
-
         }
+
     }
 }

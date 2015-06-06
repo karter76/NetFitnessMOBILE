@@ -427,6 +427,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     {
         private OnUploadCompleted listener;
 
+
         private AsyncTaskMudarFoto(OnUploadCompleted listener) {
             this.listener = listener;
         }
@@ -489,6 +490,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     private class AsynkTaskVisualizarHistoricoTreinos extends AsyncTask<String, String, JSONObject>
     {
         private OnVisualizarHistoricoTreinoCompleted listener;
+        private Exception asynkTaskException;
 
         private AsynkTaskVisualizarHistoricoTreinos(OnVisualizarHistoricoTreinoCompleted listener) {
             this.listener = listener;
@@ -496,7 +498,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
         @Override
         protected JSONObject doInBackground(String... params) {
-
+            JSONObject json = new JSONObject();
             try
             {
                 JSONParser jsonParser = new JSONParser();
@@ -505,15 +507,14 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                 jsonParams.add(new BasicNameValuePair("login", params[1]));
                 jsonParams.add(new BasicNameValuePair("senha", params[2]));
                 jsonParams.add(new BasicNameValuePair("idTreino", params[3]));
-                JSONObject json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_listar_treinos_realizados), jsonParams);
+                json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_listar_treinos_realizados), jsonParams);
 
                 return json;
 
             }
             catch (Exception e)
             {
-                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
-                toast.show();
+                asynkTaskException = e;
             }
             return null;
         }
@@ -525,14 +526,19 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             jsonReturned = jsonResult;
 
             hideProgress();
-
-            try {
-                listener.onVisualizaHistoricoTreinoCompleted("");
-            } catch (JSONException e) {
-                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+            if (asynkTaskException == null) {
+                try {
+                    listener.onVisualizaHistoricoTreinoCompleted("");
+                } catch (JSONException e) {
+                    Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+            else
+            {
+                Toast toast = Toast.makeText(AlunoActivity.this, asynkTaskException.getMessage(), Toast.LENGTH_LONG);
                 toast.show();
             }
-
         }
     }
 
