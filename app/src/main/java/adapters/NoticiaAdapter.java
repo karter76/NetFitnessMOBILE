@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.net.netfitness.netfitness.R;
+import utils.Data;
 
 /**
  * Created by Schmitz on 30/05/2015.
@@ -48,13 +49,6 @@ public class NoticiaAdapter extends BaseAdapter{
             convertView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_noticia, null);
         }
 
-       /* TextView txtNome = (TextView)convertView.findViewById(R.id.txtNome);
-
-        //no caso em que o dato que queremos ler seja um objeto, o tipo deve ser HasMap<String, Object(do tipo que necessario)>
-        HashMap<String, String> mapTreino = new HashMap<>();
-        mapTreino = (HashMap<String, String>) treino;
-
-        txtNome.setText( mapTreino.get("nome")+" - "+mapTreino.get("descricao"));*/
         TextView txtNome = (TextView)convertView.findViewById(R.id.txtTitulo);
         TextView txtData = (TextView)convertView.findViewById(R.id.txtData);
 
@@ -62,10 +56,8 @@ public class NoticiaAdapter extends BaseAdapter{
         mapNoticia = (HashMap<String, String>) noticia;
 
         txtNome.setText(mapNoticia.get("titulo"));
-        txtData.setText(mapNoticia.get("data"));
+        txtData.setText(Data.inverterData(mapNoticia.get("data")));
 
-        /*txtNome.setText("Teste");
-        txtData.setText("10/05/2015");*/
 
         return convertView;
     }
