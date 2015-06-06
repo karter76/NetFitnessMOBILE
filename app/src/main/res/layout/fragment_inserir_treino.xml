@@ -19,14 +19,19 @@
 
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edtNomeTreino"
         android:width="100dp"
+        android:lines="1"
+        android:maxLines="1"
         android:layout_above="@+id/txtLabelDescricaoTreino"
         android:layout_toEndOf="@+id/txtLabelNomeTreino"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/txtLabelNomeTreino" />
+        android:layout_toRightOf="@+id/txtLabelNomeTreino"
+        android:background="@drawable/bk"
+        android:padding="3dp"
+        android:layout_marginTop="3dp" />
 
 
 
@@ -43,14 +48,19 @@
         android:textColor="#ff1997ff" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edtDescricaoTreino"
+        android:lines="1"
+        android:maxLines="1"
         android:width="100dp"
         android:layout_marginLeft="10dp"
         android:layout_alignBottom="@+id/txtLabelDescricaoTreino"
         android:layout_toEndOf="@+id/txtLabelDescricaoTreino"
-        android:layout_toRightOf="@+id/txtLabelDescricaoTreino" />
+        android:layout_toRightOf="@+id/txtLabelDescricaoTreino"
+        android:background="@drawable/bk"
+        android:padding="3dp"
+        android:layout_marginTop="3dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,6 +79,7 @@
     <ScrollView
         android:layout_below="@+id/txtLabelExercicios"
         android:layout_marginTop="10dp"
+        android:id="@+id/scrollListaExercicios"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
@@ -83,16 +94,17 @@
     </ScrollView>
 
     <Button
-        style="?android:attr/buttonStyleSmall"
+        style="@style/btnNetfitness"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btnLabelInserirTreino"
         android:id="@+id/btnInserirTreino"
         android:layout_marginLeft="130dp"
-        android:layout_above="@+id/listViewExerciciosInserirTreino"
+        android:layout_above="@+id/scrollListaExercicios"
         android:layout_toRightOf="@+id/txtLabelExercicios"
-        android:height="30dp"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:minHeight="35dp"
+        android:padding="2dp" />
 
 
 </RelativeLayout>
