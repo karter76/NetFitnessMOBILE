@@ -456,10 +456,12 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             }
 
 
-
-
-
-            nomeFotoAluno = nomeFotoNovo;
+            try {
+                nomeFotoAluno = json.getString("nomeFoto");
+            } catch (JSONException e) {
+                Toast toast = Toast.makeText(AlunoActivity.this,  e.getMessage(), Toast.LENGTH_SHORT);
+                toast.show();
+            }
             return json;
 
         }
