@@ -41,6 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import interfaces.ClicouNaFotoListener;
+import interfaces.ClicouNaNoticiaListener;
 import interfaces.ClicouNoCompararGraficos;
 import interfaces.ClicouNoConfirmarMudarFoto;
 import interfaces.ClicouNoHistoricoTreinoListener;
@@ -48,6 +49,7 @@ import interfaces.ClicouNoMudarFoto;
 import interfaces.OnUploadCompleted;
 import interfaces.OnVisualizarExamesFisicosCompleted;
 import interfaces.OnVisualizarHistoricoTreinoCompleted;
+import interfaces.OnVisualizarNoticiasCompleted;
 import interfaces.OnVisualizarTreinosCompleted;
 import interfaces.ClicouNoTreinoListener;
 import utils.Data;
@@ -60,7 +62,8 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                                                                 OnVisualizarExamesFisicosCompleted, ClicouNoHistoricoTreinoListener,
                                                                 OnVisualizarHistoricoTreinoCompleted, ClicouNoCompararGraficos,
                                                                 ClicouNoMudarFoto, ClicouNaFotoListener, ClicouNoConfirmarMudarFoto,
-                                                                OnUploadCompleted{
+                                                                OnUploadCompleted, OnVisualizarNoticiasCompleted,
+                                                                ClicouNaNoticiaListener {
 
     JSONObject json;
     private String[] items;
@@ -76,6 +79,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     protected AsynckTaskListarTreinos listarTreinosTask;
     protected AsynkTaskListarGraficos listarGraficosTask;
     protected AsynkTaskVisualizarHistoricoTreinos visualizarHistoricoTreinosTask;
+    protected AsynkTaskListarNoticias listarNoticiasTask;
 
     ProgressDialog progress;
 
@@ -84,6 +88,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     private static final int COMPARAR_GRAFICOS = 2;
     private static final int CALCULAR_IMC = 3;
     private static final int MOSTRAR_FOTO = 4;
+    private static final int VISUALIZAR_NOTICIAS = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +161,9 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
                     case MOSTRAR_FOTO : mostarFoto();
                         break;
+
+                    case VISUALIZAR_NOTICIAS : visualizarNoticias();
+                        break;
                 }
 
                 mDrawerLayout.closeDrawer(mDrawerList);
@@ -170,6 +178,13 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         progress.setMessage(getResources().getString(R.string.wait_loading));
         progress.setCanceledOnTouchOutside(false);
         progress.show();
+    }
+
+    private void visualizarNoticias(){
+
+        showProgress();
+        listarNoticiasTask = new AsynkTaskListarNoticias(this);
+        listarNoticiasTask.execute((String) result.get("Aluno.idAluno"), (String) result.get("Pessoa.login"), (String) result.get("Pessoa.senha"));
     }
 
     private void hideProgress()
@@ -394,6 +409,18 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             toast.show();
         }
 
+    }
+
+    @Override
+    public void aoClicarNaNoticia(Object noticia) {
+
+    }
+
+    @Override
+    public void onVisualizarNoticiasCompleted() throws JSONException {
+
+        VisualizarNoticiasFragment fragmentNoticias = VisualizarNoticiasFragment.newInstance(JSONConvert.toList(jsonReturned.getJSONArray("listaNoticias")));
+        mudarFragment(fragmentNoticias, R.id.content_frame_aluno, "FragmentListaNoticias", false);
     }
 
     private class AsyncTaskMudarFoto extends AsyncTask<String, Void, JSONObject>
@@ -632,6 +659,57 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             {
                 Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
                 toast.show();
+            }
+        }
+    }
+
+    private class AsynkTaskListarNoticias extends AsyncTask<String, String, JSONObject>{
+
+        private OnVisualizarNoticiasCompleted listener;
+
+        public AsynkTaskListarNoticias(OnVisualizarNoticiasCompleted listener){
+            this.listener = listener;
+        }
+
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+
+            try{
+                JSONParser jsonParser = new JSONParser();
+                List jsonParams = new ArrayList();
+                jsonParams.add(new BasicNameValuePair("idAluno", params[0]));
+                jsonParams.add(new BasicNameValuePair("login", params[1]));
+                jsonParams.add(new BasicNameValuePair("senha", params[2]));
+                JSONObject json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_visualizar_noticias_aluno), jsonParams);
+
+                return json;
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonResult){
+
+            super.onPostExecute(jsonResult);
+            jsonReturned = jsonResult;
+
+            hideProgress();
+
+            try{
+                if(!jsonResult.getString("listaNoticias").equals("null")){
+                    listener.onVisualizarNoticiasCompleted();
+                }else{
+                    Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+            catch (JSONException e){
+                e.printStackTrace();
             }
         }
     }

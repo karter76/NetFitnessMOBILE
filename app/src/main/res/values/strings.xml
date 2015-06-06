@@ -29,95 +29,109 @@
         <string name="web_service_upload_file">http://192.168.25.6/NetFitness/webservice/uploadFile.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
         <string name="endereco_fotos_alunos">http://192.168.25.6/NetFitness/web/images/usuarios/alunos/</string>
        -->
-
-        <string name="web_service_login">http://www.netfitness.net.br/webservice/login.php</string>
-        <string name="web_service_listar_treinos_instrutor">http://www.netfitness.net.br/webservice/listarTreinosInstrutor.php</string>
-        <string name="web_service_listar_treinos_aluno">http://www.netfitness.net.br/webservice/listarTreinosAluno.php</string>
-        <string name="web_service_listar_exames_fisicos_aluno">http://www.netfitness.net.br/webservice/listarExamesFisicosAluno.php</string>
-        <string name="web_service_excluir_treino">http://www.netfitness.net.br/webservice/excluirTreino.php</string>
-        <string name="web_service_listar_exercicios">http://www.netfitness.net.br/webservice/listarExercicios.php</string>
-        <string name="web_service_inserir_treino">http://www.netfitness.net.br/webservice/inserirTreino.php</string>
-        <string name="web_service_alterar_treino">http://www.netfitness.net.br/webservice/alterarTreino.php</string>
-        <string name="web_service_listar_treinos_realizados">http://www.netfitness.net.br/webservice/listarTreinosRealizados.php</string>
-        <string name="web_service_upload_file">http://www.netfitness.net.br/webservice/uploadFile.php</string>
-        <string name="endereco_fotos_alunos">http://www.netfitness.net.br/web/images/usuarios/alunos/</string>
-
-
-
-
-
-    <string name="loading">Loading</string>
-    <string name="wait_loading">Aguarde o carregamento...</string>
-
-    <string-array name="menu_instrutor">
-        <item>Inserir Treino</item>
-        <item>Excluir Treino</item>
-        <item>Visualizar Treinos</item>
-        <item>Alterar treino</item>
-    </string-array>
-    <string-array name="menu_aluno">
-        <item>Visualizar Treinos</item>
-        <item>Visualizar Gráficos</item>
-        <item>Comparar Gráficos</item>
-        <item>Calcular IMC</item>
-        <item>Mostrar Foto</item>
-    </string-array>
-
-    <string name="title_activity_aluno">AlunoActivity</string>
-    <string name="labelButtonExcluir">Excluir</string>
-    <string name="labelNomeExercicio">Nm Ex.</string>
-    <string name="txtLabelNomeTreino">Nome:</string>
-    <string name="txtLabelNomeExercicio">Nome:</string>
-    <string name="txtLabelExercicios">Exercícios:</string>
-    <string name="txtLabelDescricaoTreino">Descrição:</string>
-    <string name="labelMusculo">Músc.</string>
-    <string name="labelDescricaoExercicio">Desc.</string>
-    <string name="labelSeries">Ser.</string>
-    <string name="labelRepeticoes">Rep.</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="labelTxtSeries">Series</string>
-    <string name="txtLabelRepeticoes">Repeticões</string>
-    <string name="btnLabelInserirTreino">Inserir</string>
-    <string name="btnLabelAlterarTreino">Alterar</string>
-    <string name="pesoLabel">Peso</string>
-    <string name="labelGraphIMC">IMC</string>
-    <string name="labelGraphTorax">Circunfêrencia Torax</string>
-    <string name="labelGraphAbdomen">Circunferência Abdomen</string>
-    <string name="labelGraphBraco">Circunferência Braço</string>
-    <string name="labelGraphAntebraco">Circunferência Antebraço</string>
-    <string name="labelGraphCoxa">Circunferência Coxa</string>
-    <string name="labelGraphPanturrilha">Circunferência Panturrilha</string>
-    <string name="btnLabelVisualizarHistorico">Visualizar Histórico</string>
-    <string name="labelDataVinculotreino">Data vinculo treino:</string>
-    <string name="labelNomeTreino">Nome Treino:</string>
-    <string name="labelQuantidadeTreinos">Qtd de treinos totais:</string>
-    <string name="labelDatasTreinosRealizados">Datas treinos finalizados:</string>
-    <string name="labelButtonDatasTreinosRealizados">Mostrar</string>
-    <string name="labelTreinosFinalizados">Qtd treinos finalizados:</string>
-    <string name="datasTreinosRealizados">Datas treinos finalizados</string>
-    <string name="selecionarGraficos">Selecionar os gráficos</string>
-    <string name="checkBoxPeso">Peso</string>
-    <string name="checkBoxIMC">IMC</string>
-    <string name="checkBoxTorax">Torax</string>
-    <string name="checkBoxAbdomen">Abdomen</string>
-    <string name="checkBoxBraco">Braço</string>
-    <string name="checkBoxAntebraco">Antebraço</string>
-    <string name="checkBoxCoxa">Coxa</string>
-    <string name="checkBoxPanturrilha">Panturrilha</string>
-    <string name="LabelButtonCompararGraficos">Comparar</string>
-    <string name="labelCompararGraficos">Comparar Gráficos</string>
-    <string name="no_element_comparar_grafico">É necessario selecionar pelo menos dois gráficos para efetuar a comparação</string>
-    <string name="too_much_elements_comparar_grafico">Não é possível comparar mais de quatro gráficos</string>
-    <string name="labelButtonMudarFoto">Mudar Foto</string>
-    <string name="labelButtonFileBack">Back</string>
-    <string name="labelButtonConfirmarFoto">Confirmar</string>
-    <string name="file_not_supported">O arquivo selecionado não é um tipo de imagem suportada</string>
-    <string name="fechar_titulo_dialog">Fechar Netfitness</string>
-    <string name="mensagem_fechar_dialog">Você quer realmente sair do aplicativo?</string>
-    <string name="sim_ao_fechar">Sim</string>
-    <string name="nao_ao_fechar">Não</string>
-    <string name="file_not_uploaded">Impossível efetuar o upload da foto no servidor\\n</string>
-    <string name="file_uploaded">Upload da foto efetuado corretamente</string>
+    <!--
+            <string name="web_service_login">http://www.netfitness.net.br/webservice/login.php</string>
+            <string name="web_service_listar_treinos_instrutor">http://www.netfitness.net.br/webservice/listarTreinosInstrutor.php</string>
+            <string name="web_service_listar_treinos_aluno">http://www.netfitness.net.br/webservice/listarTreinosAluno.php</string>
+            <string name="web_service_listar_exames_fisicos_aluno">http://www.netfitness.net.br/webservice/listarExamesFisicosAluno.php</string>
+            <string name="web_service_excluir_treino">http://www.netfitness.net.br/webservice/excluirTreino.php</string>
+            <string name="web_service_listar_exercicios">http://www.netfitness.net.br/webservice/listarExercicios.php</string>
+            <string name="web_service_inserir_treino">http://www.netfitness.net.br/webservice/inserirTreino.php</string>
+            <string name="web_service_alterar_treino">http://www.netfitness.net.br/webservice/alterarTreino.php</string>
+            <string name="web_service_listar_treinos_realizados">http://www.netfitness.net.br/webservice/listarTreinosRealizados.php</string>
+            <string name="web_service_upload_file">http://www.netfitness.net.br/webservice/uploadFile.php</string>
+            <string name="endereco_fotos_alunos">http://www.netfitness.net.br/web/images/usuarios/alunos/</string>
+    -->
+            <string name="web_service_login">http://192.168.2.100:85/NetFitness/webservice/login.php</string>
+            <string name="web_service_listar_treinos_instrutor">http://192.168.2.100:85/NetFitness/webservice/listarTreinosInstrutor.php</string>
+            <string name="web_service_listar_treinos_aluno">http://192.168.2.100:85/NetFitness/webservice/listarTreinosAluno.php</string>
+            <string name="web_service_listar_exames_fisicos_aluno">http://192.168.2.100:85/NetFitness/webservice/listarExamesFisicosAluno.php</string>
+            <string name="web_service_excluir_treino">http://192.168.2.100:85/NetFitness/webservice/excluirTreino.php</string>
+            <string name="web_service_listar_exercicios">http://192.168.2.100:85/NetFitness/webservice/listarExercicios.php</string>
+            <string name="web_service_inserir_treino">http://192.168.2.100:85/NetFitness/webservice/inserirTreino.php</string>
+            <string name="web_service_alterar_treino">http://192.168.2.100:85/NetFitness/webservice/alterarTreino.php</string>
+            <string name="web_service_listar_treinos_realizados">http://192.168.2.100:85/NetFitness/webservice/listarTreinosRealizados.php</string>
+            <string name="web_service_upload_file">http://192.168.2.100:85/NetFitness/webservice/uploadFile.php</string>
+            <string name="endereco_fotos_alunos">http://192.168.2.100:85/NetFitness/web/images/usuarios/alunos/</string>
+            <string name="web_service_visualizar_noticias_aluno">http://192.168.2.100:85/NetFitness/webservice/visualizarNoticiasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
 
 
-</resources>
+
+
+
+        <string name="loading">Loading</string>
+        <string name="wait_loading">Aguarde o carregamento...</string>
+
+        <string-array name="menu_instrutor">
+            <item>Inserir Treino</item>
+            <item>Excluir Treino</item>
+            <item>Visualizar Treinos</item>
+            <item>Alterar treino</item>
+        </string-array>
+        <string-array name="menu_aluno">
+            <item>Visualizar Treinos</item>
+            <item>Visualizar Gráficos</item>
+            <item>Comparar Gráficos</item>
+            <item>Calcular IMC</item>
+            <item>Mostrar Foto</item>
+            <item>Visualizar Noticias</item>
+        </string-array>
+
+        <string name="title_activity_aluno">AlunoActivity</string>
+        <string name="labelButtonExcluir">Excluir</string>
+        <string name="labelNomeExercicio">Nm Ex.</string>
+        <string name="txtLabelNomeTreino">Nome:</string>
+        <string name="txtLabelNomeExercicio">Nome:</string>
+        <string name="txtLabelExercicios">Exercícios:</string>
+        <string name="txtLabelDescricaoTreino">Descrição:</string>
+        <string name="labelMusculo">Músc.</string>
+        <string name="labelDescricaoExercicio">Desc.</string>
+        <string name="labelSeries">Ser.</string>
+        <string name="labelRepeticoes">Rep.</string>
+        <string name="hello_blank_fragment">Hello blank fragment</string>
+        <string name="labelTxtSeries">Series</string>
+        <string name="txtLabelRepeticoes">Repeticões</string>
+        <string name="btnLabelInserirTreino">Inserir</string>
+        <string name="btnLabelAlterarTreino">Alterar</string>
+        <string name="pesoLabel">Peso</string>
+        <string name="labelGraphIMC">IMC</string>
+        <string name="labelGraphTorax">Circunfêrencia Torax</string>
+        <string name="labelGraphAbdomen">Circunferência Abdomen</string>
+        <string name="labelGraphBraco">Circunferência Braço</string>
+        <string name="labelGraphAntebraco">Circunferência Antebraço</string>
+        <string name="labelGraphCoxa">Circunferência Coxa</string>
+        <string name="labelGraphPanturrilha">Circunferência Panturrilha</string>
+        <string name="btnLabelVisualizarHistorico">Visualizar Histórico</string>
+        <string name="labelDataVinculotreino">Data vinculo treino:</string>
+        <string name="labelNomeTreino">Nome Treino:</string>
+        <string name="labelQuantidadeTreinos">Qtd de treinos totais:</string>
+        <string name="labelDatasTreinosRealizados">Datas treinos finalizados:</string>
+        <string name="labelButtonDatasTreinosRealizados">Mostrar</string>
+        <string name="labelTreinosFinalizados">Qtd treinos finalizados:</string>
+        <string name="datasTreinosRealizados">Datas treinos finalizados</string>
+        <string name="selecionarGraficos">Selecionar os gráficos</string>
+        <string name="checkBoxPeso">Peso</string>
+        <string name="checkBoxIMC">IMC</string>
+        <string name="checkBoxTorax">Torax</string>
+        <string name="checkBoxAbdomen">Abdomen</string>
+        <string name="checkBoxBraco">Braço</string>
+        <string name="checkBoxAntebraco">Antebraço</string>
+        <string name="checkBoxCoxa">Coxa</string>
+        <string name="checkBoxPanturrilha">Panturrilha</string>
+        <string name="LabelButtonCompararGraficos">Comparar</string>
+        <string name="labelCompararGraficos">Comparar Gráficos</string>
+        <string name="no_element_comparar_grafico">É necessario selecionar pelo menos dois gráficos para efetuar a comparação</string>
+        <string name="too_much_elements_comparar_grafico">Não é possível comparar mais de quatro gráficos</string>
+        <string name="labelButtonMudarFoto">Mudar Foto</string>
+        <string name="labelButtonFileBack">Back</string>
+        <string name="labelButtonConfirmarFoto">Confirmar</string>
+        <string name="file_not_supported">O arquivo selecionado não é um tipo de imagem suportada</string>
+        <string name="fechar_titulo_dialog">Fechar Netfitness</string>
+        <string name="mensagem_fechar_dialog">Você quer realmente sair do aplicativo?</string>
+        <string name="sim_ao_fechar">Sim</string>
+        <string name="nao_ao_fechar">Não</string>
+        <string name="file_not_uploaded">Impossível efetuar o upload da foto no servidor\\n</string>
+        <string name="file_uploaded">Upload da foto efetuado corretamente</string>
+
+
+    </resources>

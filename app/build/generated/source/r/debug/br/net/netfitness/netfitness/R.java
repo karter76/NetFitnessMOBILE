@@ -1372,7 +1372,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f090033;
         public static final int action_mode_bar_stub=0x7f090032;
         public static final int action_mode_close_button=0x7f090025;
-        public static final int action_settings=0x7f0900a0;
+        public static final int action_settings=0x7f0900a3;
         public static final int activity_chooser_view_content=0x7f090026;
         public static final int aluno_layout=0x7f090044;
         public static final int always=0x7f090019;
@@ -1411,8 +1411,8 @@ containing a value of this type.
         public static final int edit_query=0x7f090038;
         public static final int edtDescricaoTreino=0x7f09007d;
         public static final int edtNomeTreino=0x7f09007c;
-        public static final int edtTextRepeticoes=0x7f09009e;
-        public static final int edtTextSeries=0x7f09009c;
+        public static final int edtTextRepeticoes=0x7f09009f;
+        public static final int edtTextSeries=0x7f09009d;
         public static final int end=0x7f090017;
         public static final int expand_activities_button=0x7f090027;
         public static final int expanded_menu=0x7f09002d;
@@ -1429,14 +1429,14 @@ containing a value of this type.
         public static final int home=0x7f090004;
         public static final int homeAsUp=0x7f090010;
         public static final int icon=0x7f09002b;
-        public static final int iconeArquivo=0x7f090097;
+        public static final int iconeArquivo=0x7f090098;
         public static final int ifRoom=0x7f09001b;
         public static final int image=0x7f090028;
         public static final int imgLogo=0x7f09004f;
         public static final int inputLogin=0x7f09004b;
         public static final int inputSenha=0x7f09004e;
         public static final int instrutor_layout=0x7f090048;
-        public static final int itemExercicio=0x7f09009a;
+        public static final int itemExercicio=0x7f09009b;
         public static final int labelDataVinculoTreino=0x7f09008d;
         public static final int labelDatasTreinosRealizados=0x7f090093;
         public static final int labelLogin=0x7f09004a;
@@ -1461,6 +1461,7 @@ containing a value of this type.
         public static final int listViewDatasTreinosRealizados=0x7f090050;
         public static final int listViewExercicios=0x7f09005f;
         public static final int listViewExerciciosInserirTreino=0x7f090080;
+        public static final int listViewNoticias=0x7f090097;
         public static final int list_item=0x7f09002a;
         public static final int lista_arquivos=0x7f090082;
         public static final int lista_treinos=0x7f090060;
@@ -1505,16 +1506,18 @@ containing a value of this type.
         public static final int textViewTreinosFinalizados=0x7f090095;
         public static final int title=0x7f09002c;
         public static final int top=0x7f090022;
+        public static final int txtData=0x7f0900a1;
         public static final int txtDescricaoTreino=0x7f09005c;
         public static final int txtLabelDescricaoTreino=0x7f09005b;
         public static final int txtLabelExercicios=0x7f09005e;
         public static final int txtLabelNomeTreino=0x7f090059;
-        public static final int txtLabelRepeticoes=0x7f09009d;
-        public static final int txtLabelSeries=0x7f09009b;
-        public static final int txtNome=0x7f09009f;
-        public static final int txtNomeArquivo=0x7f090098;
-        public static final int txtNomeExercicio=0x7f090099;
+        public static final int txtLabelRepeticoes=0x7f09009e;
+        public static final int txtLabelSeries=0x7f09009c;
+        public static final int txtNome=0x7f0900a2;
+        public static final int txtNomeArquivo=0x7f090099;
+        public static final int txtNomeExercicio=0x7f09009a;
         public static final int txtNomeTreino=0x7f09005a;
+        public static final int txtTitulo=0x7f0900a0;
         public static final int up=0x7f09000b;
         public static final int useLogo=0x7f090015;
         public static final int withText=0x7f09001d;
@@ -1564,12 +1567,14 @@ containing a value of this type.
         public static final int fragment_listar_arquivos=0x7f030025;
         public static final int fragment_selecionar_grafico=0x7f030026;
         public static final int fragment_visualizar_historico_treino=0x7f030027;
-        public static final int fragment_visualizar_treinos=0x7f030028;
-        public static final int item_arquivo=0x7f030029;
-        public static final int item_exercicio=0x7f03002a;
-        public static final int item_inserir_treino=0x7f03002b;
-        public static final int item_treino=0x7f03002c;
-        public static final int support_simple_spinner_dropdown_item=0x7f03002d;
+        public static final int fragment_visualizar_noticias=0x7f030028;
+        public static final int fragment_visualizar_treinos=0x7f030029;
+        public static final int item_arquivo=0x7f03002a;
+        public static final int item_exercicio=0x7f03002b;
+        public static final int item_inserir_treino=0x7f03002c;
+        public static final int item_noticia=0x7f03002d;
+        public static final int item_treino=0x7f03002e;
+        public static final int support_simple_spinner_dropdown_item=0x7f03002f;
     }
     public static final class menu {
         public static final int menu_aluno=0x7f0d0000;
@@ -1674,6 +1679,7 @@ containing a value of this type.
         public static final int web_service_listar_treinos_realizados=0x7f0b005e;
         public static final int web_service_login=0x7f0b005f;
         public static final int web_service_upload_file=0x7f0b0060;
+        public static final int web_service_visualizar_noticias_aluno=0x7f0b0061;
     }
     public static final class style {
         public static final int AppTheme=0x7f0c0000;
