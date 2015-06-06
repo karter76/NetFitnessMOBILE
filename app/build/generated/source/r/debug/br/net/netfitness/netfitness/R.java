@@ -1348,17 +1348,18 @@ containing a value of this type.
         public static final int abc_textfield_search_material=0x7f020032;
         public static final int background_splash_screen=0x7f020033;
         public static final int bg_key=0x7f020034;
-        public static final int borda_foto=0x7f020035;
-        public static final int btn_netfitness=0x7f020036;
-        public static final int cell_shape=0x7f020037;
-        public static final int dg_back=0x7f020038;
-        public static final int file=0x7f020039;
-        public static final int folder=0x7f02003a;
-        public static final int ic_launcher=0x7f02003b;
-        public static final int logo=0x7f02003c;
+        public static final int bk=0x7f020035;
+        public static final int borda_foto=0x7f020036;
+        public static final int btn_netfitness=0x7f020037;
+        public static final int cell_shape=0x7f020038;
+        public static final int dg_back=0x7f020039;
+        public static final int file=0x7f02003a;
+        public static final int folder=0x7f02003b;
+        public static final int ic_launcher=0x7f02003c;
+        public static final int logo=0x7f02003d;
     }
     public static final class id {
-        public static final int ScrollViewExerciciosInserirTreino=0x7f09007e;
+        public static final int ScrollViewExerciciosInserirTreino=0x7f09007f;
         public static final int action_bar=0x7f090036;
         public static final int action_bar_activity_content=0x7f090000;
         public static final int action_bar_container=0x7f090035;
@@ -1379,7 +1380,7 @@ containing a value of this type.
         public static final int beginning=0x7f090016;
         public static final int bottom=0x7f090021;
         public static final int btnCalcular=0x7f090055;
-        public static final int btnInserirTreino=0x7f09007f;
+        public static final int btnInserirTreino=0x7f090080;
         public static final int buttonCompararGraficos=0x7f09008c;
         public static final int buttonConfirmarFoto=0x7f090064;
         public static final int buttonExcluir=0x7f090061;
@@ -1460,7 +1461,6 @@ containing a value of this type.
         public static final int listMode=0x7f09000c;
         public static final int listViewDatasTreinosRealizados=0x7f090050;
         public static final int listViewExercicios=0x7f09005f;
-        public static final int listViewExerciciosInserirTreino=0x7f090080;
         public static final int listViewNoticias=0x7f090097;
         public static final int list_item=0x7f09002a;
         public static final int lista_arquivos=0x7f090082;
@@ -1481,6 +1481,7 @@ containing a value of this type.
         public static final int scrollGraphPanturrilha=0x7f090079;
         public static final int scrollGraphPeso=0x7f090056;
         public static final int scrollGraphTorax=0x7f09006a;
+        public static final int scrollListaExercicios=0x7f09007e;
         public static final int search_badge=0x7f09003a;
         public static final int search_bar=0x7f090039;
         public static final int search_button=0x7f09003b;

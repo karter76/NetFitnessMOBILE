@@ -48,13 +48,20 @@ public class NoticiaAdapter extends BaseAdapter{
             convertView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_noticia, null);
         }
 
+       /* TextView txtNome = (TextView)convertView.findViewById(R.id.txtNome);
+
+        //no caso em que o dato que queremos ler seja um objeto, o tipo deve ser HasMap<String, Object(do tipo que necessario)>
+        HashMap<String, String> mapTreino = new HashMap<>();
+        mapTreino = (HashMap<String, String>) treino;
+
+        txtNome.setText( mapTreino.get("nome")+" - "+mapTreino.get("descricao"));*/
         TextView txtNome = (TextView)convertView.findViewById(R.id.txtTitulo);
         TextView txtData = (TextView)convertView.findViewById(R.id.txtData);
 
         HashMap<String, String> mapNoticia = new HashMap<>();
         mapNoticia = (HashMap<String, String>) noticia;
 
-        txtNome.setText(mapNoticia.get("nome"));
+        txtNome.setText(mapNoticia.get("titulo"));
         txtData.setText(mapNoticia.get("data"));
 
         /*txtNome.setText("Teste");

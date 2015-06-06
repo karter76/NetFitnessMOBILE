@@ -421,6 +421,9 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
         VisualizarNoticiasFragment fragmentNoticias = VisualizarNoticiasFragment.newInstance(JSONConvert.toList(jsonReturned.getJSONArray("listaNoticias")));
         mudarFragment(fragmentNoticias, R.id.content_frame_aluno, "FragmentListaNoticias", false);
+
+        VisualizarTreinosFragment fragmentListaTreinos = VisualizarTreinosFragment.newInstance(JSONConvert.toList(jsonReturned.getJSONArray("listaTreinos")));
+        mudarFragment(fragmentListaTreinos, R.id.content_frame_aluno, "FragmentListaTreinos", false);
     }
 
     private class AsyncTaskMudarFoto extends AsyncTask<String, Void, JSONObject>
