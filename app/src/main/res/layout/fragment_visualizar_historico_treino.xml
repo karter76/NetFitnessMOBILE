@@ -129,4 +129,65 @@
         android:elegantTextHeight="false"
         android:layout_alignParentEnd="false"
         android:layout_marginTop="-8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:layout_marginTop="40dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/TextViewAtualizarTreino"
+        android:id="@+id/labelTextViewAtualizar"
+        android:layout_below="@+id/buttonMostrarDatasTreinosRealizados"
+        android:layout_alignLeft="@+id/labelDatasTreinosRealizados"
+        android:layout_alignStart="@+id/labelDatasTreinosRealizados" />
+
+    <Button
+        style="@style/btnNetfitness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="+"
+        android:textSize="25dp"
+        android:width="60dp"
+        android:id="@+id/buttonMore"
+        android:layout_below="@+id/labelTextViewAtualizar"
+        android:layout_alignLeft="@+id/labelTextViewAtualizar"
+        android:layout_alignStart="@+id/labelTextViewAtualizar"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        style="@style/btnNetfitness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:width="60dp"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="-"
+        android:textSize="25dp"
+        android:id="@+id/buttonLess"
+        android:layout_alignTop="@+id/buttonMore"
+        android:layout_toRightOf="@+id/buttonMore"
+        android:layout_toEndOf="@+id/buttonMore" />
+
+    <Button
+        style="@style/btnNetfitness"
+        android:background="@drawable/btn_netfitness_red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/labelButtonAtualizarQtdTreinos"
+        android:id="@+id/buttonAtualizar"
+        android:layout_marginLeft="60dp"
+        android:height="50dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_alignBottom="@+id/buttonLess"
+        android:layout_toRightOf="@+id/buttonLess"
+        android:layout_toEndOf="@+id/buttonLess" />
 </RelativeLayout>

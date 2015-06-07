@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:padding="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/TextViewMensagemAtualizar"
+        android:id="@+id/textViewMensagemAtualizar" />
+
+    <Button
+        style="@style/btnNetfitness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sim_ao_fechar"
+        android:id="@+id/buttonSim"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        style="@style/btnNetfitness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nao_ao_fechar"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/buttonNao"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>

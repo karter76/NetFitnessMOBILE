@@ -57,7 +57,7 @@
 
     <Button
         style="@style/btnNetfitness"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btnLabelVisualizarHistorico"
@@ -65,7 +65,9 @@
         android:layout_marginTop="20dp"
         android:layout_below="@+id/txtDescricaoTreino"
         android:layout_alignLeft="@+id/txtLabelDescricaoTreino"
-        android:layout_alignStart="@+id/txtLabelDescricaoTreino" />
+        android:layout_alignStart="@+id/txtLabelDescricaoTreino"
+        android:layout_marginRight="30dp" />
+
 
     <TextView
         android:layout_width="wrap_content"

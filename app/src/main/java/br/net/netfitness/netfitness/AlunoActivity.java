@@ -1,10 +1,7 @@
 package br.net.netfitness.netfitness;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -26,26 +23,24 @@ import com.squareup.picasso.Picasso;
 
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import interfaces.ClicouNaFotoListener;
 import interfaces.ClicouNaNoticiaListener;
+import interfaces.ClicouNoAtualizarDatasTreino;
 import interfaces.ClicouNoCompararGraficos;
 import interfaces.ClicouNoConfirmarMudarFoto;
 import interfaces.ClicouNoHistoricoTreinoListener;
 import interfaces.ClicouNoMudarFoto;
+import interfaces.OnAtualizarDatasTreinoCompleted;
 import interfaces.OnUploadCompleted;
 import interfaces.OnVisualizarExamesFisicosCompleted;
 import interfaces.OnVisualizarHistoricoTreinoCompleted;
@@ -55,18 +50,18 @@ import interfaces.ClicouNoTreinoListener;
 import utils.Data;
 import utils.JSONConvert;
 
-import static org.apache.http.HttpStatus.SC_OK;
-
 
 public class AlunoActivity extends ActionBarActivity implements OnVisualizarTreinosCompleted, ClicouNoTreinoListener,
                                                                 OnVisualizarExamesFisicosCompleted, ClicouNoHistoricoTreinoListener,
                                                                 OnVisualizarHistoricoTreinoCompleted, ClicouNoCompararGraficos,
                                                                 ClicouNoMudarFoto, ClicouNaFotoListener, ClicouNoConfirmarMudarFoto,
                                                                 OnUploadCompleted, OnVisualizarNoticiasCompleted,
-                                                                ClicouNaNoticiaListener {
+                                                                ClicouNaNoticiaListener, ClicouNoAtualizarDatasTreino,
+                                                                OnAtualizarDatasTreinoCompleted {
 
     JSONObject json;
     private String[] items;
+    private View viewTreinoAtual = null;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private int selectedPosition;
@@ -421,9 +416,103 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
         VisualizarNoticiasFragment fragmentNoticias = VisualizarNoticiasFragment.newInstance(JSONConvert.toList(jsonReturned.getJSONArray("listaNoticias")));
         mudarFragment(fragmentNoticias, R.id.content_frame_aluno, "FragmentListaNoticias", false);
+    }
 
-        VisualizarTreinosFragment fragmentListaTreinos = VisualizarTreinosFragment.newInstance(JSONConvert.toList(jsonReturned.getJSONArray("listaTreinos")));
-        mudarFragment(fragmentListaTreinos, R.id.content_frame_aluno, "FragmentListaTreinos", false);
+    @Override
+    public void aoClicarNoAtualizarDatasTreino(int idTreino, int qtdTreinos)
+    {
+        showProgress();
+        AsyncTaskAtualizarDatasTreino atualizarDatasTreinoTask = new AsyncTaskAtualizarDatasTreino(this);
+        atualizarDatasTreinoTask.execute((String)result.get("Aluno.idAluno"), (String)result.get("Pessoa.login"),(String)result.get("Pessoa.senha"), String.valueOf(idTreino), String.valueOf(qtdTreinos));
+
+    }
+
+    @Override
+    public void onAtualizarDatasTreinoCompleted(JSONObject jsonDatas) throws JSONException {
+
+        if(jsonDatas.getString("datasAtualizadas").equals("true"))
+        {
+            //TextView txtTreinosFinalizados = (TextView) viewTreinoAtual.findViewById(R.id.textViewTreinosFinalizados);
+           // txtTreinosFinalizados.setText(jsonDatas.getString("qtdTreinosFinalizados"));
+
+            HashMap<String, Object> mapTreino;
+            mapTreino = (HashMap<String, Object>) JSONConvert.toMap(jsonDatas.getJSONObject("treino"));
+
+            visualizarHistoricosTreinos(mapTreino);
+
+        }
+
+        Toast toast = Toast.makeText(this, jsonDatas.getString("mensagem"), Toast.LENGTH_SHORT);
+        toast.show();
+
+    }
+
+
+    private class AsyncTaskAtualizarDatasTreino extends  AsyncTask<String, Void, JSONObject>
+    {
+        private OnAtualizarDatasTreinoCompleted listener;
+        private int idTreino;
+        private Exception asynkTaskException;
+
+        private AsyncTaskAtualizarDatasTreino(OnAtualizarDatasTreinoCompleted listener) {
+            this.listener = listener;
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params)
+        {
+            JSONObject json = new JSONObject();
+
+            try
+            {
+                JSONParser jsonParser = new JSONParser();
+                List jsonParams = new ArrayList();
+                jsonParams.add(new BasicNameValuePair("idAluno", params[0]));
+                jsonParams.add(new BasicNameValuePair("login", params[1]));
+                jsonParams.add(new BasicNameValuePair("senha", params[2]));
+                jsonParams.add(new BasicNameValuePair("idTreino", params[3]));
+                jsonParams.add(new BasicNameValuePair("qtdTreinos", params[4]));
+                json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_alterar_qtd_treinos_realizados), jsonParams);
+
+                return json;
+
+            }
+            catch (Exception e)
+            {
+                asynkTaskException = e;
+                return json;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonResult)
+        {
+            super.onPostExecute(jsonResult);
+
+            jsonReturned = jsonResult;
+
+            hideProgress();
+
+            if (asynkTaskException == null)
+            {
+                try
+                {
+                    listener.onAtualizarDatasTreinoCompleted(jsonResult);
+
+                } catch (JSONException e) {
+                    Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+            else
+            {
+                Toast toast = Toast.makeText(AlunoActivity.this, asynkTaskException.getMessage(), Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
+
+
     }
 
     private class AsyncTaskMudarFoto extends AsyncTask<String, Void, JSONObject>

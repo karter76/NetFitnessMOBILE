@@ -7,4 +7,5 @@
     <color name="background_container_list_exercicios">#3862bce6</color>
     <color name="dark_gray">#cc838383</color>
     <color name="light_grey">#e1deed</color>
+    <color name="red">#ffdd2e15</color>
 </resources>

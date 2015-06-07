@@ -24,18 +24,21 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import interfaces.ClicouNoAtualizarDatasTreino;
+import interfaces.OnAtualizarDatasTreinoCompleted;
 import utils.Data;
 import utils.JSONConvert;
 
 
 public class VisualizarHistoricoTreinoFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String HISTORICO_TREINO = "historicoTreino";
-
-    // TODO: Rename and change types of parameters
+    private static final String NUM_TREINOS = "numTreinos";
     private HashMap<String,Object> mapHistoricoTreino;
-
+    private int numMaxTreinos;
+    private int idTreino;
+    private int numMinTreinos;
+    private int numTreinos=0;
 
     public static VisualizarHistoricoTreinoFragment newInstance(JSONObject historicoTreino) throws JSONException
     {
@@ -59,56 +62,86 @@ public class VisualizarHistoricoTreinoFragment extends Fragment {
         if (getArguments() != null) {
             mapHistoricoTreino = (HashMap<String, Object>) getArguments().getSerializable(HISTORICO_TREINO);
         }
+
+        if(savedInstanceState != null)
+        {
+            numTreinos = savedInstanceState.getInt(NUM_TREINOS);
+        }
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(NUM_TREINOS, numTreinos);
+    }
+
+    @Override
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-         View view = inflater.inflate(R.layout.fragment_visualizar_historico_treino, container, false);
+         final View view = inflater.inflate(R.layout.fragment_visualizar_historico_treino, container, false);
 
-        ArrayList<String> listaDatasTreinosRealizados = new ArrayList<>();
-        listaDatasTreinosRealizados = (ArrayList<String>) mapHistoricoTreino.get("datasTreinosRealizados");
-
-
-
-        TextView txtNomeTreino = (TextView)view.findViewById(R.id.textViewNomeTreino);
-            TextView txtDataVinculoTreino = (TextView)view.findViewById(R.id.textViewDataVinculoTreino);
-            TextView qtdTreinos = (TextView)view.findViewById(R.id.textViewQtdTreinos);
-            TextView txtTreinosFinalizados = (TextView)view.findViewById(R.id.textViewTreinosFinalizados);
-            Button btnDatasTreinosRealizados = (Button) view.findViewById(R.id.buttonMostrarDatasTreinosRealizados);
-            txtDataVinculoTreino.setText(Data.inverterData((String)mapHistoricoTreino.get("dataVinculoTreino")));
-            txtNomeTreino.setText((String)mapHistoricoTreino.get("nomeTreino"));
-            qtdTreinos.setText((String)mapHistoricoTreino.get("qtdTreinos"));
-            txtTreinosFinalizados.setText(Integer.toString(listaDatasTreinosRealizados.size()));
+         ArrayList<String> listaDatasTreinosRealizados = new ArrayList<>();
+         listaDatasTreinosRealizados = (ArrayList<String>) mapHistoricoTreino.get("datasTreinosRealizados");
+         idTreino = Integer.valueOf((String)mapHistoricoTreino.get("idTreino"));
 
 
-             final ArrayList<String> finalListaDatasTreinosRealizados = new ArrayList<>();
-             Locale.setDefault (new Locale ("pt", "BR"));
-             DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-             DateFormat newFormat = new SimpleDateFormat("d-m-yy, E");
 
-             for (String dataString : listaDatasTreinosRealizados)
+         TextView txtNomeTreino = (TextView)view.findViewById(R.id.textViewNomeTreino);
+         TextView txtDataVinculoTreino = (TextView)view.findViewById(R.id.textViewDataVinculoTreino);
+         TextView qtdTreinos = (TextView)view.findViewById(R.id.textViewQtdTreinos);
+         final TextView txtTreinosFinalizados = (TextView)view.findViewById(R.id.textViewTreinosFinalizados);
+         Button btnDatasTreinosRealizados = (Button) view.findViewById(R.id.buttonMostrarDatasTreinosRealizados);
+         Button btnMaisTreinos = (Button) view.findViewById(R.id.buttonMore);
+         Button btnMenosTreinos = (Button) view.findViewById(R.id.buttonLess);
+         Button btnAtualizar  = (Button) view.findViewById(R.id.buttonAtualizar);
+
+         txtDataVinculoTreino.setText(Data.inverterData((String)mapHistoricoTreino.get("dataVinculoTreino")));
+         txtNomeTreino.setText((String)mapHistoricoTreino.get("nomeTreino"));
+         qtdTreinos.setText((String)mapHistoricoTreino.get("qtdTreinos"));
+
+         if(numTreinos==0) {
+             txtTreinosFinalizados.setText(Integer.toString(listaDatasTreinosRealizados.size()));
+             numTreinos = listaDatasTreinosRealizados.size();
+         }
+        else
+         {
+             txtTreinosFinalizados.setText(Integer.toString(numTreinos));
+         }
+
+
+         numMinTreinos = listaDatasTreinosRealizados.size();
+         numMaxTreinos = Integer.parseInt((String) mapHistoricoTreino.get("qtdTreinos"));
+
+
+         final ArrayList<String> finalListaDatasTreinosRealizados = new ArrayList<>();
+         Locale.setDefault (new Locale ("pt", "BR"));
+         DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+         DateFormat newFormat = new SimpleDateFormat("d-m-yy, E");
+
+         for (String dataString : listaDatasTreinosRealizados)
+         {
+             Date data = null;
+             try
              {
-                 Date data = null;
-                 try
-                 {
-                     data = format.parse(dataString);
-                 }
-                 catch
-                 (ParseException e)
-                 {
-                     Toast toast = Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
-                     toast.show();
-                 }
-
-                 finalListaDatasTreinosRealizados.add(newFormat.format(data));
+                 data = format.parse(dataString);
+             }
+             catch
+             (ParseException e)
+             {
+                 Toast toast = Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
+                 toast.show();
              }
 
-            btnDatasTreinosRealizados.setOnClickListener(new View.OnClickListener() {
+             finalListaDatasTreinosRealizados.add(newFormat.format(data));
+         }
 
-            @Override
-            public void onClick(View v)
-            {
+         btnDatasTreinosRealizados.setOnClickListener(new View.OnClickListener()
+         {
+
+             @Override
+             public void onClick(View v)
+             {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                 View convertView = (View) inflater.inflate(R.layout.dialog_datas_treinos_realizados, null);
                 alertDialog.setView(convertView);
@@ -118,8 +151,78 @@ public class VisualizarHistoricoTreinoFragment extends Fragment {
                 lv.setAdapter(adapter);
                 alertDialog.show();
 
+             }
+         });
+
+        btnMaisTreinos.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(numTreinos<numMaxTreinos) {
+                    numTreinos++;
+                    txtTreinosFinalizados.setText(String.valueOf(numTreinos));
+                }
             }
         });
+
+        btnMenosTreinos.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(numTreinos>numMinTreinos) {
+                    numTreinos--;
+                    txtTreinosFinalizados.setText(String.valueOf(numTreinos));
+                }
+            }
+        });
+
+        btnAtualizar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(numTreinos != numMinTreinos) {
+                    final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    View convertView = (View) inflater.inflate(R.layout.dialog_confirmar_atualizar_treino, null);
+                    alertDialog.setView(convertView);
+                    alertDialog.setTitle(R.string.datasTreinosRealizados);
+                    Button btnSim = (Button) convertView.findViewById(R.id.buttonSim);
+                    Button btnNao = (Button) convertView.findViewById(R.id.buttonNao);
+                    final AlertDialog alert = alertDialog.create();
+
+                    btnSim.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (getActivity()instanceof ClicouNoAtualizarDatasTreino)
+                            {
+                                ClicouNoAtualizarDatasTreino listener = (ClicouNoAtualizarDatasTreino) getActivity();
+                                listener.aoClicarNoAtualizarDatasTreino(idTreino, numTreinos-numMinTreinos);
+                                alert.cancel();
+                            }
+                        }
+                    });
+
+                    btnNao.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alert.cancel();
+                        }
+                    });
+
+
+                    alert.show();
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.treino_not_updated), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
+
+
 
         return view;
     }
