@@ -116,8 +116,8 @@ public class VisualizarHistoricoTreinoFragment extends Fragment {
 
          final ArrayList<String> finalListaDatasTreinosRealizados = new ArrayList<>();
          Locale.setDefault (new Locale ("pt", "BR"));
-         DateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-         DateFormat newFormat = new SimpleDateFormat("d-m-yy, E");
+         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+         DateFormat newFormat = new SimpleDateFormat("d-M-yy, E");
 
          for (String dataString : listaDatasTreinosRealizados)
          {
