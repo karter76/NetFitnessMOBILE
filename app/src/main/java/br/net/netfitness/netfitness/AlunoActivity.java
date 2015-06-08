@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import interfaces.ClicouNaDicaListener;
 import interfaces.ClicouNaFotoListener;
 import interfaces.ClicouNaNoticiaListener;
 import interfaces.ClicouNoAtualizarDatasTreino;
@@ -42,6 +43,7 @@ import interfaces.ClicouNoHistoricoTreinoListener;
 import interfaces.ClicouNoMudarFoto;
 import interfaces.OnAtualizarDatasTreinoCompleted;
 import interfaces.OnUploadCompleted;
+import interfaces.OnVisualizarDicasCompleted;
 import interfaces.OnVisualizarExamesFisicosCompleted;
 import interfaces.OnVisualizarHistoricoTreinoCompleted;
 import interfaces.OnVisualizarNoticiasCompleted;
@@ -57,7 +59,8 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                                                                 ClicouNoMudarFoto, ClicouNaFotoListener, ClicouNoConfirmarMudarFoto,
                                                                 OnUploadCompleted, OnVisualizarNoticiasCompleted,
                                                                 ClicouNaNoticiaListener, ClicouNoAtualizarDatasTreino,
-                                                                OnAtualizarDatasTreinoCompleted {
+                                                                OnAtualizarDatasTreinoCompleted, OnVisualizarDicasCompleted,
+                                                                ClicouNaDicaListener{
 
     JSONObject json;
     private String[] items;
@@ -75,6 +78,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     protected AsynkTaskListarGraficos listarGraficosTask;
     protected AsynkTaskVisualizarHistoricoTreinos visualizarHistoricoTreinosTask;
     protected AsynkTaskListarNoticias listarNoticiasTask;
+    protected AsynkTaskListarDicas listarDicasTask;
 
     ProgressDialog progress;
 
@@ -84,6 +88,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     private static final int CALCULAR_IMC = 3;
     private static final int MOSTRAR_FOTO = 4;
     private static final int VISUALIZAR_NOTICIAS = 5;
+    private static final int VISUALIZAR_DICAS = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +164,9 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
                     case VISUALIZAR_NOTICIAS : visualizarNoticias();
                         break;
+
+                    case VISUALIZAR_DICAS : visualizarDicas();
+                        break;
                 }
 
                 mDrawerLayout.closeDrawer(mDrawerList);
@@ -175,6 +183,12 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         progress.show();
     }
 
+    private void visualizarDicas(){
+
+        showProgress();
+        listarDicasTask = new AsynkTaskListarDicas(this);
+        listarDicasTask.execute((String) result.get("Aluno.idAluno"), (String) result.get("Pessoa.login"), (String) result.get("Pessoa.senha"));
+    }
     private void visualizarNoticias(){
 
         showProgress();
@@ -286,6 +300,13 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         mudarFragment(fragmentListaTreinos, R.id.content_frame_aluno, "FragmentListaTreinos", false);
     }
 
+    @Override
+    public void onVisualizarDicasCompleted() throws JSONException{
+
+        VisualizarDicasFragment fragmentListaDicas = VisualizarDicasFragment.newInstance(JSONConvert.toList(jsonReturned.getJSONArray("listaDicas")));
+        mudarFragment(fragmentListaDicas, R.id.content_frame_aluno, "FragmentListaDicas", false);
+    }
+
 
     @Override
     public void aoClicarNoTreino(Object object) {
@@ -374,7 +395,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     public void aoClicarNoConfirmarMudarFoto(File arquivo) {
         showProgress();
         AsyncTaskMudarFoto mudarFotoTask = new AsyncTaskMudarFoto(this);
-        mudarFotoTask.execute((String)result.get("Aluno.idAluno"), (String)result.get("Pessoa.login"),(String)result.get("Pessoa.senha"), arquivo.getPath());
+        mudarFotoTask.execute((String) result.get("Aluno.idAluno"), (String) result.get("Pessoa.login"), (String) result.get("Pessoa.senha"), arquivo.getPath());
     }
 
     @Override
@@ -408,6 +429,11 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
     @Override
     public void aoClicarNaNoticia(Object noticia) {
+
+    }
+
+    @Override
+    public void aoClicarNaDica(Object dica){
 
     }
 
@@ -762,7 +788,56 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             }
         }
     }
+    private class AsynkTaskListarDicas extends AsyncTask<String, String, JSONObject>{
 
+        private OnVisualizarDicasCompleted listener;
+
+        public AsynkTaskListarDicas(OnVisualizarDicasCompleted listener){
+            this.listener = listener;
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params){
+
+            try{
+
+                JSONParser jsonParser = new JSONParser();
+                List jsonParams = new ArrayList();
+                jsonParams.add(new BasicNameValuePair("idAluno", params[0]));
+                jsonParams.add(new BasicNameValuePair("login", params[1]));
+                jsonParams.add(new BasicNameValuePair("senha", params[2]));
+                JSONObject json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_visualizar_dicas_aluno), jsonParams);
+
+                return json;
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonResult){
+
+            super.onPostExecute(jsonResult);
+            jsonReturned = jsonResult;
+
+            hideProgress();
+
+            try{
+                if(!jsonResult.getString("listaDicas").equals("null")){
+                    listener.onVisualizarDicasCompleted();
+                }else{
+                    Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+            catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+    }
     private class AsynkTaskListarNoticias extends AsyncTask<String, String, JSONObject>{
 
         private OnVisualizarNoticiasCompleted listener;

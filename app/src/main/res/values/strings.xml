@@ -31,6 +31,7 @@
             <string name="web_service_visualizar_noticias_aluno">http://192.168.25.6/NetFitness/webservice/visualizarNoticiasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
             <string name="web_service_alterar_qtd_treinos_realizados">http://192.168.25.6/NetFitness/webservice/alterarQtdTreinosRealizados.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
     -->
+    <!--
                 <string name="web_service_login">http://www.netfitness.net.br/webservice/login.php</string>
                 <string name="web_service_listar_treinos_instrutor">http://www.netfitness.net.br/webservice/listarTreinosInstrutor.php</string>
                 <string name="web_service_listar_treinos_aluno">http://www.netfitness.net.br/webservice/listarTreinosAluno.php</string>
@@ -44,20 +45,21 @@
                 <string name="web_service_visualizar_noticias_aluno">http://www.netfitness.net.br/webservice/visualizarNoticiasAluno.php</string>
                 <string name="web_service_alterar_qtd_treinos_realizados">http://www.netfitness.net.br/webservice/alterarQtdTreinosRealizados.php</string>
                 <string name="endereco_fotos_alunos">http://www.netfitness.net.br/web/images/usuarios/alunos/</string>
-<!--
-                <string name="web_service_login">http://192.168.2.100:85/NetFitness/webservice/login.php</string>
-                <string name="web_service_listar_treinos_instrutor">http://192.168.2.100:85/NetFitness/webservice/listarTreinosInstrutor.php</string>
-                <string name="web_service_listar_treinos_aluno">http://192.168.2.100:85/NetFitness/webservice/listarTreinosAluno.php</string>
-                <string name="web_service_listar_exames_fisicos_aluno">http://192.168.2.100:85/NetFitness/webservice/listarExamesFisicosAluno.php</string>
-                <string name="web_service_excluir_treino">http://192.168.2.100:85/NetFitness/webservice/excluirTreino.php</string>
-                <string name="web_service_listar_exercicios">http://192.168.2.100:85/NetFitness/webservice/listarExercicios.php</string>
-                <string name="web_service_inserir_treino">http://192.168.2.100:85/NetFitness/webservice/inserirTreino.php</string>
-                <string name="web_service_alterar_treino">http://192.168.2.100:85/NetFitness/webservice/alterarTreino.php</string>
-                <string name="web_service_listar_treinos_realizados">http://192.168.2.100:85/NetFitness/webservice/listarTreinosRealizados.php</string>
-                <string name="web_service_upload_file">http://192.168.2.100:85/NetFitness/webservice/uploadFile.php</string>
-                <string name="endereco_fotos_alunos">http://192.168.2.100:85/NetFitness/web/images/usuarios/alunos/</string>
-                <string name="web_service_visualizar_noticias_aluno">http://192.168.2.100:85/NetFitness/webservice/visualizarNoticiasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-        -->
+-->
+                <string name="web_service_login">http://192.168.2.103:85/NetFitness/webservice/login.php</string>
+                <string name="web_service_listar_treinos_instrutor">http://192.168.2.103:85/NetFitness/webservice/listarTreinosInstrutor.php</string>
+                <string name="web_service_listar_treinos_aluno">http://192.168.2.103:85/NetFitness/webservice/listarTreinosAluno.php</string>
+                <string name="web_service_listar_exames_fisicos_aluno">http://192.168.2.103:85/NetFitness/webservice/listarExamesFisicosAluno.php</string>
+                <string name="web_service_excluir_treino">http://192.168.2.103:85/NetFitness/webservice/excluirTreino.php</string>
+                <string name="web_service_listar_exercicios">http://192.168.2.103:85/NetFitness/webservice/listarExercicios.php</string>
+                <string name="web_service_inserir_treino">http://192.168.2.103:85/NetFitness/webservice/inserirTreino.php</string>
+                <string name="web_service_alterar_treino">http://192.168.2.103:85/NetFitness/webservice/alterarTreino.php</string>
+                <string name="web_service_listar_treinos_realizados">http://192.168.2.103:85/NetFitness/webservice/listarTreinosRealizados.php</string>
+                <string name="web_service_upload_file">http://192.168.2.103:85/NetFitness/webservice/uploadFile.php</string>
+                <string name="endereco_fotos_alunos">http://192.168.2.103:85/NetFitness/web/images/usuarios/alunos/</string>
+                <string name="web_service_visualizar_noticias_aluno">http://192.168.2.103:85/NetFitness/webservice/visualizarNoticiasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+                <string name="web_service_visualizar_dicas_aluno">http://192.168.2.103:85/NetFitness/webservice/visualizarDicasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+                <string name="web_service_alterar_qtd_treinos_realizados">http://192.168.2.103:85/NetFitness/webservice/alterarQtdTreinosRealizados.php</string>
 
 
 
@@ -78,6 +80,7 @@
             <item>Calcular IMC</item>
             <item>Mostrar Foto</item>
             <item>Visualizar Noticias</item>
+            <item>Visualizar Dicas</item>
         </string-array>
 
         <string name="title_activity_aluno">AlunoActivity</string>
