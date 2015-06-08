@@ -2,6 +2,7 @@ package br.net.netfitness.netfitness;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.PersistableBundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -93,6 +94,8 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_aluno);
 
         if(LoginActivity.instance != null) {
@@ -143,8 +146,6 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                 selectedPosition = position;
 
 
-                mensagem.setText("");
-
                 switch (selectedPosition)
                 {
                     case VISUALIZAR_TREINOS : visualizarTreinos();
@@ -173,6 +174,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             }
         });
     }
+
 
     private void showProgress()
     {
@@ -283,6 +285,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
     private void mudarFragment(android.support.v4.app.Fragment fragment, int content, String nomeFragment, boolean addToBS)
     {
+        mensagem.setText("");
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(content, fragment, nomeFragment);

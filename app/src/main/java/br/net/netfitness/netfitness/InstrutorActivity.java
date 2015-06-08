@@ -257,6 +257,7 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
 
     private void mudarFragment(android.support.v4.app.Fragment fragment, int content, String nomeFragment, boolean addToBS)
     {
+        mensagem.setText("");
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(content, fragment, nomeFragment);
