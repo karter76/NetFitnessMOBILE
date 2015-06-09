@@ -16,7 +16,7 @@
     <string name="empty_nome_treino">Não foi informado o nome do treino</string>
     <string name="altura_peso_zero">Altura e peso não pode ser menor do que zero</string>
 
-    <!--
+
             <string name="web_service_login">http://192.168.25.6/NetFitness/webservice/login.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
             <string name="web_service_listar_treinos_instrutor">http://192.168.25.6/NetFitness/webservice/listarTreinosInstrutor.php</string>
             <string name="web_service_listar_treinos_aluno">http://192.168.25.6/NetFitness/webservice/listarTreinosAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
@@ -29,8 +29,10 @@
             <string name="web_service_upload_file">http://192.168.25.6/NetFitness/webservice/uploadFile.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
             <string name="endereco_fotos_alunos">http://192.168.25.6/NetFitness/web/images/usuarios/alunos/</string>
             <string name="web_service_visualizar_noticias_aluno">http://192.168.25.6/NetFitness/webservice/visualizarNoticiasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+            <string name="web_service_visualizar_dicas_aluno">http://192.168.25.6/NetFitness/webservice/visualizarDicasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
             <string name="web_service_alterar_qtd_treinos_realizados">http://192.168.25.6/NetFitness/webservice/alterarQtdTreinosRealizados.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    -->
+            <string name="web_service_inserir_opiniao">http://192.168.25.6/NetFitness/webservice/inserirOpiniao.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+
     <!--
                 <string name="web_service_login">http://www.netfitness.net.br/webservice/login.php</string>
                 <string name="web_service_listar_treinos_instrutor">http://www.netfitness.net.br/webservice/listarTreinosInstrutor.php</string>
@@ -45,7 +47,7 @@
                 <string name="web_service_visualizar_noticias_aluno">http://www.netfitness.net.br/webservice/visualizarNoticiasAluno.php</string>
                 <string name="web_service_alterar_qtd_treinos_realizados">http://www.netfitness.net.br/webservice/alterarQtdTreinosRealizados.php</string>
                 <string name="endereco_fotos_alunos">http://www.netfitness.net.br/web/images/usuarios/alunos/</string>
--->
+
                 <string name="web_service_login">http://192.168.2.103:85/NetFitness/webservice/login.php</string>
                 <string name="web_service_listar_treinos_instrutor">http://192.168.2.103:85/NetFitness/webservice/listarTreinosInstrutor.php</string>
                 <string name="web_service_listar_treinos_aluno">http://192.168.2.103:85/NetFitness/webservice/listarTreinosAluno.php</string>
@@ -60,7 +62,7 @@
                 <string name="web_service_visualizar_noticias_aluno">http://192.168.2.103:85/NetFitness/webservice/visualizarNoticiasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
                 <string name="web_service_visualizar_dicas_aluno">http://192.168.2.103:85/NetFitness/webservice/visualizarDicasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
                 <string name="web_service_alterar_qtd_treinos_realizados">http://192.168.2.103:85/NetFitness/webservice/alterarQtdTreinosRealizados.php</string>
-
+-->
 
 
 
@@ -81,6 +83,7 @@
             <item>Mostrar Foto</item>
             <item>Visualizar Noticias</item>
             <item>Visualizar Dicas</item>
+            <item>Inserir Opinião</item>
         </string-array>
 
         <string name="title_activity_aluno">AlunoActivity</string>
@@ -144,6 +147,9 @@
         <string name="TextViewMensagemAtualizar">Clicando em \"Sim\" as datas dos últimos treinos adiocionados serão atualizadas à data de hoje.\n\nDeseja realmente continuar?</string>
         <string name="treino_not_updated">Não foi atualizada a quantidade de treinos realizados</string>
         <string name="datas_treinos_not_updated">Impossível atualizar as datas dos treinos finalizados</string>
+    <string name="labelInserirOpiniao">Inserir a opinião:</string>
+    <string name="labelButtonInserirOpiniao">Inserir Opinião</string>
+    <string name="opiniao_empty">O campo opinião é vazio</string>
 
 
 </resources>

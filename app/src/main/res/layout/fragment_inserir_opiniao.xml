@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground"
+    android:layout_height="match_parent"
+    tools:context="br.net.netfitness.netfitness.InserirOpiniaoFragment"
+    android:weightSum="1">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/labelInserirOpiniao"
+        android:id="@+id/textViewLabelOpiniao"
+        android:layout_weight="0.03"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:background="@drawable/borda_foto"
+        android:layout_height="100dp"
+        android:layout_margin="20dp"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editTextOpiniao"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.24" />
+
+    <Button
+        style="@style/btnNetfitness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/labelButtonInserirOpiniao"
+        android:id="@+id/buttonInserirOpiniao"
+        android:layout_weight="0.03"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp" />
+</LinearLayout>

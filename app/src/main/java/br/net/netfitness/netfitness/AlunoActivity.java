@@ -2,7 +2,6 @@ package br.net.netfitness.netfitness;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.os.PersistableBundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -25,7 +24,6 @@ import com.squareup.picasso.Picasso;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,8 +39,10 @@ import interfaces.ClicouNoAtualizarDatasTreino;
 import interfaces.ClicouNoCompararGraficos;
 import interfaces.ClicouNoConfirmarMudarFoto;
 import interfaces.ClicouNoHistoricoTreinoListener;
+import interfaces.ClicouNoInserirOpiniaoListener;
 import interfaces.ClicouNoMudarFoto;
 import interfaces.OnAtualizarDatasTreinoCompleted;
+import interfaces.OnInserirOpiniaoCompleted;
 import interfaces.OnUploadCompleted;
 import interfaces.OnVisualizarDicasCompleted;
 import interfaces.OnVisualizarExamesFisicosCompleted;
@@ -61,7 +61,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                                                                 OnUploadCompleted, OnVisualizarNoticiasCompleted,
                                                                 ClicouNaNoticiaListener, ClicouNoAtualizarDatasTreino,
                                                                 OnAtualizarDatasTreinoCompleted, OnVisualizarDicasCompleted,
-                                                                ClicouNaDicaListener{
+                                                                ClicouNaDicaListener, OnInserirOpiniaoCompleted, ClicouNoInserirOpiniaoListener {
 
     JSONObject json;
     private String[] items;
@@ -80,6 +80,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     protected AsynkTaskVisualizarHistoricoTreinos visualizarHistoricoTreinosTask;
     protected AsynkTaskListarNoticias listarNoticiasTask;
     protected AsynkTaskListarDicas listarDicasTask;
+    protected AsyncTaskInserirOpiniao inserirOpiniaoTask;
 
     ProgressDialog progress;
 
@@ -90,6 +91,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     private static final int MOSTRAR_FOTO = 4;
     private static final int VISUALIZAR_NOTICIAS = 5;
     private static final int VISUALIZAR_DICAS = 6;
+    private static final int INSERIR_OPINIAO = 7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +170,9 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
                     case VISUALIZAR_DICAS : visualizarDicas();
                         break;
+
+                    case INSERIR_OPINIAO : inserirOpiniao();
+                        break;
                 }
 
                 mDrawerLayout.closeDrawer(mDrawerList);
@@ -183,6 +188,15 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         progress.setMessage(getResources().getString(R.string.wait_loading));
         progress.setCanceledOnTouchOutside(false);
         progress.show();
+    }
+
+
+    private void inserirOpiniao()
+    {
+        InserirOpiniaoFragment fragmentInserirOpiniao = InserirOpiniaoFragment.newInstance();
+        mudarFragment(fragmentInserirOpiniao, R.id.content_frame_aluno, "FragmentInserirOpiniao", false);
+        //inserirOpiniaoTask = new AsyncTaskInserirOpiniao(this);
+        //inserirOpiniaoTask.execute((String) result.get("Aluno.idAluno"), (String) result.get("Pessoa.login"), (String) result.get("Pessoa.senha", ));
     }
 
     private void visualizarDicas(){
@@ -440,6 +454,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
     }
 
+
     @Override
     public void onVisualizarNoticiasCompleted() throws JSONException {
 
@@ -475,6 +490,91 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         toast.show();
 
     }
+
+    @Override
+    public void onInserirOpinaoCompleted(JSONObject json) throws JSONException
+    {
+        String message = json.getString("mensagem");
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    @Override
+    public void aoClicarNoInserirOpiniao(String opiniao) {
+        showProgress();
+        inserirOpiniaoTask = new AsyncTaskInserirOpiniao(this);
+        inserirOpiniaoTask.execute((String) result.get("Aluno.idAluno"), (String) result.get("Pessoa.login"), (String) result.get("Pessoa.senha"), opiniao);
+    }
+
+
+    ///////////////////
+
+    private class AsyncTaskInserirOpiniao extends AsyncTask<String, Void, JSONObject>
+    {
+        private OnInserirOpiniaoCompleted listener;
+        private Exception asynkTaskException;
+
+        private AsyncTaskInserirOpiniao (OnInserirOpiniaoCompleted listener)
+        {
+            this.listener = listener;
+        }
+
+
+
+        @Override
+        protected JSONObject doInBackground(String... params)
+        {
+            JSONObject json = new JSONObject();
+
+            try
+            {
+                JSONParser jsonParser = new JSONParser();
+                List jsonParams = new ArrayList();
+                jsonParams.add(new BasicNameValuePair("idAluno", params[0]));
+                jsonParams.add(new BasicNameValuePair("login", params[1]));
+                jsonParams.add(new BasicNameValuePair("senha", params[2]));
+                jsonParams.add(new BasicNameValuePair("opiniao", params[3]));
+                json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_inserir_opiniao), jsonParams);
+
+                return json;
+
+            }
+            catch (Exception e)
+            {
+                asynkTaskException = e;
+                return json;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonResult) {
+            super.onPostExecute(jsonResult);
+
+            jsonReturned = jsonResult;
+
+            hideProgress();
+
+            if (asynkTaskException == null)
+            {
+                try
+                {
+                    listener.onInserirOpinaoCompleted(jsonResult);
+
+                } catch (JSONException e) {
+                    Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+            else
+            {
+                Toast toast = Toast.makeText(AlunoActivity.this, asynkTaskException.getMessage(), Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
+    }
+
+    ///////////////////////
 
 
     private class AsyncTaskAtualizarDatasTreino extends  AsyncTask<String, Void, JSONObject>
@@ -891,7 +991,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             }
         }
     }
-
+/*
     private class AsyncTaskMostrarFoto extends AsyncTask <String, String, JSONObject>
     {
 
@@ -900,7 +1000,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             return null;
         }
     }
-
+*/
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
