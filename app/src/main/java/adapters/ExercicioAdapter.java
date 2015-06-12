@@ -1,5 +1,6 @@
 package adapters;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,9 +51,9 @@ public class ExercicioAdapter extends BaseAdapter {
         TextView txtNomeExercicio = (TextView)convertView.findViewById(R.id.txtNomeExercicio);
 
 
-        txtNomeExercicio.setText( exercicio.get("nome")+":\n"+
-                                  exercicio.get("descricao")+"\n"+
-                                  "ser. "+exercicio.get("series")+" - rep. "+exercicio.get("repeticoes"));
+        txtNomeExercicio.setText(Html.fromHtml("<b>"+exercicio.get("nome")+":</b><br>"+
+                                  exercicio.get("descricao")+"<br><br>"+
+                                  "Ser. "+exercicio.get("series")+" - Rep. "+exercicio.get("repeticoes")));
         return convertView;
     }
 }
