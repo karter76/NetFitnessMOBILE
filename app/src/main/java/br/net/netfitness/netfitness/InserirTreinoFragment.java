@@ -1,6 +1,7 @@
 package br.net.netfitness.netfitness;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -111,6 +112,11 @@ public class InserirTreinoFragment extends Fragment
 
     }
 
+    private int getPixels(int dpi)
+    {
+        float scale = getActivity().getResources().getDisplayMetrics().density;
+        return (int) (dpi * scale + 0.5f);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -121,6 +127,7 @@ public class InserirTreinoFragment extends Fragment
 
         edtNomeTreino = (EditText) view.findViewById(R.id.edtNomeTreino);
         edtDescricaoTreino = (EditText) view.findViewById(R.id.edtDescricaoTreino);
+
 
         if (!paramNomeTreino.equals(""))
         {
@@ -239,13 +246,14 @@ public class InserirTreinoFragment extends Fragment
 
         LinearLayout scroll = (LinearLayout) view.findViewById(R.id.ScrollViewExerciciosInserirTreino);
 
-
-
+        //Drawable editTextBackground = getResources().getDrawable(R.drawable.bk);
+        int editTextBackground = android.R.drawable.editbox_background;
 
         for(int i = 0; i < listaExercicios.size(); i++)
         {
+
             int marginTop = 0;
-            if(i==0) marginTop = 30;
+            if(i==0) marginTop = getPixels(30);
 
             HashMap<String, String> exercicio = new HashMap<>();
 
@@ -254,8 +262,8 @@ public class InserirTreinoFragment extends Fragment
             viewExercicio = new RelativeLayout(this.getActivity());
 
             LinearLayout.LayoutParams itemExercicioLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            itemExercicioLayoutParams.setMargins(20,marginTop,20,30);
-            viewExercicio.setPadding(10,10,10,20);
+            itemExercicioLayoutParams.setMargins(getPixels(20),marginTop,getPixels(20),getPixels(30));
+            viewExercicio.setPadding(getPixels(10),getPixels(10),getPixels(10),getPixels(20));
             viewExercicio.setLayoutParams(itemExercicioLayoutParams);
             viewExercicio.setBackgroundColor(getResources().getColor(R.color.background_color_exercicio));
 
@@ -265,20 +273,25 @@ public class InserirTreinoFragment extends Fragment
             LinearLayout.LayoutParams txtViewNomeExercicioLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             txtViewNomeExercicio.setLayoutParams(txtViewNomeExercicioLayoutParams);
             txtViewNomeExercicio.setText(getResources().getString(R.string.txtLabelNomeExercicio) + " " + exercicio.get("nome"));
+            txtViewNomeExercicio.setTextSize(getPixels(12));
 
 
             TextView txtViewSeries = new TextView(this.getActivity());
             txtViewSeries.setId(R.id.layout2);
             RelativeLayout.LayoutParams txtViewSeriesLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            txtViewSeriesLayoutParams.setMargins(0,getPixels(30),0,0);
             txtViewSeriesLayoutParams.addRule(RelativeLayout.BELOW, txtViewNomeExercicio.getId());
             txtViewSeries.setLayoutParams(txtViewSeriesLayoutParams);
-            txtViewSeries.setPadding(0,10,0,0);
+            txtViewSeries.setTextSize(getPixels(12));
             txtViewSeries.setText(R.string.labelTxtSeries);
 
             EditText edtTextSeries = new EditText(this.getActivity());
             edtTextSeries.setInputType(InputType.TYPE_CLASS_NUMBER);
-            edtTextSeries.setTextSize(12);
-            RelativeLayout.LayoutParams edtTextSeriesLayoutParams = new RelativeLayout.LayoutParams(50, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            edtTextSeries.setBackgroundResource(editTextBackground);
+            edtTextSeries.setTextSize(getPixels(12));
+
+            RelativeLayout.LayoutParams edtTextSeriesLayoutParams = new RelativeLayout.LayoutParams(getPixels(50), RelativeLayout.LayoutParams.WRAP_CONTENT);
+            edtTextSeriesLayoutParams.setMargins(getPixels(10),getPixels(18),0,0);
             edtTextSeriesLayoutParams.addRule(RelativeLayout.BELOW, txtViewNomeExercicio.getId());
             edtTextSeriesLayoutParams.addRule(RelativeLayout.RIGHT_OF, txtViewSeries.getId());
             edtTextSeries.setLayoutParams(edtTextSeriesLayoutParams);
@@ -294,20 +307,25 @@ public class InserirTreinoFragment extends Fragment
 
             TextView txtViewRepeticoes = new TextView(this.getActivity());
             txtViewRepeticoes.setId(R.id.layout3);
+            txtViewRepeticoes.setTextSize(getPixels(12));
+
             RelativeLayout.LayoutParams txtViewRepeticoesLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-            txtViewRepeticoesLayoutParams.addRule(RelativeLayout.BELOW, txtViewNomeExercicio.getId());
-            txtViewRepeticoes.setPadding(0,50,0,0);
+            txtViewRepeticoesLayoutParams.setMargins(0,getPixels(20),0,0);
+            txtViewRepeticoesLayoutParams.addRule(RelativeLayout.BELOW, txtViewSeries.getId());
+
             txtViewRepeticoes.setLayoutParams(txtViewRepeticoesLayoutParams);
             txtViewRepeticoes.setText(R.string.txtLabelRepeticoes);
 
 
             EditText edtTextRepeticoes = new EditText(this.getActivity());
             edtTextRepeticoes.setInputType(InputType.TYPE_CLASS_NUMBER);
-            edtTextRepeticoes.setTextSize(12);
-            edtTextRepeticoes.setPadding(0, 60, 0, 0);
-            RelativeLayout.LayoutParams edtTextRepeticoesLayoutParams = new RelativeLayout.LayoutParams(50, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            edtTextRepeticoes.setTextSize(getPixels(12));
+
+            edtTextRepeticoes.setBackgroundResource(editTextBackground);
+            RelativeLayout.LayoutParams edtTextRepeticoesLayoutParams = new RelativeLayout.LayoutParams(getPixels(50), RelativeLayout.LayoutParams.WRAP_CONTENT);
             edtTextRepeticoesLayoutParams.addRule(RelativeLayout.RIGHT_OF, txtViewRepeticoes.getId());
-            edtTextRepeticoesLayoutParams.addRule(RelativeLayout.BELOW, txtViewNomeExercicio.getId());
+            edtTextRepeticoesLayoutParams.addRule(RelativeLayout.BELOW, txtViewSeries.getId());
+            edtTextRepeticoesLayoutParams.setMargins(getPixels(10), getPixels(8),0,0);
             edtTextRepeticoes.setLayoutParams(edtTextRepeticoesLayoutParams);
             try
             {
