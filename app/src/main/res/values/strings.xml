@@ -16,21 +16,21 @@
     <string name="empty_nome_treino">Não foi informado o nome do treino</string>
     <string name="altura_peso_zero">Altura e peso não pode ser menor do que zero</string>
 
-    <string name="web_service_login">http://192.168.25.14/NetFitness/webservice/login.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="web_service_listar_treinos_instrutor">http://192.168.25.14/NetFitness/webservice/listarTreinosInstrutor.php</string>
-    <string name="web_service_listar_treinos_aluno">http://192.168.25.14/NetFitness/webservice/listarTreinosAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="web_service_listar_exames_fisicos_aluno">http://192.168.25.14/NetFitness/webservice/listarExamesFisicosAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="web_service_excluir_treino">http://192.168.25.14/NetFitness/webservice/excluirTreino.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="web_service_listar_exercicios">http://192.168.25.14/NetFitness/webservice/listarExercicios.php</string>
-    <string name="web_service_inserir_treino">http://192.168.25.14/NetFitness/webservice/inserirTreino.php</string>
-    <string name="web_service_alterar_treino">http://192.168.25.14/NetFitness/webservice/alterarTreino.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="web_service_listar_treinos_realizados">http://192.168.25.14/NetFitness/webservice/listarTreinosRealizados.php?XDEBUG_SESSION_T=netbeans-xdebug</string>
-    <string name="web_service_upload_file">http://192.168.25.14/NetFitness/webservice/uploadFile.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="endereco_fotos_alunos">http://192.168.25.14/NetFitness/web/images/usuarios/alunos/</string>
-    <string name="web_service_visualizar_noticias_aluno">http://192.168.25.14/NetFitness/webservice/visualizarNoticiasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="web_service_visualizar_dicas_aluno">http://192.168.25.14/NetFitness/webservice/visualizarDicasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="web_service_alterar_qtd_treinos_realizados">http://192.168.25.14/NetFitness/webservice/alterarQtdTreinosRealizados.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
-    <string name="web_service_inserir_opiniao">http://192.168.25.14/NetFitness/webservice/inserirOpiniao.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+    <string name="web_service_login">http://192.168.2.103:85/NetFitness/webservice/login.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+    <string name="web_service_listar_treinos_instrutor">http://192.168.2.103:85/NetFitness/webservice/listarTreinosInstrutor.php</string>
+    <string name="web_service_listar_treinos_aluno">http://192.168.2.103:85/NetFitness/webservice/listarTreinosAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+    <string name="web_service_listar_exames_fisicos_aluno">http://192.168.2.103:85/NetFitness/webservice/listarExamesFisicosAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+    <string name="web_service_excluir_treino">http://192.168.2.103:85/NetFitness/webservice/excluirTreino.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+    <string name="web_service_listar_exercicios">http://192.168.2.103:85/NetFitness/webservice/listarExercicios.php</string>
+    <string name="web_service_inserir_treino">http://192.168.2.103:85/NetFitness/webservice/inserirTreino.php</string>
+    <string name="web_service_alterar_treino">http://192.168.2.103:85/NetFitness/webservice/alterarTreino.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+    <string name="web_service_listar_treinos_realizados">http://192.168.2.103:85/NetFitness/webservice/listarTreinosRealizados.php?XDEBUG_SESSION_T=netbeans-xdebug</string>
+    <string name="web_service_upload_file">http://192.168.2.103:85/NetFitness/webservice/uploadFile.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+    <string name="endereco_fotos_alunos">http://192.168.2.103:85/NetFitness/web/images/usuarios/alunos/</string>
+    <string name="web_service_visualizar_noticias_aluno">http://192.168.2.103:85/NetFitness/webservice/visualizarNoticiasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+    <string name="web_service_visualizar_dicas_aluno">http://192.168.2.103:85/NetFitness/webservice/visualizarDicasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+    <string name="web_service_alterar_qtd_treinos_realizados">http://192.168.2.103:85/NetFitness/webservice/alterarQtdTreinosRealizados.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+    <string name="web_service_inserir_opiniao">http://192.168.2.103:85/NetFitness/webservice/inserirOpiniao.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
 
     <!--
             <string name="web_service_login">http://192.168.25.6/NetFitness/webservice/login.php?XDEBUG_SESSION_START=netbeans-xdebug</string>

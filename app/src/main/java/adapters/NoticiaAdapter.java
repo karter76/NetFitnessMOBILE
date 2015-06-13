@@ -51,13 +51,14 @@ public class NoticiaAdapter extends BaseAdapter{
 
         TextView txtNome = (TextView)convertView.findViewById(R.id.txtTitulo);
         TextView txtData = (TextView)convertView.findViewById(R.id.txtData);
+        TextView txtDesc = (TextView)convertView.findViewById(R.id.txtDesc);
 
         HashMap<String, String> mapNoticia = new HashMap<>();
         mapNoticia = (HashMap<String, String>) noticia;
 
         txtNome.setText(mapNoticia.get("titulo"));
         txtData.setText(Data.inverterData(mapNoticia.get("data")));
-
+        txtDesc.setText(mapNoticia.get("descricao"));
 
         return convertView;
     }
