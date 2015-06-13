@@ -542,9 +542,9 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             catch (Exception e)
             {
                 asynkTaskException = e;
-                return json;
-            }
 
+            }
+            return json;
         }
 
         @Override
@@ -609,9 +609,9 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             catch (Exception e)
             {
                 asynkTaskException = e;
-                return json;
-            }
 
+            }
+            return json;
         }
 
         @Override
@@ -737,7 +737,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             {
                 asynkTaskException = e;
             }
-            return null;
+            return json;
         }
 
         @Override
@@ -767,6 +767,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     {
 
         private OnVisualizarExamesFisicosCompleted listener;
+        private Exception asynkTaskException;
 
         private AsynkTaskListarGraficos(OnVisualizarExamesFisicosCompleted listener) {
             this.listener = listener;
@@ -774,6 +775,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
 
         @Override
         protected JSONObject doInBackground(String... params) {
+            JSONObject json = new JSONObject();
             try
             {
                 JSONParser jsonParser = new JSONParser();
@@ -781,18 +783,17 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                 jsonParams.add(new BasicNameValuePair("idAluno", params[0]));
                 jsonParams.add(new BasicNameValuePair("login", params[1]));
                 jsonParams.add(new BasicNameValuePair("senha", params[2]));
-                JSONObject json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_listar_exames_fisicos_aluno), jsonParams);
+                json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_listar_exames_fisicos_aluno), jsonParams);
 
                 return json;
 
             }
             catch (Exception e)
             {
-                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
-                toast.show();
+                asynkTaskException = e;
             }
 
-            return null;
+            return json;
         }
 
         @Override
@@ -802,28 +803,26 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             jsonReturned = jsonResult;
             
             hideProgress();
-
-            try
-            {
-                if (!jsonResult.getString("listaExamesFisicos").equals("null"))
-                {
-                    if(mGraficosSelecionados == null) {
-                        listener.onVisualizarExamesFisicosCompleted("");
+            if (asynkTaskException == null) {
+                try {
+                    if (!jsonResult.getString("listaExamesFisicos").equals("null")) {
+                        if (mGraficosSelecionados == null) {
+                            listener.onVisualizarExamesFisicosCompleted("");
+                        } else {
+                            listener.onVisualizarExamesFisicosCompleted(mGraficosSelecionados);
+                        }
+                    } else {
+                        Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
+                        toast.show();
                     }
-                    else
-                    {
-                        listener.onVisualizarExamesFisicosCompleted(mGraficosSelecionados);
-                    }
-                }
-                else
-                {
-                    Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
+                } catch (JSONException e) {
+                    Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
-            catch (JSONException e)
+            else
             {
-                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(AlunoActivity.this, asynkTaskException.getMessage(), Toast.LENGTH_LONG);
                 toast.show();
             }
         }
@@ -832,6 +831,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     private class AsynckTaskListarTreinos extends AsyncTask<String, String, JSONObject>
     {
         private OnVisualizarTreinosCompleted listener;
+        private Exception asynkTaskException;
 
         public AsynckTaskListarTreinos(OnVisualizarTreinosCompleted listener)
         {
@@ -842,6 +842,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         @Override
         protected JSONObject doInBackground(String... params) {
 
+            JSONObject json = new JSONObject();
             try
             {
                 JSONParser jsonParser = new JSONParser();
@@ -849,18 +850,17 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                 jsonParams.add(new BasicNameValuePair("idAluno", params[0]));
                 jsonParams.add(new BasicNameValuePair("login", params[1]));
                 jsonParams.add(new BasicNameValuePair("senha", params[2]));
-                JSONObject json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_listar_treinos_aluno), jsonParams);
+                json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_listar_treinos_aluno), jsonParams);
 
                 return json;
 
             }
             catch (Exception e)
             {
-                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
-                toast.show();
+                asynkTaskException = e;
             }
 
-            return null;
+            return json;
         }
 
         @Override
@@ -870,23 +870,23 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             jsonReturned = jsonResult;
 
             hideProgress();
+            if (asynkTaskException == null) {
+                try {
+                    if (!jsonResult.getString("listaTreinos").equals("null")) {
+                        listener.onVisualizarTreinosCompleted();
+                    } else {
+                        Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
 
-            try
-            {
-                if (!jsonResult.getString("listaTreinos").equals("null"))
-                {
-                    listener.onVisualizarTreinosCompleted();
-                }
-                else
-                {
-                    Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
+                } catch (JSONException e) {
+                    Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
                     toast.show();
                 }
-
             }
-            catch (JSONException e)
+            else
             {
-                Toast toast = Toast.makeText(AlunoActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(AlunoActivity.this, asynkTaskException.getMessage(), Toast.LENGTH_LONG);
                 toast.show();
             }
         }
@@ -894,6 +894,7 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
     private class AsynkTaskListarDicas extends AsyncTask<String, String, JSONObject>{
 
         private OnVisualizarDicasCompleted listener;
+        private Exception asynkTaskException;
 
         public AsynkTaskListarDicas(OnVisualizarDicasCompleted listener){
             this.listener = listener;
@@ -902,6 +903,8 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         @Override
         protected JSONObject doInBackground(String... params){
 
+            JSONObject json = new JSONObject();
+
             try{
 
                 JSONParser jsonParser = new JSONParser();
@@ -909,15 +912,15 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
                 jsonParams.add(new BasicNameValuePair("idAluno", params[0]));
                 jsonParams.add(new BasicNameValuePair("login", params[1]));
                 jsonParams.add(new BasicNameValuePair("senha", params[2]));
-                JSONObject json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_visualizar_dicas_aluno), jsonParams);
+                json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_visualizar_dicas_aluno), jsonParams);
 
                 return json;
             }
             catch (Exception e){
-                e.printStackTrace();
+                asynkTaskException = e;
             }
 
-            return null;
+            return json;
         }
 
         @Override
@@ -927,23 +930,29 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             jsonReturned = jsonResult;
 
             hideProgress();
-
-            try{
-                if(!jsonResult.getString("listaDicas").equals("null")){
-                    listener.onVisualizarDicasCompleted();
-                }else{
-                    Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
-                    toast.show();
+            if (asynkTaskException == null) {
+                try {
+                    if (!jsonResult.getString("listaDicas").equals("null")) {
+                        listener.onVisualizarDicasCompleted();
+                    } else {
+                        Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
-            catch (JSONException e){
-                e.printStackTrace();
+            else
+            {
+                Toast toast = Toast.makeText(AlunoActivity.this, asynkTaskException.getMessage(), Toast.LENGTH_LONG);
+                toast.show();
             }
         }
     }
     private class AsynkTaskListarNoticias extends AsyncTask<String, String, JSONObject>{
 
         private OnVisualizarNoticiasCompleted listener;
+        private Exception asynkTaskException;
 
         public AsynkTaskListarNoticias(OnVisualizarNoticiasCompleted listener){
             this.listener = listener;
@@ -953,21 +962,23 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
         @Override
         protected JSONObject doInBackground(String... params) {
 
-            try{
+            JSONObject json = new JSONObject();
+            try
+            {
                 JSONParser jsonParser = new JSONParser();
                 List jsonParams = new ArrayList();
                 jsonParams.add(new BasicNameValuePair("idAluno", params[0]));
                 jsonParams.add(new BasicNameValuePair("login", params[1]));
                 jsonParams.add(new BasicNameValuePair("senha", params[2]));
-                JSONObject json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_visualizar_noticias_aluno), jsonParams);
+                json = jsonParser.getJSONFromUrl(getResources().getString(R.string.web_service_visualizar_noticias_aluno), jsonParams);
 
                 return json;
             }
             catch (Exception e){
-                e.printStackTrace();
+                asynkTaskException = e;
             }
 
-            return null;
+            return json;
         }
 
         @Override
@@ -977,17 +988,22 @@ public class AlunoActivity extends ActionBarActivity implements OnVisualizarTrei
             jsonReturned = jsonResult;
 
             hideProgress();
-
-            try{
-                if(!jsonResult.getString("listaNoticias").equals("null")){
-                    listener.onVisualizarNoticiasCompleted();
-                }else{
-                    Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
-                    toast.show();
+            if (asynkTaskException == null) {
+                try {
+                    if (!jsonResult.getString("listaNoticias").equals("null")) {
+                        listener.onVisualizarNoticiasCompleted();
+                    } else {
+                        Toast toast = Toast.makeText(getBaseContext(), jsonResult.getString("mensagem"), Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
-            catch (JSONException e){
-                e.printStackTrace();
+            else
+            {
+                Toast toast = Toast.makeText(AlunoActivity.this, asynkTaskException.getMessage(), Toast.LENGTH_LONG);
+                toast.show();
             }
         }
     }

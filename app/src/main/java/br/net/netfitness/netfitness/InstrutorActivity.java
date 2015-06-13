@@ -38,9 +38,9 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
                                                                     OnExcluirTreinoCompleted,
                                                                     OnInserirTreinoCompleted,
                                                                     OnTaskTreinoCompleted,
-        ClicouNoTreinoListener,
-        ClicouNoExcluirTreinoListener,
-        ClicouNoInserirTreinoListener
+                                                                    ClicouNoTreinoListener,
+                                                                    ClicouNoExcluirTreinoListener,
+                                                                    ClicouNoInserirTreinoListener
 {
 
     JSONObject json;
@@ -462,6 +462,7 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
     private class AsyncTaskTreino extends  AsyncTask<String, Void, JSONObject>
     {
         private OnTaskTreinoCompleted listener;
+        private Exception asynkTaskException;
 
         private AsyncTaskTreino(OnTaskTreinoCompleted listener) {
             this.listener = listener;
@@ -469,7 +470,7 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
 
         @Override
         protected JSONObject doInBackground(String... params) {
-            JSONObject json=null;
+            JSONObject json = new JSONObject();
             try
             {
 
@@ -496,8 +497,7 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
             }
             catch (Exception e)
             {
-                Toast toast = Toast.makeText(InstrutorActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
-                toast.show();
+                asynkTaskException = e;
             }
 
             return json;
@@ -509,54 +509,47 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
             super.onPostExecute(jsonResult);
             jsonReturned = jsonResult;
             progress.dismiss();
-            try
-            {
-                if(mAction == INICIALIZAR_LISTA)
-                {
-                    listener.onTaskTreinoCompleted("");
-                }
-
-                if(mAction == ALTERAR_TREINO)
-                {
-                    listener.onTaskTreinoCompleted(jsonResult.getString("mensagem"));
-                }
-
-                if (mAction == INSERIR_TREINO)
-                {
-                    if (!jsonResult.getString("listaExercicios").equals("null"))
-                    {
+            if (asynkTaskException == null) {
+                try {
+                    if (mAction == INICIALIZAR_LISTA) {
                         listener.onTaskTreinoCompleted("");
                     }
-                    else
-                    {
-                        listener.onTaskTreinoCompleted(jsonResult.getString("mensagem"));
-                    }
-                }
 
-
-                if(mAction == VISUALIZAR_TREINOS )
-                {
-                    if (!jsonResult.getString("listaTreinos").equals("null"))
-                    {
-                        listener.onTaskTreinoCompleted("");
-                    }
-                    else
-                    {
+                    if (mAction == ALTERAR_TREINO) {
                         listener.onTaskTreinoCompleted(jsonResult.getString("mensagem"));
                     }
 
+                    if (mAction == INSERIR_TREINO) {
+                        if (!jsonResult.getString("listaExercicios").equals("null")) {
+                            listener.onTaskTreinoCompleted("");
+                        } else {
+                            listener.onTaskTreinoCompleted(jsonResult.getString("mensagem"));
+                        }
+                    }
+
+
+                    if (mAction == VISUALIZAR_TREINOS) {
+                        if (!jsonResult.getString("listaTreinos").equals("null")) {
+                            listener.onTaskTreinoCompleted("");
+                        } else {
+                            listener.onTaskTreinoCompleted(jsonResult.getString("mensagem"));
+                        }
+
+                    }
+
+                    if (mAction == EXCLUIR_TREINO) {
+                        listener.onTaskTreinoCompleted(jsonResult.getString("mensagem"));
+                    }
+
+
+                } catch (JSONException e) {
+                    Toast toast = Toast.makeText(InstrutorActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                    toast.show();
                 }
-
-                if(mAction == EXCLUIR_TREINO)
-                {
-                    listener.onTaskTreinoCompleted(jsonResult.getString("mensagem"));
-                }
-
-
             }
-            catch (JSONException e)
+            else
             {
-                Toast toast = Toast.makeText(InstrutorActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(InstrutorActivity.this, asynkTaskException.getMessage(), Toast.LENGTH_LONG);
                 toast.show();
             }
         }

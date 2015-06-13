@@ -41,15 +41,15 @@ public class JSONParser {
     public JSONObject getJSONFromUrl(String url, List params) throws Exception{
         // Making HTTP request
         try {
-            // defaultHttpClient
-          //  HttpParams httpParameters = new BasicHttpParams();
+             //defaultHttpClient
+             HttpParams httpParameters = new BasicHttpParams();
 
-         //   int timeoutConnection = 3000;
-        //    HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
-        //    int timeoutSocket = 5000;
-        //    HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+            int timeoutConnection = 3000;
+            HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+            int timeoutSocket = 5000;
+            HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
 
-            DefaultHttpClient httpClient = new DefaultHttpClient(/*httpParameters*/);
+            DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
             HttpPost httpPost = new HttpPost(url);
 
             httpPost.setEntity(new UrlEncodedFormEntity(params));
@@ -59,13 +59,13 @@ public class JSONParser {
             is = httpEntity.getContent();
 
         }
-/*
+
         catch (SocketTimeoutException e)
         {
             Log.e("EXCEPTION",e.getMessage());
             throw new Exception(e);
         }
-*/
+
         catch (UnsupportedEncodingException e) {
             Log.e("EXCEPTION",e.getMessage());
             throw new Exception(e);
@@ -93,6 +93,7 @@ public class JSONParser {
             Log.e("JSON", json);
         } catch (Exception e) {
             Log.e("Buffer Error", "Error converting result " + e.toString());
+            throw new Exception(e);
         }
 
         // try parse the string to a JSON object
@@ -100,6 +101,7 @@ public class JSONParser {
             jObj = new JSONObject(json);
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
+            throw new Exception(e);
         }
 
         // return JSON  String
