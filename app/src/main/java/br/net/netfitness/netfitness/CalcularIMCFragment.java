@@ -64,20 +64,34 @@ public class CalcularIMCFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                mAltura = Double.parseDouble(String.valueOf(mTxtAltura.getText()));
-                mPeso = Double.parseDouble(String.valueOf(mTxtPeso.getText()));
+                try{
 
-                if (mAltura <= 0 || mPeso <=0){
+                    mAltura = Double.parseDouble(String.valueOf(mTxtAltura.getText()));
+                    mPeso = Double.parseDouble(String.valueOf(mTxtPeso.getText()));
 
-                    Toast toast = Toast.makeText(getActivity(), R.string.altura_peso_zero, Toast.LENGTH_SHORT);
+                    if (!String.valueOf(mAltura).startsWith(".") || !String.valueOf(mPeso).startsWith(".")){
+
+                        Toast toast = Toast.makeText(getActivity(), R.string.altura_peso_invalido, Toast.LENGTH_LONG);
+                        toast.show();
+
+                    }else{
+                        if (mAltura <= 0 || mPeso <=0){
+
+                            Toast toast = Toast.makeText(getActivity(), R.string.altura_peso_zero, Toast.LENGTH_SHORT);
+                            toast.show();
+                        }else{
+                            mMsg = calcularIMC(mAltura, mPeso);
+
+                            Toast toast = Toast.makeText(getActivity(), mMsg, Toast.LENGTH_LONG);
+                            toast.show();
+                        }
+                    }
+                }catch (NumberFormatException e){
+                    Toast toast = Toast.makeText(getActivity(), R.string.altura_peso_invalido, Toast.LENGTH_LONG);
                     toast.show();
-                }else{
-                    mMsg = calcularIMC(mAltura, mPeso);
-
-                    Toast toast = Toast.makeText(getActivity(), mMsg, Toast.LENGTH_LONG);
-                    toast.show();
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-
             }
         });
 

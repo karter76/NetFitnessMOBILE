@@ -15,6 +15,7 @@
     <string name="empty_descricao_treino">Não foi informada a descrição do treino</string>
     <string name="empty_nome_treino">Não foi informado o nome do treino</string>
     <string name="altura_peso_zero">Altura e peso não pode ser menor do que zero</string>
+    <string name="altura_peso_invalido">Altura ou peso em formato inválido, colocar numeros decimais separados por .(ponto) EX: 1.80</string>
 
     <string name="web_service_login">http://192.168.2.103:85/NetFitness/webservice/login.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
     <string name="web_service_listar_treinos_instrutor">http://192.168.2.103:85/NetFitness/webservice/listarTreinosInstrutor.php</string>
