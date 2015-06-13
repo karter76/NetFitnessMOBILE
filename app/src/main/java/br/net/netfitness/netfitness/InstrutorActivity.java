@@ -457,6 +457,9 @@ public class InstrutorActivity extends ActionBarActivity implements OnVisualizar
     public void onInserirTreinoCompleted(String message) throws JSONException {
         Toast toast = Toast.makeText(getBaseContext(),message, Toast.LENGTH_SHORT);
         toast.show();
+        visualizarTreinos();
+
+
     }
 
     private class AsyncTaskTreino extends  AsyncTask<String, Void, JSONObject>
