@@ -69,12 +69,7 @@ public class CalcularIMCFragment extends Fragment {
                     mAltura = Double.parseDouble(String.valueOf(mTxtAltura.getText()));
                     mPeso = Double.parseDouble(String.valueOf(mTxtPeso.getText()));
 
-                    if (!String.valueOf(mAltura).startsWith(".") || !String.valueOf(mPeso).startsWith(".")){
 
-                        Toast toast = Toast.makeText(getActivity(), R.string.altura_peso_invalido, Toast.LENGTH_LONG);
-                        toast.show();
-
-                    }else{
                         if (mAltura <= 0 || mPeso <=0){
 
                             Toast toast = Toast.makeText(getActivity(), R.string.altura_peso_zero, Toast.LENGTH_SHORT);
@@ -85,7 +80,7 @@ public class CalcularIMCFragment extends Fragment {
                             Toast toast = Toast.makeText(getActivity(), mMsg, Toast.LENGTH_LONG);
                             toast.show();
                         }
-                    }
+
                 }catch (NumberFormatException e){
                     Toast toast = Toast.makeText(getActivity(), R.string.altura_peso_invalido, Toast.LENGTH_LONG);
                     toast.show();
