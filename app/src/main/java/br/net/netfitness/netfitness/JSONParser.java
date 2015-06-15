@@ -44,9 +44,9 @@ public class JSONParser {
              //defaultHttpClient
              HttpParams httpParameters = new BasicHttpParams();
 
-            int timeoutConnection = 3000;
+            int timeoutConnection = 100000;
             HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
-            int timeoutSocket = 5000;
+            int timeoutSocket = 200000;
             HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
 
             DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);

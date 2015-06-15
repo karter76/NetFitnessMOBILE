@@ -32,7 +32,7 @@
     <string name="web_service_visualizar_dicas_aluno">http://192.168.2.103:85/NetFitness/webservice/visualizarDicasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
     <string name="web_service_alterar_qtd_treinos_realizados">http://192.168.2.103:85/NetFitness/webservice/alterarQtdTreinosRealizados.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
     <string name="web_service_inserir_opiniao">http://192.168.2.103:85/NetFitness/webservice/inserirOpi.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
--->
+
 
              <string name="web_service_login">http://192.168.25.6/NetFitness/webservice/login.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
              <string name="web_service_listar_treinos_instrutor">http://192.168.25.6/NetFitness/webservice/listarTreinosInstrutor.php</string>
@@ -49,8 +49,8 @@
              <string name="web_service_visualizar_dicas_aluno">http://192.168.25.6/NetFitness/webservice/visualizarDicasAluno.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
              <string name="web_service_alterar_qtd_treinos_realizados">http://192.168.25.6/NetFitness/webservice/alterarQtdTreinosRealizados.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
              <string name="web_service_inserir_opiniao">http://192.168.25.6/NetFitness/webservice/inserirOpiniao.php?XDEBUG_SESSION_START=netbeans-xdebug</string>
+    -->
 
-    <!--
                 <string name="web_service_login">http://www.netfitness.net.br/webservice/login.php</string>
                 <string name="web_service_listar_treinos_instrutor">http://www.netfitness.net.br/webservice/listarTreinosInstrutor.php</string>
                 <string name="web_service_listar_treinos_aluno">http://www.netfitness.net.br/webservice/listarTreinosAluno.php</string>
@@ -64,6 +64,9 @@
                 <string name="web_service_visualizar_noticias_aluno">http://www.netfitness.net.br/webservice/visualizarNoticiasAluno.php</string>
                 <string name="web_service_alterar_qtd_treinos_realizados">http://www.netfitness.net.br/webservice/alterarQtdTreinosRealizados.php</string>
                 <string name="endereco_fotos_alunos">http://www.netfitness.net.br/web/images/usuarios/alunos/</string>
+                <string name="web_service_inserir_opiniao">http://www.netfitness.net.br/webservice/inserirOpiniao.php</string>
+                <string name="web_service_visualizar_dicas_aluno">http://www.netfitness.net.br/webservice/visualizarDicasAluno.php</string>
+    <!--
 
                 <string name="web_service_login">http://192.168.2.103:85/NetFitness/webservice/login.php</string>
                 <string name="web_service_listar_treinos_instrutor">http://192.168.2.103:85/NetFitness/webservice/listarTreinosInstrutor.php</string>
