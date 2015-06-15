@@ -72,18 +72,18 @@
         <dex dex="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-f1f219bde48adae6382ccd22a00345514068f0da.jar" />
     </item>
     <item
-        jar="C:\AndroidSDK\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
-        <dex dex="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-a38f89e6f2efdbd6d2ab5f5d2aaeaf7e25a9b2cb.jar" />
-    </item>
-    <item
         jar="C:\Users\Daniele\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpclient-android\4.3.5\82edcaec6c7b4599eaeaaf11167ceea41db42f33\httpclient-android-4.3.5.jar"
         jumboMode="false"
         revision="22.0.0"
         sha1="82edcaec6c7b4599eaeaaf11167ceea41db42f33">
         <dex dex="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\pre-dexed\debug\httpclient-android-4.3.5-384ad791777a3132221d9c800ad211eb1dc9f9fc.jar" />
+    </item>
+    <item
+        jar="C:\AndroidSDK\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
+        <dex dex="C:\Users\Daniele\UNI\semestre_6\Android\NetFitness\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-a38f89e6f2efdbd6d2ab5f5d2aaeaf7e25a9b2cb.jar" />
     </item>
     <item
         jar="C:\Users\Daniele\.gradle\caches\modules-2\files-2.1\org.apache.httpcomponents\httpmime\4.3.2\3202421d9425ced69919b282afa644e7ef0e8fef\httpmime-4.3.2.jar"
